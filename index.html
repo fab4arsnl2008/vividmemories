@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vivid Memories Photography</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Typekit for Trajan Pro 3 font -->
+    <link rel="stylesheet" href="https://use.typekit.net/xtn8ihj.css">
+    <style>
+        /* Smooth scrolling for anchor links */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom Tailwind Colors */
+        :root {
+            --color-primary-blue: #21229d; /* Updated primary blue */
+            --color-accent-green: #00FF00;
+        }
+
+        /* Extend Tailwind CSS with custom colors */
+        @tailwind base;
+        @tailwind components;
+        @tailwind utilities;
+
+        .bg-primary-blue {
+            background-color: var(--color-primary-blue);
+        }
+
+        .text-primary-blue {
+            color: var(--color-primary-blue);
+        }
+
+        .border-primary-blue {
+            border-color: var(--color-primary-blue);
+        }
+
+        .bg-accent-green {
+            background-color: var(--color-accent-green);
+        }
+
+        .text-accent-green {
+            color: var(--color-accent-green);
+        }
+
+        .border-accent-green {
+            border-color: var(--color-accent-green);
+        }
+
+        /* Custom Fonts */
+        body {
+            font-family: "trajan-pro-3", serif; /* Changed body font to Trajan Pro 3 */
+        }
+        /* Font for the hero heading and section titles, matching the logo's serif style with Trajan Pro 3 Regular */
+        .font-trajan-pro-3 {
+            font-family: "trajan-pro-3", serif;
+            font-weight: 400; /* Changed to Regular weight (400) */
+            font-style: normal;
+        }
+
+        /* Styles for the image modal overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* Reduced opacity for better background visibility */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.8); /* Initial state for scale-in animation */
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+        }
+
+            .modal-overlay.active {
+                opacity: 1;
+                visibility: visible;
+                transform: scale(1); /* Final state for scale-in animation */
+            }
+
+        /* Styles for the modal content (image container) */
+        .modal-content {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem; /* Add some padding around the image within the modal */
+        }
+
+        /* Styles for the image inside the modal */
+        .modal-image {
+            max-width: 90vw; /* Max width relative to viewport width */
+            max-height: 90vh; /* Max height relative to viewport height */
+            object-fit: contain; /* Ensures the whole image is visible without cropping */
+            border-radius: 0.5rem; /* rounded-lg */
+            transition: opacity 0.3s ease; /* Transition for image fade in/out */
+        }
+
+        /* New CSS for blurring the background when modal is active */
+        body.modal-active > *:not(.modal-overlay) {
+            filter: blur(5px); /* Apply blur effect */
+            pointer-events: none; /* Disable interaction with blurred background */
+            transition: filter 0.3s ease;
+        }
+
+        /* Styles for modal navigation buttons */
+        .modal-nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 9999px; /* rounded-full */
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: background-color 0.3s ease;
+            z-index: 101; /* Ensure buttons are above image */
+        }
+
+            .modal-nav-button:hover {
+                background-color: rgba(0, 0, 0, 0.7);
+            }
+
+            .modal-nav-button.left {
+                left: 1rem;
+            }
+
+            .modal-nav-button.right {
+                right: 1rem;
+            }
+
+        /* Styles for modal close button */
+        .modal-close-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px; /* rounded-full */
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: background-color 0.3s ease;
+            z-index: 101;
+        }
+
+            .modal-close-button:hover {
+                background-color: rgba(0, 0, 0, 0.7);
+            }
+
+        /* Gallery Carousel Styles */
+        /* Outer container for the carousel, defines the visible window */
+        #galleryCarousel {
+            display: flex;
+            overflow-x: scroll; /* Enable horizontal scrolling */
+            justify-content: flex-start; /* Aligns images to the start of the container */
+            align-items: center;
+            width: 100%; /* Takes full width of its parent (.container) */
+            padding: 0 1rem; /* Padding for the arrows not to be on the very edge */
+            box-sizing: border-box; /* Include padding in width calculation */
+            cursor: grab; /* Cursor for dragging */
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+        }
+            /* Hide scrollbar for gallery carousel */
+            #galleryCarousel::-webkit-scrollbar {
+                display: none;
+            }
+
+        #galleryCarousel {
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
+        }
+
+        /* Inner container that holds all images and will be transformed for scrolling */
+        #innerCarousel {
+            display: flex;
+            /* No explicit transform transition here, scrolling is handled by scrollLeft */
+            width: fit-content; /* Allows content to dictate its width */
+        }
+
+        /* Individual gallery image styling */
+        .gallery-image {
+            /* Calculate width for 5 images with margins/gaps. Adjust '0.8rem' as needed for your specific margin. */
+            width: calc(100% / 5 - 0.8rem);
+            height: 200px; /* Uniform height for all images */
+            object-fit: cover; /* Ensures images cover the area without distortion */
+            border-radius: 0.5rem; /* Rounded corners */
+            cursor: pointer;
+            border: 3px solid transparent; /* Default transparent border */
+            transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Added box-shadow to transition */
+            margin: 0.4rem; /* Gap between images (0.4rem on each side) */
+            flex-shrink: 0; /* Prevents images from shrinking */
+        }
+            /* Hover effect for gallery images */
+            .gallery-image:hover {
+                transform: scale(1.05);
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Tailwind shadow-lg equivalent */
+            }
+
+            /* Styling for the currently selected image in the carousel */
+            .gallery-image.selected-carousel-image {
+                border-color: var(--color-accent-green); /* Accent border for the selected image */
+                transform: scale(1.05); /* Slight emphasis for selected image */
+            }
+
+        /* Responsive adjustments for smaller screens to show fewer images at a time */
+        @media (max-width: 768px) {
+            .gallery-image {
+                height: 150px;
+                width: calc(100% / 3 - 0.8rem); /* Show 3 images on medium screens */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-image {
+                height: 120px;
+                width: calc(100% / 2 - 0.8rem); /* Show 2 images on small screens */
+            }
+        }
+
+        /* Positioning and styling for carousel navigation arrows */
+        #carouselPrev, #carouselNext {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 9999px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: background-color 0.3s ease;
+            z-index: 10;
+        }
+
+        #carouselPrev {
+            left: 0;
+        }
+
+        #carouselNext {
+            right: 0;
+        }
+
+            /* Disabled state for carousel navigation buttons */
+            #carouselPrev:disabled, #carouselNext:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- Header Section - Made Sticky -->
+    <header class="bg-primary-blue text-white p-4 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+            <!-- Logo -->
+            <div class="mb-4 md:mb-0">
+                <img src="images/Vivid Memories-color-banner.png"
+                     alt="Vivid Memories Photography Logo"
+                     class="h-16 w-auto rounded-md"
+                     onerror="this.onerror=null;this.src='https://placehold.co/200x64/21229d/FFFFFF?text=Vivid+Memories';">
+            </div>
+
+            <!-- Navigation -->
+            <nav>
+                <ul class="flex space-x-6">
+                    <li><a href="#home" class="hover:text-accent-green transition duration-300">Home</a></li>
+                    <li><a href="#gallery" class="hover:text-accent-green transition duration-300">Gallery</a></li>
+                    <li><a href="#services" class="hover:text-accent-green transition duration-300">Services</a></li>
+                    <li><a href="#about" class="hover:text-accent-green transition duration-300">About Us</a></li>
+                    <li><a href="#contact" class="hover:text-accent-green transition duration-300">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative bg-cover bg-center h-screen flex items-center justify-center text-white"
+             style="background-image: url('images/DZC_8642_E_VMP.jpg');">
+        <div class="absolute inset-0 bg-black opacity-50"></div>
+        <div class="text-center z-10 p-8 rounded-lg shadow-lg bg-black bg-opacity-40 max-w-2xl mx-4">
+            <h1 class="text-5xl md:text-7xl mb-4 rounded-md font-trajan-pro-3">Capture Your Memories</h1>
+            <p class="text-xl md:text-2xl mb-8">Creating vivid memories that last a lifetime.</p>
+            <a href="#gallery" class="bg-accent-green text-primary-blue font-bold py-3 px-8 rounded-full hover:bg-white hover:text-accent-green transition duration-300 transform hover:scale-105 shadow-lg">View Our Work</a>
+        </div>
+    </section>
+
+    <!-- Gallery Section - Now a Carousel with horizontal drag/swipe -->
+    <section id="gallery" class="container mx-auto py-16 px-4 bg-gray-100">
+        <h2 class="text-4xl font-trajan-pro-3 text-center mb-12 text-primary-blue">Our Gallery</h2>
+        <div class="relative flex items-center justify-center">
+            <!-- Carousel Container (Viewport) -->
+            <div id="galleryCarousel" class="rounded-lg shadow-lg">
+                <!-- Inner Carousel Container (holds all images and moves) -->
+                <div id="innerCarousel" class="">
+                    <!-- Each image will be a gallery item -->
+                    <img src="images/DZC_1057_E_VMP.jpg" alt="Maternity & Family" class="gallery-image">
+                    <img src="images/DZC_3034_E_VMP.jpg" alt="Portraits" class="gallery-image">
+                    <img src="images/DZC_3526_E_VMP.jpg" alt="Outdoor Sessions" class="gallery-image">
+                    <img src="images/DZC_3696_E_VMP.jpg" alt="Lifestyle Photography" class="gallery-image">
+                    <img src="images/DZC_8642_E_VMP.jpg" alt="Children & Families" class="gallery-image">
+                    <img src="images/MT-Wedding-136.jpg" alt="Weddings" class="gallery-image">
+                    <img src="images/DZC_2381_E_VMP.jpg" alt="Senior Portraits" class="gallery-image">
+                </div>
+            </div>
+
+            <!-- Navigation Arrows for Carousel -->
+            <button id="carouselPrev" class="">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button id="carouselNext" class="">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-16 bg-primary-blue text-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-trajan-pro-3 text-center mb-12">Our Services</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service Card 1 -->
+                <div class="bg-white rounded-lg shadow-md p-6 flex items-center space-x-4 transition duration-300 hover:scale-105 hover:shadow-lg">
+                    <i class="fas fa-camera text-4xl text-primary-blue"></i>
+                    <h3 class="text-xl font-semibold text-primary-blue">Portraits</h3>
+                </div>
+                <!-- Service Card 2 -->
+                <div class="bg-white rounded-lg shadow-md p-6 flex items-center space-x-4 transition duration-300 hover:scale-105 hover:shadow-lg">
+                    <i class="fas fa-users text-4xl text-primary-blue"></i>
+                    <h3 class="text-xl font-semibold text-primary-blue">Family Photos (Outdoor)</h3>
+                </div>
+                <!-- Service Card 3 -->
+                <div class="bg-white rounded-lg shadow-md p-6 flex items-center space-x-4 transition duration-300 hover:scale-105 hover:shadow-lg">
+                    <i class="fas fa-baby text-4xl text-primary-blue"></i>
+                    <h3 class="text-xl font-semibold text-primary-blue">Maternity Photos</h3>
+                </div>
+                <!-- Service Card 4 -->
+                <div class="bg-white rounded-lg shadow-md p-6 flex items-center space-x-4 transition duration-300 hover:scale-105 hover:shadow-lg">
+                    <i class="fas fa-baby-carriage text-4xl text-primary-blue"></i>
+                    <h3 class="text-xl font-semibold text-primary-blue">Newborn Photos</h3>
+                </div>
+                <!-- Service Card 5 -->
+                <div class="bg-white rounded-lg shadow-md p-6 flex items-center space-x-4 transition duration-300 hover:scale-105 hover:shadow-lg">
+                    <i class="fas fa-graduation-cap text-4xl text-primary-blue"></i>
+                    <h3 class="text-xl font-semibold text-primary-blue">Senior/Graduation Photos</h3>
+                </div>
+                <!-- Service Card 6 -->
+                <div class="bg-white rounded-lg shadow-md p-6 flex items-center space-x-4 transition duration-300 hover:scale-105 hover:shadow-lg">
+                    <i class="fas fa-ring text-4xl text-primary-blue"></i>
+                    <h3 class="text-xl font-semibold text-primary-blue">Weddings</h3>
+                </div>
+                <!-- Service Card 7 -->
+                <div class="bg-white rounded-lg shadow-md p-6 flex items-center space-x-4 transition duration-300 hover:scale-105 hover:shadow-lg">
+                    <i class="fas fa-user-tie text-4xl text-primary-blue"></i>
+                    <h3 class="text-xl font-semibold text-primary-blue">Professional Headshots</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="container mx-auto py-16 px-4 bg-gray-100">
+        <h2 class="text-4xl font-trajan-pro-3 text-center mb-12 text-primary-blue">About Vivid Memories Photography</h2>
+        <p class="text-base leading-relaxed max-w-3xl mx-auto mb-8">
+            Vivid Memories Photography delivers beautiful images for couples, families, and newborns. Our mission is to help you capture those precious moments in life and preserve them forever, vividly and memorably.
+        </p>
+        <img src="images/Vivid Memories-trans-black-watermark.png"
+             alt="Vivid Memories Photography Logo"
+             class="max-w-xs h-auto w-full mx-auto rounded-md"
+             onerror="this.onerror=null;this.src='https://placehold.co/128x128/21229d/FFFFFF?text=Logo';">
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-primary-blue text-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12">Get in Touch</h2>
+            <div class="flex flex-col items-center space-y-8">
+                <!-- Email -->
+                <div class="text-center">
+                    <p class="text-xl mb-2">Email us at:</p>
+                    <a href="mailto:vividmemoriesphotos@gmail.com" class="text-accent-green text-2xl font-semibold hover:underline transition duration-300">vividmemoriesphotos@gmail.com</a>
+                </div>
+
+                <!-- Social Media Links -->
+                <div class="text-center">
+                    <p class="text-xl mb-4">Connect with us on social media:</p>
+                    <div class="flex space-x-6 justify-center">
+                        <a href="https://www.facebook.com/vividmemoriesphotos/" target="_blank" rel="noopener noreferrer"
+                           class="text-accent-green hover:text-white transition duration-300 transform hover:scale-110">
+                            <i class="fab fa-facebook-square text-6xl"></i>
+                        </a>
+                        <a href="https://www.instagram.com/vividmemoriesphotos/" target="_blank" rel="noopener noreferrer"
+                           class="text-accent-green hover:text-white transition duration-300 transform hover:scale-110">
+                            <i class="fab fa-instagram-square text-6xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-800 text-white py-8 text-center rounded-t-lg">
+        <div class="container mx-auto">
+            <p>© <span id="currentYear"></span> Vivid Memories Photography. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Image Modal/Lightbox Structure -->
+    <div id="imageModal" class="modal-overlay">
+        <div class="modal-content">
+            <img id="modalImage" class="modal-image" src="" alt="Gallery Image">
+            <button id="prevButton" class="modal-nav-button left"><i class="fas fa-chevron-left"></i></button>
+            <button id="nextButton" class="modal-nav-button right"><i class="fas fa-chevron-right"></i></button>
+            <button id="closeButton" class="modal-close-button"><i class="fas fa-times"></i></button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const galleryCarouselContainer = document.getElementById('galleryCarousel');
+            const innerCarousel = document.getElementById('innerCarousel');
+            const galleryImages = document.querySelectorAll('#innerCarousel .gallery-image');
+            const carouselPrevButton = document.getElementById('carouselPrev');
+            const carouselNextButton = document.getElementById('carouselNext');
+
+            const imageModal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+            const closeButton = document.getElementById('closeButton');
+            let currentOverallImageIndex = 0; // Single source of truth for current image index
+
+            // Collect all image sources from the gallery images
+            const imageUrls = Array.from(galleryImages).map(img => img.src);
+
+            let isDragging = false;
+            let startX;
+            let scrollLeftStart;
+            let autoScrollTimeout; // For debouncing scroll event
+
+            // Function to update the 'selected-carousel-image' class and arrow button states
+            function updateCarouselSelectionAndArrows() {
+                // Determine the visible center point of the carousel container
+                const carouselCenter = galleryCarouselContainer.scrollLeft + galleryCarouselContainer.offsetWidth / 2;
+                let closestImageIndex = 0;
+                let minDistance = Infinity;
+
+                galleryImages.forEach((img, idx) => {
+                    // Calculate the center of each image relative to the carousel container's start
+                    const imageCenter = img.offsetLeft + img.offsetWidth / 2;
+                    const distance = Math.abs(imageCenter - carouselCenter);
+
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        closestImageIndex = idx;
+                    }
+                });
+
+                // Update the current index
+                currentOverallImageIndex = closestImageIndex;
+
+                // Apply 'selected-carousel-image' class based on the detected central image
+                galleryImages.forEach((img, idx) => {
+                    if (idx === currentOverallImageIndex) {
+                        img.classList.add('selected-carousel-image');
+                    } else {
+                        img.classList.remove('selected-carousel-image');
+                    }
+                });
+
+                // Update arrow button states
+                carouselPrevButton.disabled = galleryCarouselContainer.scrollLeft <= 0;
+                carouselNextButton.disabled = galleryCarouselContainer.scrollLeft + galleryCarouselContainer.offsetWidth >= galleryCarouselContainer.scrollWidth - 1; // -1 for floating point precision issues
+            }
+
+            // Function to scroll to a specific image (used by arrows and initial load)
+            function scrollToImage(index) {
+                currentOverallImageIndex = index; // Update index immediately
+                galleryImages[currentOverallImageIndex].scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'nearest',
+                    inline: 'center' // This centers the image in the view
+                });
+                // The 'scroll' event listener will then call updateCarouselSelectionAndArrows after the smooth scroll completes.
+            }
+
+            // Carousel Arrow Click Handlers
+            carouselNextButton.addEventListener('click', () => {
+                // Only scroll if not at the very last image
+                if (currentOverallImageIndex < galleryImages.length - 1) {
+                    scrollToImage(currentOverallImageIndex + 1);
+                }
+            });
+
+            carouselPrevButton.addEventListener('click', () => {
+                // Only scroll if not at the very first image
+                if (currentOverallImageIndex > 0) {
+                    scrollToImage(currentOverallImageIndex - 1);
+                }
+            });
+
+            // --- Mouse Drag for Carousel ---
+            galleryCarouselContainer.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                startX = e.clientX;
+                scrollLeftStart = galleryCarouselContainer.scrollLeft;
+                galleryCarouselContainer.style.cursor = 'grabbing';
+                galleryCarouselContainer.style.userSelect = 'none'; // Prevent text selection
+            });
+
+            // Use window for mouseup/mousemove to ensure events are captured even if mouse leaves carousel
+            window.addEventListener('mouseup', () => {
+                if (isDragging) {
+                    isDragging = false;
+                    galleryCarouselContainer.style.cursor = 'grab';
+                    galleryCarouselContainer.style.removeProperty('user-select');
+                    // A slight debounce after drag to ensure final scroll position is registered
+                    clearTimeout(autoScrollTimeout);
+                    autoScrollTimeout = setTimeout(() => {
+                        updateCarouselSelectionAndArrows();
+                    }, 50); // Shorter debounce for immediate feedback
+                }
+            });
+
+            window.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault(); // Prevent text selection and default drag behavior
+                const x = e.clientX;
+                const walk = (x - startX); // Distance moved horizontally
+                galleryCarouselContainer.scrollLeft = scrollLeftStart - walk;
+            });
+
+            // --- Touch Swipe for Mobile Carousel ---
+            galleryCarouselContainer.addEventListener('touchstart', (e) => {
+                isDragging = true;
+                startX = e.touches[0].clientX;
+                scrollLeftStart = galleryCarouselContainer.scrollLeft;
+            });
+
+            galleryCarouselContainer.addEventListener('touchend', () => {
+                if (isDragging) {
+                    isDragging = false;
+                    clearTimeout(autoScrollTimeout);
+                    autoScrollTimeout = setTimeout(() => {
+                        updateCarouselSelectionAndArrows();
+                    }, 50); // Shorter debounce for immediate feedback
+                }
+            });
+
+            galleryCarouselContainer.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault(); // Prevent page scrolling
+                const x = e.touches[0].clientX;
+                const walk = (x - startX);
+                galleryCarouselContainer.scrollLeft = scrollLeftStart - walk;
+            });
+
+            // Debounce scroll event to update active image and arrows
+            galleryCarouselContainer.addEventListener('scroll', () => {
+                clearTimeout(autoScrollTimeout);
+                autoScrollTimeout = setTimeout(() => {
+                    updateCarouselSelectionAndArrows();
+                }, 100); // Debounce time for continuous scrolling
+            });
+
+            // --- Image Modal Logic (remains largely the same) ---
+            // Function to open the modal viewer
+            function openModal(index) {
+                currentOverallImageIndex = index; // Sync with carousel index
+                modalImage.style.opacity = 0; // Start fade out for modal image
+                modalImage.src = imageUrls[currentOverallImageIndex]; // Set image source
+
+                // Short delay to allow opacity transition to take effect
+                setTimeout(() => {
+                    modalImage.style.opacity = 1; // Fade in modal image
+                }, 50);
+
+                imageModal.classList.add('active'); // Activate modal overlay
+                document.body.classList.add('modal-active'); // Add class to body for blur effect
+            }
+
+            // Function to close the modal viewer
+            function closeModal() {
+                imageModal.classList.remove('active'); // Deactivate modal overlay
+                document.body.classList.remove('modal-active'); // Remove blur effect from body
+            }
+
+            // Function to show the previous image in modal
+            function showPrevImage() {
+                modalImage.style.opacity = 0; // Start fade out
+                setTimeout(() => {
+                    currentOverallImageIndex = (currentOverallImageIndex - 1 + imageUrls.length) % imageUrls.length;
+                    modalImage.src = imageUrls[currentOverallImageIndex]; // Change image source
+                    modalImage.style.opacity = 1; // Start fade in
+                    scrollToImage(currentOverallImageIndex); // Update carousel to reflect modal change
+                }, 300); // This delay should match the CSS transition duration for opacity
+            }
+
+            // Function to show the next image in modal
+            function showNextImage() {
+                modalImage.style.opacity = 0; // Start fade out
+                setTimeout(() => {
+                    currentOverallImageIndex = (currentOverallImageIndex + 1) % imageUrls.length;
+                    modalImage.src = imageUrls[currentOverallImageIndex]; // Change image source
+                    modalImage.style.opacity = 1; // Start fade in
+                    scrollToImage(currentOverallImageIndex); // Update carousel to reflect modal change
+                }, 300); // This delay should match the CSS transition duration for opacity
+            }
+
+            // Event listeners for gallery images to open modal
+            galleryImages.forEach((img, index) => {
+                img.addEventListener('click', () => openModal(index));
+            });
+
+            // Event listeners for modal controls
+            closeButton.addEventListener('click', closeModal);
+            prevButton.addEventListener('click', showPrevImage);
+            nextButton.addEventListener('click', showNextImage);
+            imageModal.addEventListener('click', (e) => {
+                // Close modal if clicking on the overlay, not the image or buttons
+                if (e.target === imageModal) {
+                    closeModal();
+                }
+            });
+
+            // Keyboard navigation for modal
+            document.addEventListener('keydown', (e) => {
+                if (imageModal.classList.contains('active')) {
+                    if (e.key === 'ArrowLeft') {
+                        showPrevImage();
+                    } else if (e.key === 'ArrowRight') {
+                        showNextImage();
+                    } else if (e.key === 'Escape') {
+                        closeModal();
+                    }
+                }
+            });
+
+            // Initial setup: select the first image and update arrow states
+            // Removed direct scrollToImage(0) on DOMContentLoaded to prevent initial page scroll
+            // The carousel will naturally render and the 'scroll' event listener will handle the initial selection
+            // after the content has settled.
+            setTimeout(() => {
+                updateCarouselSelectionAndArrows(); // Ensure initial selection and arrow states are correct
+            }, 100);
+
+
+            // Recalculate and update on window resize to adjust carousel view
+            window.addEventListener('resize', () => {
+                // When resized, ensure current active image is visible/centered
+                scrollToImage(currentOverallImageIndex);
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const yearSpan = document.getElementById('currentYear');
+            if (yearSpan) {
+                yearSpan.textContent = new Date().getFullYear();
+            }
+        });
+    </script>
+</body>
+</html>
