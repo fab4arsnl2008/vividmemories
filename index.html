@@ -214,7 +214,7 @@
 
             /* Styling for the currently selected image in the carousel */
             .gallery-image.selected-carousel-image {
-                border-color: var(--color-accent-green); /* Accent border for the selected image */
+                border-color: transparent; /* Accent border for the selected image */
                 transform: scale(1.05); /* Slight emphasis for selected image */
             }
 
@@ -283,10 +283,10 @@
 
             <!-- Mobile Menu Button -->
             <div class="md:hidden">
-                <button id="hamburger-button" class="text-white focus:outline-none p-1 rounded hover:bg-gray-700">
+                <button id="hamburger-button" class="text-white focus:outline-none p-1 rounded hover:bg-gray-700 mr-4">
                     <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M4 6h16M4 12h16m-7 6h7"></path></svg>
                 </button>
-                <button id="close-button" class="hidden text-white focus:outline-none p-1 rounded hover:bg-gray-700">
+                <button id="close-button" class="hidden text-white focus:outline-none p-1 rounded hover:bg-gray-700 mr-4">
                     <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
@@ -431,7 +431,7 @@
     </section>
 
     <!-- Footer Section -->
-    <footer class="bg-gray-800 text-white py-8 text-center rounded-t-lg">
+    <footer class="bg-gray-800 text-white py-8 text-center">
         <div class="container mx-auto">
             <p>© <span id="currentYear"></span> Vivid Memories Photography. All rights reserved.</p>
         </div>
