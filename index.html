@@ -2,11 +2,15 @@
 <html lang="en">
 <head>
     <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-NJDTZQ9Z');</script>
+    <script>
+    (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-NJDTZQ9Z');</script>
     <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -266,43 +270,55 @@
 </head>
 <body class="bg-gray-100 text-gray-800">
     <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJDTZQ9Z"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJDTZQ9Z"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
     <!-- End Google Tag Manager (noscript) -->
-
     <!-- Header Section - Made Sticky -->
-    <header class="bg-primary-blue text-white p-4 shadow-lg sticky top-0 z-50">
+    <header class="bg-primary-blue text-white shadow-lg sticky top-0 z-50 py-4 px-4 md:px-0">
         <div class="container mx-auto flex justify-between items-center">
             <!-- Logo -->
-            <div class="flex-shrink-0"> <!-- flex-shrink-0 to prevent logo from shrinking -->
+            <div class="flex-shrink-0">
+                <!-- flex-shrink-0 to prevent logo from shrinking -->
                 <img src="images/Vivid Memories-color-banner.png"
                      alt="Vivid Memories Photography Logo"
                      class="h-16 w-auto rounded-md"
                      onerror="this.onerror=null;this.src='https://placehold.co/200x64/21229d/FFFFFF?text=Vivid+Memories';">
             </div>
 
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex md:items-center md:space-x-6">
+                <ul class="flex space-x-6">
+                    <li><a href="#home" class="hover:text-accent-green transition duration-300">Home</a></li>
+                    <li><a href="#gallery" class="hover:text-accent-green transition duration-300">Gallery</a></li>
+                    <li><a href="#services" class="hover:text-accent-green transition duration-300">Services</a></li>
+                    <li><a href="#about" class="hover:text-accent-green transition duration-300">About Us</a></li>
+                    <li><a href="#contact" class="hover:text-accent-green transition duration-300">Contact</a></li>
+                </ul>
+            </nav>
+
             <!-- Mobile Menu Button -->
             <div class="md:hidden">
-                <button id="hamburger-button" class="text-white focus:outline-none p-1 rounded hover:bg-gray-700">
+                <button id="hamburger-button" class="text-white focus:outline-none py-1 pl-1 pr-0 rounded hover:bg-gray-700">
                     <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M4 6h16M4 12h16m-7 6h7"></path></svg>
                 </button>
-                <button id="close-button" class="hidden text-white focus:outline-none p-1 rounded hover:bg-gray-700">
+                <button id="close-button" class="hidden text-white focus:outline-none py-1 pl-1 pr-0 rounded hover:bg-gray-700">
                     <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
+        </div>
 
-            <!-- Navigation -->
-<!-- mobile-responsive-fixes -->
-            <nav class="md:flex md:items-center">
-                <ul id="mobile-menu" class="hidden z-40 flex flex-col items-center space-y-2 md:flex md:flex-row md:space-y-0 md:space-x-6 md:bg-transparent bg-primary-blue absolute md:relative top-full left-0 w-full md:w-auto py-4 md:py-0 shadow-lg md:shadow-none">
-                    <li><a href="#home" class="hover:text-accent-green transition duration-300 mobile-menu-link">Home</a></li>
-                    <li><a href="#gallery" class="hover:text-accent-green transition duration-300 mobile-menu-link">Gallery</a></li>
-                    <li><a href="#services" class="hover:text-accent-green transition duration-300 mobile-menu-link">Services</a></li>
-                    <li><a href="#about" class="hover:text-accent-green transition duration-300 mobile-menu-link">About Us</a></li>
-                    <li><a href="#contact" class="hover:text-accent-green transition duration-300 mobile-menu-link">Contact</a></li>
-                </ul> <!-- This closes the mobile-menu ul -->
-            </nav> <!-- This closes the main nav -->
-        </div> <!-- This closes container mx-auto flex justify-between items-center -->
+        <!-- Mobile Navigation (Absolute positioned, toggled by JS) -->
+        <nav id="mobile-menu-container" class="md:hidden absolute top-full left-0 w-full bg-primary-blue shadow-lg hidden">
+            <ul class="flex flex-col items-center space-y-2 py-4">
+                <li><a href="#home" class="hover:text-accent-green transition duration-300 mobile-menu-link">Home</a></li>
+                <li><a href="#gallery" class="hover:text-accent-green transition duration-300 mobile-menu-link">Gallery</a></li>
+                <li><a href="#services" class="hover:text-accent-green transition duration-300 mobile-menu-link">Services</a></li>
+                <li><a href="#about" class="hover:text-accent-green transition duration-300 mobile-menu-link">About Us</a></li>
+                <li><a href="#contact" class="hover:text-accent-green transition duration-300 mobile-menu-link">Contact</a></li>
+            </ul>
+        </nav>
     </header>
 
     <!-- Hero Section -->
@@ -558,7 +574,7 @@
                 if (!isDragging) return;
                 e.preventDefault(); // Prevent text selection and default drag behavior
                 const x = e.clientX;
-                const walk = (x - startX); // Distance moved horizontally
+                const walk = (x - startX);
                 galleryCarouselContainer.scrollLeft = scrollLeftStart - walk;
             });
 
@@ -600,11 +616,9 @@
             function openModal(index) {
                 currentOverallImageIndex = index; // Sync with carousel index
                 modalImage.style.opacity = 0; // Start fade out for modal image
-                modalImage.src = imageUrls[currentOverallImageIndex]; // Set image source
-
-                // Short delay to allow opacity transition to take effect
                 setTimeout(() => {
-                    modalImage.style.opacity = 1; // Fade in modal image
+                    modalImage.src = imageUrls[currentOverallImageIndex]; // Set image source
+                    modalImage.style.opacity = 1; // Start fade in
                 }, 50);
 
                 imageModal.classList.add('active'); // Activate modal overlay
@@ -684,7 +698,7 @@
                     lastWindowWidth = window.innerWidth; // Update the stored width
                     // When resized (width-wise), ensure current active image is visible/centered
                     if (galleryImages && galleryImages.length > currentOverallImageIndex && galleryImages[currentOverallImageIndex]) {
-                         scrollToImage(currentOverallImageIndex);
+                        scrollToImage(currentOverallImageIndex);
                     }
                 }
             });
@@ -694,8 +708,8 @@
         document.addEventListener('DOMContentLoaded', () => {
             const hamburgerButton = document.getElementById('hamburger-button');
             const closeButton = document.getElementById('close-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const mobileMenuLinks = document.querySelectorAll('#mobile-menu .mobile-menu-link'); // Get all links
+            const mobileMenu = document.getElementById('mobile-menu-container'); // Changed ID to target the new nav
+            const mobileMenuLinks = document.querySelectorAll('#mobile-menu-container .mobile-menu-link'); // Changed selector
 
             if (hamburgerButton && closeButton && mobileMenu) {
                 hamburgerButton.addEventListener('click', () => {
