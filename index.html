@@ -216,12 +216,6 @@
                 box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Tailwind shadow-lg equivalent */
             }
 
-            /* Styling for the currently selected image in the carousel */
-            .gallery-image.selected-carousel-image {
-                border-color: transparent; /* Accent border for the selected image */
-                transform: scale(1.05); /* Slight emphasis for selected image */
-            }
-
         /* Responsive adjustments for smaller screens to show fewer images at a time */
         @media (max-width: 768px) {
             .gallery-image {
@@ -487,7 +481,7 @@
             let scrollLeftStart;
             let autoScrollTimeout; // For debouncing scroll event
 
-            // Function to update the 'selected-carousel-image' class and arrow button states
+            // Function to update the current image index and arrow button states
             function updateCarouselSelectionAndArrows() {
                 // Determine the visible center point of the carousel container
                 const carouselCenter = galleryCarouselContainer.scrollLeft + galleryCarouselContainer.offsetWidth / 2;
@@ -507,15 +501,6 @@
 
                 // Update the current index
                 currentOverallImageIndex = closestImageIndex;
-
-                // Apply 'selected-carousel-image' class based on the detected central image
-                galleryImages.forEach((img, idx) => {
-                    if (idx === currentOverallImageIndex) {
-                        img.classList.add('selected-carousel-image');
-                    } else {
-                        img.classList.remove('selected-carousel-image');
-                    }
-                });
 
                 // Update arrow button states
                 carouselPrevButton.disabled = galleryCarouselContainer.scrollLeft <= 0;
@@ -612,13 +597,14 @@
                 }, 100); // Debounce time for continuous scrolling
             });
 
-            // --- Image Modal Logic (remains largely the same) ---
+            // --- Image Modal Logic ---
             // Function to open the modal viewer
             function openModal(index) {
                 currentOverallImageIndex = index; // Sync with carousel index
                 modalImage.style.opacity = 0; // Start fade out for modal image
                 setTimeout(() => {
-                    modalImage.src = imageUrls[currentOverallImageIndex]; // Set image source
+                    // FIX: Use the 'index' from the click event, not the global index
+                    modalImage.src = imageUrls[index];
                     modalImage.style.opacity = 1; // Start fade in
                 }, 50);
 
