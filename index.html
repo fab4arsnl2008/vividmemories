@@ -483,6 +483,11 @@
 
             // Function to update the current image index and arrow button states
             function updateCarouselSelectionAndArrows() {
+                // If modal is active, don't let carousel scroll events change the shared index
+                if (imageModal.classList.contains('active')) {
+                    return;
+                }
+
                 // Determine the visible center point of the carousel container
                 const carouselCenter = galleryCarouselContainer.scrollLeft + galleryCarouselContainer.offsetWidth / 2;
                 let closestImageIndex = 0;
