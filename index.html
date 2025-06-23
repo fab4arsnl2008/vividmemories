@@ -259,6 +259,21 @@
                 opacity: 0.5;
                 cursor: not-allowed;
             }
+
+        /* Mobile menu specific styles for animation */
+        #mobile-menu-container {
+            /* Initial state for sliding animation */
+            max-height: 0; /* Hidden state */
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out; /* Smooth transition */
+            opacity: 0; /* Start hidden */
+        }
+
+        #mobile-menu-container.open {
+            max-height: 500px; /* Arbitrary large enough height to show all content */
+            opacity: 1;
+            transition: max-height 0.3s ease-in, opacity 0.3s ease-in; /* Smooth transition */
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 </head>
@@ -305,7 +320,8 @@
         </div>
 
         <!-- Mobile Navigation (Absolute positioned, toggled by JS) -->
-        <nav id="mobile-menu-container" class="md:hidden absolute top-full left-0 w-full bg-primary-blue shadow-lg hidden">
+        <!-- Changed 'hidden' to 'mobile-menu-closed' for animation control -->
+        <nav id="mobile-menu-container" class="md:hidden absolute top-full left-0 w-full bg-primary-blue shadow-lg">
             <ul class="flex flex-col items-center space-y-2 py-4">
                 <li><a href="#home" class="hover:text-accent-green transition duration-300 mobile-menu-link">Home</a></li>
                 <li><a href="#gallery" class="hover:text-accent-green transition duration-300 mobile-menu-link">Gallery</a></li>
@@ -454,7 +470,7 @@
             <img id="modalImage" class="modal-image" src="" alt="Gallery Image">
             <button id="prevButton" class="modal-nav-button left"><i class="fas fa-chevron-left"></i></button>
             <button id="nextButton" class="modal-nav-button right"><i class="fas fa-chevron-right"></i></button>
-            <button id="closeButton" class="modal-close-button"><i class="fas fa-times"></i></button>
+            <button id="closeModalButton" class="modal-close-button"><i class="fas fa-times"></i></button>
         </div>
     </div>
 
@@ -470,7 +486,7 @@
             const modalImage = document.getElementById('modalImage');
             const prevButton = document.getElementById('prevButton');
             const nextButton = document.getElementById('nextButton');
-            const closeButton = document.getElementById('closeButton');
+            const closeModalButton = document.getElementById('closeModalButton'); // Renamed to avoid conflict
             let currentOverallImageIndex = 0; // Single source of truth for current image index
 
             // Collect all image sources from the gallery images
@@ -651,7 +667,7 @@
             });
 
             // Event listeners for modal controls
-            closeButton.addEventListener('click', closeModal);
+            closeModalButton.addEventListener('click', closeModal); // Changed ID
             prevButton.addEventListener('click', showPrevImage);
             nextButton.addEventListener('click', showNextImage);
             imageModal.addEventListener('click', (e) => {
@@ -700,34 +716,48 @@
         document.addEventListener('DOMContentLoaded', () => {
             const hamburgerButton = document.getElementById('hamburger-button');
             const closeButton = document.getElementById('close-button');
-            const mobileMenu = document.getElementById('mobile-menu-container'); // Changed ID to target the new nav
-            const mobileMenuLinks = document.querySelectorAll('#mobile-menu-container .mobile-menu-link'); // Changed selector
+            const mobileMenu = document.getElementById('mobile-menu-container');
+            const mobileMenuLinks = document.querySelectorAll('#mobile-menu-container .mobile-menu-link');
 
             if (hamburgerButton && closeButton && mobileMenu) {
+                // Initialize menu as closed
+                mobileMenu.classList.remove('open');
+                mobileMenu.style.maxHeight = '0'; // Ensure it's visually closed
+                hamburgerButton.classList.remove('hidden');
+                closeButton.classList.add('hidden');
+
                 hamburgerButton.addEventListener('click', () => {
-                    mobileMenu.classList.remove('hidden');
+                    mobileMenu.classList.add('open');
+                    mobileMenu.style.maxHeight = mobileMenu.scrollHeight + 'px'; // Set max-height for animation
                     hamburgerButton.classList.add('hidden');
                     closeButton.classList.remove('hidden');
                 });
 
                 closeButton.addEventListener('click', () => {
-                    mobileMenu.classList.add('hidden');
+                    mobileMenu.classList.remove('open');
+                    mobileMenu.style.maxHeight = '0'; // Collapse menu
                     hamburgerButton.classList.remove('hidden');
                     closeButton.classList.add('hidden');
                 });
 
-                // Add event listeners to each menu link to close the menu on click
+                // Add event listeners to each menu link to close the menu on click and scroll
                 mobileMenuLinks.forEach(link => {
-                    link.addEventListener('click', () => {
-                        // Check if the hamburger button is visible (i.e., we are on a small screen)
-                        // getComputedStyle is the most reliable way to check visibility affected by responsive Tailwind classes
-                        if (getComputedStyle(hamburgerButton).display !== 'none') {
-                            // Only hide if on mobile and menu is actually open
-                            if (!mobileMenu.classList.contains('hidden')) {
-                                mobileMenu.classList.add('hidden');
-                                hamburgerButton.classList.remove('hidden');
-                                closeButton.classList.add('hidden');
-                            }
+                    link.addEventListener('click', (e) => {
+                        // Close the menu
+                        mobileMenu.classList.remove('open');
+                        mobileMenu.style.maxHeight = '0';
+                        hamburgerButton.classList.remove('hidden');
+                        closeButton.classList.add('hidden');
+
+                        // Smooth scroll to the target section
+                        const targetId = link.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            // The scroll-behavior: smooth on html already handles the smooth scroll.
+                            // We just need to make sure the default anchor behavior is allowed.
+                            // If you need more custom scroll offset (e.g., for fixed header),
+                            // you'd typically use e.preventDefault() and then calculate the scroll.
+                            // For now, with scroll-behavior: smooth, default click is fine.
                         }
                     });
                 });
