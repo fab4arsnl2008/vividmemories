@@ -199,10 +199,13 @@
 
         /* Individual gallery image styling */
         .gallery-image {
-            /* Calculate width for 5 images with margins/gaps. Adjust '0.8rem' as needed for your specific margin. */
-            width: calc(100% / 5 - 0.8rem);
-            height: 200px; /* Uniform height for all images */
-            object-fit: cover; /* Ensures images cover the area without distortion */
+            /* Now square with object-fit cover and object-position top */
+            width: 18vw; /* Relative width to viewport */
+            height: 18vw; /* Makes it square */
+            max-width: 200px; /* Max width for consistency */
+            max-height: 200px; /* Max height for consistency */
+            object-fit: cover; /* Images will cover the square area */
+            object-position: top; /* Ensures the top of the image is always visible */
             border-radius: 0.5rem; /* Rounded corners */
             cursor: pointer;
             border: 3px solid transparent; /* Default transparent border */
@@ -216,18 +219,24 @@
                 box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Tailwind shadow-lg equivalent */
             }
 
-        /* Responsive adjustments for smaller screens to show fewer images at a time */
+        /* Responsive adjustments for smaller screens */
+        @media (max-width: 1024px) {
+            .gallery-image {
+                width: 25vw; /* Show 4 images on large screens */
+                height: 25vw;
+            }
+        }
         @media (max-width: 768px) {
             .gallery-image {
-                height: 150px;
-                width: calc(100% / 3 - 0.8rem); /* Show 3 images on medium screens */
+                width: 40vw; /* Show 2-3 images on medium screens */
+                height: 40vw;
             }
         }
 
         @media (max-width: 480px) {
             .gallery-image {
-                height: 120px;
-                width: calc(100% / 2 - 0.8rem); /* Show 2 images on small screens */
+                width: 60vw; /* Show 1-2 images on small screens */
+                height: 60vw;
             }
         }
 
