@@ -269,11 +269,45 @@
             opacity: 0; /* Start hidden */
         }
 
-        #mobile-menu-container.open {
-            max-height: 500px; /* Arbitrary large enough height to show all content */
-            opacity: 1;
-            transition: max-height 0.3s ease-in, opacity 0.3s ease-in; /* Smooth transition */
+            #mobile-menu-container.open {
+                max-height: 500px; /* Arbitrary large enough height to show all content */
+                opacity: 1;
+                transition: max-height 0.3s ease-in, opacity 0.3s ease-in; /* Smooth transition */
+            }
+
+        /* Styles for the Scroll-to-Top FAB */
+        #scrollTopFab {
+            position: fixed;
+            bottom: 1rem; /* Adjusted for better mobile visibility */
+            right: 1rem; /* Adjusted for better mobile visibility */
+            background-color: var(--color-accent-green);
+            color: white;
+            width: 2.5rem; /* Fixed width for a vertical pill shape */
+            height: 3.5rem; /* Slightly less tall */
+            border-radius: 1.25rem; /* Half of the width (2.5rem / 2) to maintain rounded ends */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 1.5rem; /* Icon size */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08); /* Tailwind shadow-md */
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+            opacity: 0; /* Initially hidden */
+            visibility: hidden;
+            z-index: 999; /* Higher z-index to ensure visibility */
+            transform: scale(0.9); /* Slightly scaled down when hidden */
         }
+
+            #scrollTopFab.show {
+                opacity: 1;
+                visibility: visible;
+                transform: scale(1);
+            }
+
+            #scrollTopFab:hover {
+                transform: scale(1.1); /* Slightly enlarge on hover */
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2), 0 4px 6px rgba(0, 0, 0, 0.1); /* Larger shadow on hover */
+            }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 </head>
@@ -473,6 +507,11 @@
             <button id="closeModalButton" class="modal-close-button"><i class="fas fa-times"></i></button>
         </div>
     </div>
+
+    <!-- Scroll-to-Top FAB -->
+    <button id="scrollTopFab" aria-label="Scroll to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -770,6 +809,25 @@
             if (yearSpan) {
                 yearSpan.textContent = new Date().getFullYear();
             }
+
+            // Scroll-to-top FAB functionality
+            const scrollTopFab = document.getElementById('scrollTopFab');
+
+            window.addEventListener('scroll', () => {
+                // Show button if scrolled down more than 300px, otherwise hide it
+                if (window.scrollY > 300) {
+                    scrollTopFab.classList.add('show');
+                } else {
+                    scrollTopFab.classList.remove('show');
+                }
+            });
+
+            scrollTopFab.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
         });
     </script>
 </body>
