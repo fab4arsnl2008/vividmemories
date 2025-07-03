@@ -63,7 +63,7 @@
 
         /* Custom Fonts */
         body {
-            font-family: "trajan-pro-3", serif; /* Changed body font to Trajan Pro 3 */
+            font-family: "Playfair Display", serif; /* Changed body font to Playfair Display for a serif style */
         }
         /* Font for the hero heading and section titles, matching the logo's serif style with Trajan Pro 3 Regular */
         .font-trajan-pro-3 {
@@ -226,6 +226,7 @@
                 height: 25vw;
             }
         }
+
         @media (max-width: 768px) {
             .gallery-image {
                 width: 40vw; /* Show 2-3 images on medium screens */
@@ -317,6 +318,58 @@
                 transform: scale(1.1); /* Slightly enlarge on hover */
                 box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2), 0 4px 6px rgba(0, 0, 0, 0.1); /* Larger shadow on hover */
             }
+
+        /* Styles for expandable service cards */
+        .service-card {
+            background-color: white;
+            border-radius: 0.5rem; /* rounded-lg */
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); /* shadow-md */
+            padding: 1.5rem; /* p-6 */
+            display: flex;
+            flex-direction: column; /* Stack icon/title and content vertically */
+            cursor: pointer;
+            overflow: hidden; /* Hide overflow content initially */
+            transition: all 0.3s ease-out; /* Smooth transition for all properties */
+            will-change: transform, box-shadow, height; /* Optimize for these changes */
+            align-self: flex-start; /* Re-added to prevent stretching to sibling height */
+            min-height: 80px; /* Changed min-height to 80px */
+            justify-content: center; /* Changed to center to vertically center content within the card */
+        }
+
+        .service-card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem; /* Replaced space-x-4 with gap-4 for modern flexbox spacing */
+            padding-bottom: 0.5rem; /* Add some padding below the header */
+            justify-content: center; /* Added for centering icon and title */
+            /* Removed flex-wrap: wrap; from here */
+        }
+
+            /* New rule to ensure h3 text wraps within its allocated space */
+            .service-card-header h3 {
+                flex-grow: 1; /* Allows h3 to take up available space */
+                flex-shrink: 1; /* Allows h3 to shrink if needed */
+                min-width: 0; /* Essential for flex items to shrink below their content size */
+            }
+
+        .service-card-content {
+            max-height: 0; /* Initially hidden */
+            opacity: 0; /* Initially transparent */
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, opacity 0.5s ease-out, padding 0.5s ease-out; /* Smooth transition for content */
+            padding-top: 0; /* No padding when collapsed */
+        }
+
+        .service-card.expanded .service-card-content {
+            /* max-height is now set directly by JavaScript based on scrollHeight */
+            opacity: 1;
+            padding-top: 1rem; /* Add padding when expanded */
+        }
+
+        .service-card:hover {
+            transform: scale(1.02); /* Slightly less scale than before to accommodate expansion */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Tailwind shadow-lg */
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 </head>
@@ -342,12 +395,12 @@
             <!-- Desktop Navigation -->
             <nav class="hidden md:flex md:items-center md:space-x-6">
                 <ul class="flex space-x-6">
-                    <li><a href="#home" class="hover:text-accent-green transition duration-300">Home</a></li>
-                    <li><a href="#gallery" class="hover:text-accent-green transition duration-300">Gallery</a></li>
-                    <li><a href="#services" class="hover:text-accent-green transition duration-300">Services</a></li>
-                    <li><a href="#about" class="hover:text-accent-green transition duration-300">About Us</a></li>
+                    <li><a href="#home" class="hover:text-accent-green transition duration-300 font-trajan-pro-3">Home</a></li>
+                    <li><a href="#gallery" class="hover:text-accent-green transition duration-300 font-trajan-pro-3">Gallery</a></li>
+                    <li><a href="#services" class="hover:text-accent-green transition duration-300 font-trajan-pro-3">Services</a></li>
+                    <li><a href="#about" class="hover:text-accent-green transition duration-300 font-trajan-pro-3">About Us</a></li>
                     <!-- Added pr-4 (padding-right: 1rem) for desktop to give space from the edge -->
-                    <li class="pr-4"><a href="#contact" class="hover:text-accent-green transition duration-300">Contact</a></li>
+                    <li class="pr-4"><a href="#contact" class="hover:text-accent-green transition duration-300 font-trajan-pro-3">Contact</a></li>
                 </ul>
             </nav>
 
@@ -366,11 +419,11 @@
         <!-- Changed 'hidden' to 'mobile-menu-closed' for animation control -->
         <nav id="mobile-menu-container" class="md:hidden absolute top-full left-0 w-full bg-primary-blue shadow-lg">
             <ul class="flex flex-col items-center space-y-2 py-4">
-                <li><a href="#home" class="hover:text-accent-green transition duration-300 mobile-menu-link">Home</a></li>
-                <li><a href="#gallery" class="hover:text-accent-green transition duration-300 mobile-menu-link">Gallery</a></li>
-                <li><a href="#services" class="hover:text-accent-green transition duration-300 mobile-menu-link">Services</a></li>
-                <li><a href="#about" class="hover:text-accent-green transition duration-300 mobile-menu-link">About Us</a></li>
-                <li><a href="#contact" class="hover:text-accent-green transition duration-300 mobile-menu-link">Contact</a></li>
+                <li><a href="#home" class="hover:text-accent-green transition duration-300 mobile-menu-link font-trajan-pro-3">Home</a></li>
+                <li><a href="#gallery" class="hover:text-accent-green transition duration-300 mobile-menu-link font-trajan-pro-3">Gallery</a></li>
+                <li><a href="#services" class="hover:text-accent-green transition duration-300 mobile-menu-link font-trajan-pro-3">Services</a></li>
+                <li><a href="#about" class="hover:text-accent-green transition duration-300 mobile-menu-link font-trajan-pro-3">About Us</a></li>
+                <li><a href="#contact" class="hover:text-accent-green transition duration-300 mobile-menu-link font-trajan-pro-3">Contact</a></li>
             </ul>
         </nav>
     </header>
@@ -382,7 +435,7 @@
         <div class="text-center z-10 p-8 rounded-lg shadow-lg bg-black bg-opacity-40 max-w-2xl mx-4">
             <h1 class="text-5xl md:text-7xl mb-4 rounded-md font-trajan-pro-3">Capture Your Memories</h1>
             <p class="text-xl md:text-2xl mb-8">Creating vivid memories that last a lifetime.</p>
-            <a href="#gallery" class="bg-accent-green text-primary-blue font-bold py-3 px-8 rounded-full hover:bg-white hover:text-accent-green transition duration-300 transform hover:scale-105 shadow-lg">View Our Work</a>
+            <a href="#gallery" class="bg-accent-green text-primary-blue font-bold py-3 px-8 rounded-full hover:bg-white hover:text-accent-green transition duration-300 transform hover:scale-105 shadow-lg font-trajan-pro-3">View Our Work</a>
         </div>
     </section>
 
@@ -419,41 +472,91 @@
     <section id="services" class="py-16 bg-primary-blue text-white">
         <div class="container mx-auto px-4">
             <h2 class="text-4xl font-trajan-pro-3 text-center mb-12">Our Services</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Service Card 1 -->
-                <div class="bg-white rounded-lg shadow-md p-6 flex items-center space-x-4 transition duration-300 hover:scale-105 hover:shadow-lg">
-                    <i class="fas fa-camera text-4xl text-primary-blue"></i>
-                    <h3 class="text-xl font-semibold text-primary-blue">Portraits</h3>
+            <!-- Changed from grid to flex for independent card expansion -->
+            <div class="flex flex-wrap justify-center gap-8">
+                <!-- Service Card 1: Portraits -->
+                <div class="service-card w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.333rem)]" data-service="portraits">
+                    <div class="service-card-header">
+                        <i class="fas fa-camera text-4xl text-primary-blue"></i>
+                        <h3 class="text-xl font-semibold text-primary-blue font-trajan-pro-3">Portraits</h3>
+                    </div>
+                    <div class="service-card-content">
+                        <p class="text-gray-700 mb-4 text-justify">
+                            Capture your individuality with our natural light professional portrait sessions. Perfect for personal branding, social media, or simply celebrating yourself. We work with you to create stunning images that reflect your unique personality.
+                        </p>
+                    </div>
                 </div>
-                <!-- Service Card 2 -->
-                <div class="bg-white rounded-lg shadow-md p-6 flex items-center space-x-4 transition duration-300 hover:scale-105 hover:shadow-lg">
-                    <i class="fas fa-users text-4xl text-primary-blue"></i>
-                    <h3 class="text-xl font-semibold text-primary-blue">Family Photos (Outdoor)</h3>
+                <!-- Service Card 2: Family Photos (Outdoor) -->
+                <div class="service-card w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.333rem)]" data-service="family">
+                    <div class="service-card-header">
+                        <i class="fas fa-users text-4xl text-primary-blue"></i>
+                        <h3 class="text-xl font-semibold text-primary-blue font-trajan-pro-3">Family Photos</h3>
+                    </div>
+                    <div class="service-card-content">
+                        <p class="text-gray-700 mb-4 text-justify">
+                            Preserve your family's precious moments with a fun and relaxed outdoor photoshoot. Whether it’s spring bluebonnet photos, vibrant autumn sessions, or anything in between, we capture candid interactions and beautiful posed shots with natural light, creating timeless memories for your family to cherish.
+                        </p>
+                    </div>
                 </div>
-                <!-- Service Card 3 -->
-                <div class="bg-white rounded-lg shadow-md p-6 flex items-center space-x-4 transition duration-300 hover:scale-105 hover:shadow-lg">
-                    <i class="fas fa-baby text-4xl text-primary-blue"></i>
-                    <h3 class="text-xl font-semibold text-primary-blue">Maternity Photos</h3>
+                <!-- Service Card 3: Maternity Photos -->
+                <div class="service-card w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.333rem)]" data-service="maternity">
+                    <div class="service-card-header">
+                        <i class="fas fa-baby text-4xl text-primary-blue"></i>
+                        <h3 class="text-xl font-semibold text-primary-blue font-trajan-pro-3">Maternity Photos</h3>
+                    </div>
+                    <div class="service-card-content">
+                        <p class="text-gray-700 mb-4 text-justify">
+                            Celebrate the beauty of pregnancy with our exquisite maternity photography. We create elegant natural light images that capture the profound connection and tenderness of your growing family, providing you with beautiful keepsakes of this transformative time.
+                        </p>
+                    </div>
                 </div>
-                <!-- Service Card 4 -->
-                <div class="bg-white rounded-lg shadow-md p-6 flex items-center space-x-4 transition duration-300 hover:scale-105 hover:shadow-lg">
-                    <i class="fas fa-baby-carriage text-4xl text-primary-blue"></i>
-                    <h3 class="text-xl font-semibold text-primary-blue">Newborn Photos</h3>
+                <!-- Service Card 4: Newborn Photos -->
+                <div class="service-card w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.333rem)]" data-service="newborn">
+                    <div class="service-card-header">
+                        <i class="fas fa-baby-carriage text-4xl text-primary-blue"></i>
+                        <h3 class="text-xl font-semibold text-primary-blue font-trajan-pro-3">Newborn Photos</h3>
+                    </div>
+                    <div class="service-card-content">
+                        <p class="text-gray-700 mb-4 text-justify">
+                            Capture the delicate innocence of your newborn with a gentle and heartwarming photoshoot. We focus on creating precious and adorable images, beautifully documenting those fleeting first moments, both of your baby individually and in tender connection with you and your family.
+                        </p>
+                    </div>
                 </div>
-                <!-- Service Card 5 -->
-                <div class="bg-white rounded-lg shadow-md p-6 flex items-center space-x-4 transition duration-300 hover:scale-105 hover:shadow-lg">
-                    <i class="fas fa-graduation-cap text-4xl text-primary-blue"></i>
-                    <h3 class="text-xl font-semibold text-primary-blue">Senior/Graduation Photos</h3>
+                <!-- Service Card 5: Senior/Graduation Photos -->
+                <div class="service-card w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.333rem)]" data-service="senior-graduation">
+                    <div class="service-card-header">
+                        <i class="fas fa-graduation-cap text-4xl text-primary-blue"></i>
+                        <h3 class="text-xl font-semibold text-primary-blue font-trajan-pro-3">Senior / Graduation Photos</h3>
+                    </div>
+                    <div class="service-card-content">
+                        <p class="text-gray-700 mb-4 text-justify">
+                            Commemorate this significant milestone with striking senior and graduation photos. We capture the excitement and profound sense of accomplishment that define this moment, delivering stunning natural light portraits that celebrate your unique journey and provide lasting memories.
+                        </p>
+                    </div>
                 </div>
-                <!-- Service Card 6 -->
-                <div class="bg-white rounded-lg shadow-md p-6 flex items-center space-x-4 transition duration-300 hover:scale-105 hover:shadow-lg">
-                    <i class="fas fa-ring text-4xl text-primary-blue"></i>
-                    <h3 class="text-xl font-semibold text-primary-blue">Weddings</h3>
+                <!-- Service Card 6: Weddings -->
+                <div class="service-card w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.333rem)]" data-service="weddings">
+                    <div class="service-card-header">
+                        <i class="fas fa-ring text-4xl text-primary-blue"></i>
+                        <h3 class="text-xl font-semibold text-primary-blue font-trajan-pro-3">Weddings</h3>
+                    </div>
+                    <div class="service-card-content">
+                        <p class="text-gray-700 mb-4 text-justify">
+                            Your wedding day is the cherished celebration of your special love story. Our wedding photography captures every emotion, detail, and unforgettable moment, creating a beautiful narrative of your special day.
+                        </p>
+                    </div>
                 </div>
-                <!-- Service Card 7 -->
-                <div class="bg-white rounded-lg shadow-md p-6 flex items-center space-x-4 transition duration-300 hover:scale-105 hover:shadow-lg">
-                    <i class="fas fa-user-tie text-4xl text-primary-blue"></i>
-                    <h3 class="text-xl font-semibold text-primary-blue">Professional Headshots</h3>
+                <!-- Service Card 7: Professional Headshots -->
+                <div class="service-card w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.333rem)]" data-service="headshots">
+                    <div class="service-card-header">
+                        <i class="fas fa-user-tie text-4xl text-primary-blue"></i>
+                        <h3 class="text-xl font-semibold text-primary-blue font-trajan-pro-3">Professional Headshots</h3>
+                    </div>
+                    <div class="service-card-content">
+                        <p class="text-gray-700 mb-4 text-justify">
+                            Elevate your professional image with a polished natural light headshot. Ideal for LinkedIn, corporate profiles, or personal branding, our headshots help you make a strong first impression.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -474,12 +577,12 @@
     <!-- Contact Section -->
     <section id="contact" class="py-16 bg-primary-blue text-white">
         <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold text-center mb-12">Get in Touch</h2>
+            <h2 class="text-4xl text-center mb-12 font-trajan-pro-3">Get in Touch</h2>
             <div class="flex flex-col items-center space-y-8">
                 <!-- Email -->
                 <div class="text-center">
                     <p class="text-xl mb-2">Email us at:</p>
-                    <a href="mailto:vividmemoriesphotos@gmail.com" class="text-accent-green text-lg sm:text-xl md:text-2xl font-semibold hover:underline transition duration-300">vividmemoriesphotos@gmail.com</a>
+                    <a href="mailto:vividmemoriesphotos@gmail.com" class="text-accent-green text-lg sm:text-xl md:text-2xl font-semibold hover:underline transition duration-300 font-trajan-pro-3">vividmemoriesphotos@gmail.com</a>
                 </div>
 
                 <!-- Social Media Links -->
@@ -523,7 +626,7 @@
     </button>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', function () {
             const galleryCarouselContainer = document.getElementById('galleryCarousel');
             const innerCarousel = document.getElementById('innerCarousel');
             const galleryImages = document.querySelectorAll('#innerCarousel .gallery-image');
@@ -534,31 +637,26 @@
             const modalImage = document.getElementById('modalImage');
             const prevButton = document.getElementById('prevButton');
             const nextButton = document.getElementById('nextButton');
-            const closeModalButton = document.getElementById('closeModalButton'); // Renamed to avoid conflict
-            let currentOverallImageIndex = 0; // Single source of truth for current image index
+            const closeModalButton = document.getElementById('closeModalButton');
+            let currentOverallImageIndex = 0;
 
-            // Collect all image sources from the gallery images
             const imageUrls = Array.from(galleryImages).map(img => img.src);
 
             let isDragging = false;
             let startX;
             let scrollLeftStart;
-            let autoScrollTimeout; // For debouncing scroll event
+            let autoScrollTimeout;
 
-            // Function to update the current image index and arrow button states
             function updateCarouselSelectionAndArrows() {
-                // If modal is active, don't let carousel scroll events change the shared index
                 if (imageModal.classList.contains('active')) {
                     return;
                 }
 
-                // Determine the visible center point of the carousel container
                 const carouselCenter = galleryCarouselContainer.scrollLeft + galleryCarouselContainer.offsetWidth / 2;
                 let closestImageIndex = 0;
                 let minDistance = Infinity;
 
                 galleryImages.forEach((img, idx) => {
-                    // Calculate the center of each image relative to the carousel container's start
                     const imageCenter = img.offsetLeft + img.offsetWidth / 2;
                     const distance = Math.abs(imageCenter - carouselCenter);
 
@@ -568,72 +666,61 @@
                     }
                 });
 
-                // Update the current index
                 currentOverallImageIndex = closestImageIndex;
 
-                // Update arrow button states
                 carouselPrevButton.disabled = galleryCarouselContainer.scrollLeft <= 0;
-                carouselNextButton.disabled = galleryCarouselContainer.scrollLeft + galleryCarouselContainer.offsetWidth >= galleryCarouselContainer.scrollWidth - 1; // -1 for floating point precision issues
+                carouselNextButton.disabled = galleryCarouselContainer.scrollLeft + galleryCarouselContainer.offsetWidth >= galleryCarouselContainer.scrollWidth - 1;
             }
 
-            // Function to scroll to a specific image (used by arrows and initial load)
             function scrollToImage(index) {
-                currentOverallImageIndex = index; // Update index immediately
+                currentOverallImageIndex = index;
                 galleryImages[currentOverallImageIndex].scrollIntoView({
                     behavior: 'smooth',
                     block: 'nearest',
-                    inline: 'center' // This centers the image in the view
+                    inline: 'center'
                 });
-                // The 'scroll' event listener will then call updateCarouselSelectionAndArrows after the smooth scroll completes.
             }
 
-            // Carousel Arrow Click Handlers
             carouselNextButton.addEventListener('click', () => {
-                // Only scroll if not at the very last image
                 if (currentOverallImageIndex < galleryImages.length - 1) {
                     scrollToImage(currentOverallImageIndex + 1);
                 }
             });
 
             carouselPrevButton.addEventListener('click', () => {
-                // Only scroll if not at the very first image
                 if (currentOverallImageIndex > 0) {
                     scrollToImage(currentOverallImageIndex - 1);
                 }
             });
 
-            // --- Mouse Drag for Carousel ---
             galleryCarouselContainer.addEventListener('mousedown', (e) => {
                 isDragging = true;
                 startX = e.clientX;
                 scrollLeftStart = galleryCarouselContainer.scrollLeft;
                 galleryCarouselContainer.style.cursor = 'grabbing';
-                galleryCarouselContainer.style.userSelect = 'none'; // Prevent text selection
+                galleryCarouselContainer.style.userSelect = 'none';
             });
 
-            // Use window for mouseup/mousemove to ensure events are captured even if mouse leaves carousel
             window.addEventListener('mouseup', () => {
                 if (isDragging) {
                     isDragging = false;
                     galleryCarouselContainer.style.cursor = 'grab';
                     galleryCarouselContainer.style.removeProperty('user-select');
-                    // A slight debounce after drag to ensure final scroll position is registered
                     clearTimeout(autoScrollTimeout);
                     autoScrollTimeout = setTimeout(() => {
                         updateCarouselSelectionAndArrows();
-                    }, 50); // Shorter debounce for immediate feedback
+                    }, 50);
                 }
             });
 
             window.addEventListener('mousemove', (e) => {
                 if (!isDragging) return;
-                e.preventDefault(); // Prevent text selection and default drag behavior
+                e.preventDefault();
                 const x = e.clientX;
                 const walk = (x - startX);
                 galleryCarouselContainer.scrollLeft = scrollLeftStart - walk;
             });
 
-            // --- Touch Swipe for Mobile Carousel ---
             galleryCarouselContainer.addEventListener('touchstart', (e) => {
                 isDragging = true;
                 startX = e.touches[0].clientX;
@@ -646,86 +733,75 @@
                     clearTimeout(autoScrollTimeout);
                     autoScrollTimeout = setTimeout(() => {
                         updateCarouselSelectionAndArrows();
-                    }, 50); // Shorter debounce for immediate feedback
+                    }, 50);
                 }
             });
 
             galleryCarouselContainer.addEventListener('touchmove', (e) => {
                 if (!isDragging) return;
-                e.preventDefault(); // Prevent page scrolling
+                e.preventDefault();
                 const x = e.touches[0].clientX;
                 const walk = (x - startX);
                 galleryCarouselContainer.scrollLeft = scrollLeftStart - walk;
             });
 
-            // Debounce scroll event to update active image and arrows
             galleryCarouselContainer.addEventListener('scroll', () => {
                 clearTimeout(autoScrollTimeout);
                 autoScrollTimeout = setTimeout(() => {
                     updateCarouselSelectionAndArrows();
-                }, 100); // Debounce time for continuous scrolling
+                }, 100);
             });
 
-            // --- Image Modal Logic ---
-            // Function to open the modal viewer
             function openModal(index) {
-                currentOverallImageIndex = index; // Sync with carousel index
-                modalImage.style.opacity = 0; // Start fade out for modal image
+                currentOverallImageIndex = index;
+                modalImage.style.opacity = 0;
                 setTimeout(() => {
-                    // FIX: Use the 'index' from the click event, not the global index
                     modalImage.src = imageUrls[index];
-                    modalImage.style.opacity = 1; // Start fade in
+                    modalImage.style.opacity = 1;
                 }, 50);
 
-                imageModal.classList.add('active'); // Activate modal overlay
-                document.body.classList.add('modal-active'); // Add class to body for blur effect
+                imageModal.classList.add('active');
+                document.body.classList.add('modal-active');
             }
 
-            // Function to close the modal viewer
             function closeModal() {
-                imageModal.classList.remove('active'); // Deactivate modal overlay
-                document.body.classList.remove('modal-active'); // Remove blur effect from body
+                imageModal.classList.remove('active');
+                document.body.classList.remove('modal-active');
             }
 
-            // Function to show the previous image in modal
             function showPrevImage() {
-                modalImage.style.opacity = 0; // Start fade out
+                modalImage.style.opacity = 0;
                 setTimeout(() => {
                     currentOverallImageIndex = (currentOverallImageIndex - 1 + imageUrls.length) % imageUrls.length;
-                    modalImage.src = imageUrls[currentOverallImageIndex]; // Change image source
-                    modalImage.style.opacity = 1; // Start fade in
-                    scrollToImage(currentOverallImageIndex); // Update carousel to reflect modal change
-                }, 300); // This delay should match the CSS transition duration for opacity
+                    modalImage.src = imageUrls[currentOverallImageIndex];
+                    modalImage.style.opacity = 1;
+                    scrollToImage(currentOverallImageIndex);
+                }, 300);
             }
 
-            // Function to show the next image in modal
             function showNextImage() {
-                modalImage.style.opacity = 0; // Start fade out
+                modalImage.style.opacity = 0;
                 setTimeout(() => {
                     currentOverallImageIndex = (currentOverallImageIndex + 1) % imageUrls.length;
-                    modalImage.src = imageUrls[currentOverallImageIndex]; // Change image source
-                    modalImage.style.opacity = 1; // Start fade in
-                    scrollToImage(currentOverallImageIndex); // Update carousel to reflect modal change
-                }, 300); // This delay should match the CSS transition duration for opacity
+                    modalImage.src = imageUrls[currentOverallImageIndex];
+                    modalImage.style.opacity = 1;
+                    scrollToImage(currentOverallImageIndex);
+                }, 300);
             }
 
-            // Event listeners for gallery images to open modal
             galleryImages.forEach((img, index) => {
                 img.addEventListener('click', () => openModal(index));
             });
 
-            // Event listeners for modal controls
-            closeModalButton.addEventListener('click', closeModal); // Changed ID
+            closeModalButton.addEventListener('click', closeModal);
             prevButton.addEventListener('click', showPrevImage);
             nextButton.addEventListener('click', showNextImage);
             imageModal.addEventListener('click', (e) => {
-                // Close modal if clicking on the overlay, not the image or buttons
                 if (e.target === imageModal) {
                     closeModal();
                 }
             });
 
-            // Keyboard navigation for modal
             document.addEventListener('keydown', (e) => {
                 if (imageModal.classList.contains('active')) {
                     if (e.key === 'ArrowLeft') {
@@ -738,92 +814,28 @@
                 }
             });
 
-            // Initial setup: select the first image and update arrow states
-            // Removed direct scrollToImage(0) on DOMContentLoaded to prevent initial page scroll
-            // The carousel will naturally render and the 'scroll' event listener will handle the initial selection
-            // after the content has settled.
             setTimeout(() => {
-                updateCarouselSelectionAndArrows(); // Ensure initial selection and arrow states are correct
+                updateCarouselSelectionAndArrows();
             }, 100);
 
-
             let lastWindowWidth = window.innerWidth;
-            // Recalculate and update on window resize to adjust carousel view
             window.addEventListener('resize', () => {
                 if (window.innerWidth !== lastWindowWidth) {
-                    lastWindowWidth = window.innerWidth; // Update the stored width
-                    // When resized (width-wise), ensure current active image is visible/centered
+                    lastWindowWidth = window.innerWidth;
                     if (galleryImages && galleryImages.length > currentOverallImageIndex && galleryImages[currentOverallImageIndex]) {
                         scrollToImage(currentOverallImageIndex);
                     }
                 }
             });
-        });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const hamburgerButton = document.getElementById('hamburger-button');
-            const closeButton = document.getElementById('close-button');
-            const mobileMenu = document.getElementById('mobile-menu-container');
-            const mobileMenuLinks = document.querySelectorAll('#mobile-menu-container .mobile-menu-link');
 
-            if (hamburgerButton && closeButton && mobileMenu) {
-                // Initialize menu as closed
-                mobileMenu.classList.remove('open');
-                mobileMenu.style.maxHeight = '0'; // Ensure it's visually closed
-                hamburgerButton.classList.remove('hidden');
-                closeButton.classList.add('hidden');
-
-                hamburgerButton.addEventListener('click', () => {
-                    mobileMenu.classList.add('open');
-                    mobileMenu.style.maxHeight = mobileMenu.scrollHeight + 'px'; // Set max-height for animation
-                    hamburgerButton.classList.add('hidden');
-                    closeButton.classList.remove('hidden');
-                });
-
-                closeButton.addEventListener('click', () => {
-                    mobileMenu.classList.remove('open');
-                    mobileMenu.style.maxHeight = '0'; // Collapse menu
-                    hamburgerButton.classList.remove('hidden');
-                    closeButton.classList.add('hidden');
-                });
-
-                // Add event listeners to each menu link to close the menu on click and scroll
-                mobileMenuLinks.forEach(link => {
-                    link.addEventListener('click', (e) => {
-                        // Close the menu
-                        mobileMenu.classList.remove('open');
-                        mobileMenu.style.maxHeight = '0';
-                        hamburgerButton.classList.remove('hidden');
-                        closeButton.classList.add('hidden');
-
-                        // Smooth scroll to the target section
-                        const targetId = link.getAttribute('href');
-                        const targetElement = document.querySelector(targetId);
-                        if (targetElement) {
-                            // The scroll-behavior: smooth on html already handles the smooth scroll.
-                            // We just need to make sure the default anchor behavior is allowed.
-                            // If you need more custom scroll offset (e.g., for fixed header),
-                            // you'd typically use e.preventDefault() and then calculate the scroll.
-                            // For now, with scroll-behavior: smooth, default click is fine.
-                        }
-                    });
-                });
-            }
-        });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
             const yearSpan = document.getElementById('currentYear');
             if (yearSpan) {
                 yearSpan.textContent = new Date().getFullYear();
             }
 
-            // Scroll-to-top FAB functionality
             const scrollTopFab = document.getElementById('scrollTopFab');
 
             window.addEventListener('scroll', () => {
-                // Show button if scrolled down more than 300px, otherwise hide it
                 if (window.scrollY > 300) {
                     scrollTopFab.classList.add('show');
                 } else {
@@ -835,6 +847,101 @@
                 window.scrollTo({
                     top: 0,
                     behavior: 'smooth'
+                });
+            });
+
+            const serviceCards = document.querySelectorAll('.service-card');
+            let currentlyExpandedCard = null;
+
+            serviceCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const content = card.querySelector('.service-card-content');
+                    if (card.classList.contains('expanded')) {
+                        card.classList.remove('expanded');
+                        content.style.maxHeight = '0';
+                        currentlyExpandedCard = null;
+                    } else {
+                        if (currentlyExpandedCard && currentlyExpandedCard !== card) {
+                            currentlyExpandedCard.classList.remove('expanded');
+                            currentlyExpandedCard.querySelector('.service-card-content').style.maxHeight = '0';
+                        }
+                        card.classList.add('expanded');
+                        setTimeout(() => {
+                            content.style.maxHeight = (content.scrollHeight + 30) + 'px';
+                        }, 10);
+                        currentlyExpandedCard = card;
+                    }
+                });
+            });
+
+            // Mobile menu toggle function
+            function toggleMobileMenuState() {
+                const mobileMenu = document.getElementById('mobile-menu-container');
+                const hamburgerButton = document.getElementById('hamburger-button');
+                const closeButton = document.getElementById('close-button');
+
+                if (!mobileMenu || !hamburgerButton || !closeButton) {
+                    console.error('Mobile menu elements not found!');
+                    return;
+                }
+
+                const isOpen = mobileMenu.classList.contains('open');
+
+                if (isOpen) {
+                    mobileMenu.classList.remove('open');
+                    mobileMenu.style.maxHeight = '0';
+                    hamburgerButton.classList.remove('hidden');
+                    closeButton.classList.add('hidden');
+                } else {
+                    mobileMenu.classList.add('open');
+                    // Set max-height after adding 'open' class for correct scrollHeight calculation
+                    mobileMenu.style.maxHeight = mobileMenu.scrollHeight + 'px';
+                    hamburgerButton.classList.add('hidden');
+                    closeButton.classList.remove('hidden');
+                }
+            }
+
+            // Attach event listeners for hamburger and close buttons
+            const hamburgerButton = document.getElementById('hamburger-button');
+            const closeButton = document.getElementById('close-button');
+
+            if (hamburgerButton) {
+                hamburgerButton.addEventListener('click', toggleMobileMenuState);
+            }
+            if (closeButton) {
+                closeButton.addEventListener('click', toggleMobileMenuState);
+            }
+
+            // Event listeners for mobile menu links (to close menu after navigation)
+            const mobileMenuLinks = document.querySelectorAll('#mobile-menu-container .mobile-menu-link');
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    toggleMobileMenuState(); // Close the menu when a link is clicked
+                    // The universal smooth scroll handler will take care of the actual scrolling
+                });
+            });
+
+            // Universal smooth scrolling for all internal anchor links, accounting for fixed header
+            const header = document.querySelector('header');
+            const navLinks = document.querySelectorAll('a[href^="#"]');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const targetId = link.getAttribute('href');
+                    if (targetId && targetId !== '#') {
+                        e.preventDefault(); // Prevent default jump behavior
+
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            const headerHeight = header ? header.offsetHeight : 0;
+                            const offsetPosition = targetElement.offsetTop - headerHeight;
+
+                            window.scrollTo({
+                                top: offsetPosition,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
                 });
             });
         });
