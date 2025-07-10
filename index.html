@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Typekit for Trajan Pro 3 font -->
     <link rel="stylesheet" href="https://use.typekit.net/xtn8ihj.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body class="bg-gray-100 text-gray-800">
@@ -46,7 +46,7 @@
             <nav class="hidden md:flex md:items-center md:space-x-6">
                 <ul class="flex space-x-6">
                     <li><a href="#home" class="hover:text-accent-green transition duration-300 font-trajan-pro-3">Home</a></li>
-                    <li><a href="#gallery" class="hover:text-accent-green transition duration-300 font-trajan-pro-3">Gallery</a></li>
+                    <li><a href="gallery.html" class="hover:text-accent-green transition duration-300 font-trajan-pro-3">Gallery</a></li>
                     <li><a href="#services" class="hover:text-accent-green transition duration-300 font-trajan-pro-3">Services</a></li>
                     <li><a href="#about" class="hover:text-accent-green transition duration-300 font-trajan-pro-3">About Us</a></li>
                     <!-- Added pr-4 (padding-right: 1rem) for desktop to give space from the edge -->
@@ -70,7 +70,7 @@
         <nav id="mobile-menu-container" class="md:hidden absolute top-full left-0 w-full bg-primary-blue shadow-lg">
             <ul class="flex flex-col items-center space-y-2 py-4">
                 <li><a href="#home" class="hover:text-accent-green transition duration-300 mobile-menu-link font-trajan-pro-3">Home</a></li>
-                <li><a href="#gallery" class="hover:text-accent-green transition duration-300 mobile-menu-link font-trajan-pro-3">Gallery</a></li>
+                <li><a href="gallery.html" class="hover:text-accent-green transition duration-300 mobile-menu-link font-trajan-pro-3">Gallery</a></li>
                 <li><a href="#services" class="hover:text-accent-green transition duration-300 mobile-menu-link font-trajan-pro-3">Services</a></li>
                 <li><a href="#about" class="hover:text-accent-green transition duration-300 mobile-menu-link font-trajan-pro-3">About Us</a></li>
                 <li><a href="#contact" class="hover:text-accent-green transition duration-300 mobile-menu-link font-trajan-pro-3">Contact</a></li>
@@ -89,33 +89,63 @@
         </div>
     </section>
 
-    <!-- Gallery Section - Now a Carousel with horizontal drag/swipe -->
+    <!-- Gallery Section - Hybrid Layout -->
     <section id="gallery" class="container mx-auto py-16 px-4 bg-gray-100">
         <h2 class="text-4xl font-trajan-pro-3 text-center mb-12 text-primary-blue">Our Gallery</h2>
-        <div class="relative flex items-center justify-center">
+
+        <!-- Masonry Layout for Desktop/Tablet -->
+        <div id="masonry-gallery" class="gallery-grid hidden md:block">
+            <!-- Each image will be a gallery item -->
+            <div class="gallery-item">
+                <img src="images/DZC_3696_E_VMP.jpg" alt="Gallery Image 3 Keep H" class="rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+            </div>
+            <div class="gallery-item">
+                <img src="images/Wedding_1.jpg" alt="Gallery Image 2 V" class="rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+            </div>
+            <div class="gallery-item">
+                <img src="images/Maternity_1.jpg" alt="Gallery Image 1 H" class="rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+            </div>
+            <div class="gallery-item">
+                <img src="images/DSC_0253_E-2_VMP.jpg" alt="Gallery Image 4 V" class="rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+            </div>
+            <div class="gallery-item">
+                <img src="images/DZC_1446_E_VMP.jpg" alt="Gallery Image 5 H" class="rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+            </div>
+            <div class="gallery-item">
+                <img src="images/DZC_3034_E_VMP.jpg" alt="Gallery Image 6 Keep V" class="rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+            </div>
+        </div>
+
+        <!-- Carousel Layout for Mobile -->
+        <div id="mobile-gallery-carousel" class="relative flex items-center justify-center md:hidden">
             <!-- Carousel Container (Viewport) -->
-            <div id="galleryCarousel" class="rounded-lg shadow-lg">
+            <div id="galleryCarouselMobile" class="rounded-lg shadow-lg mobile-carousel-container">
                 <!-- Inner Carousel Container (holds all images and moves) -->
-                <div id="innerCarousel" class="">
+                <div id="innerCarouselMobile" class="mobile-inner-carousel">
                     <!-- Each image will be a gallery item -->
-                    <img src="images/DZC_3526_E_VMP.jpg" alt="Gallery Image" class="gallery-image">
-                    <img src="images/MT-Wedding-136.jpg" alt="Gallery Image" class="gallery-image">
-                    <img src="images/DZC_3696_E_VMP.jpg" alt="Gallery Image" class="gallery-image">
-                    <img src="images/DZC_1057_E_VMP.jpg" alt="Gallery Image" class="gallery-image">
-                    <img src="images/DZC_2381_E_VMP.jpg" alt="Gallery Image" class="gallery-image">
-                    <img src="images/DZC_3034_E_VMP.jpg" alt="Gallery Image" class="gallery-image">
-                    <img src="images/DZC_8642_E_VMP.jpg" alt="Gallery Image" class="gallery-image">
+                    <img src="images/DZC_3696_E_VMP.jpg" alt="Gallery Image 3 Keep H" class="mobile-gallery-image">                       
+                    <img src="images/Maternity_1.jpg" alt="Gallery Image 1 H" class="mobile-gallery-image">
+                    <img src="images/DZC_1446_E_VMP.jpg" alt="Gallery Image 5 H" class="mobile-gallery-image">                  
+                    <img src="images/Wedding_1.jpg" alt="Gallery Image 2 V" class="mobile-gallery-image">
+                    <img src="images/DSC_0253_E-2_VMP.jpg" alt="Gallery Image 4 V" class="mobile-gallery-image">
+                    <img src="images/DZC_3034_E_VMP.jpg" alt="Gallery Image 6 Keep V" class="mobile-gallery-image">
                 </div>
             </div>
 
-            <!-- Navigation Arrows for Carousel -->
-            <button id="carouselPrev" class="">
+            <!-- Navigation Arrows for Mobile Carousel -->
+            <button id="carouselPrevMobile" class="mobile-carousel-nav-button left">
                 <i class="fas fa-chevron-left"></i>
             </button>
-            <button id="carouselNext" class="">
+            <button id="carouselNextMobile" class="mobile-carousel-nav-button right">
                 <i class="fas fa-chevron-right"></i>
             </button>
         </div>
+
+        <!-- View More Pictures Button -->
+        <div class="text-center mt-12">
+            <a href="gallery.html" class="bg-primary-blue text-white font-bold py-3 px-8 rounded-full hover:bg-primary-blue hover:text-white transition duration-300 transform hover:scale-105 shadow-lg font-trajan-pro-3 inline-block">View More Pictures</a>
+        </div>
+
     </section>
 
     <!-- Services Section -->
@@ -134,6 +164,7 @@
                         <p class="text-gray-700 mb-4 text-justify">
                             Capture your individuality with our natural light professional portrait sessions. Perfect for personal branding, social media, or simply celebrating yourself. We work with you to create stunning images that reflect your unique personality.
                         </p>
+                            <a href="gallery.html#gallery-portraits" class="text-primary-blue hover:underline font-bold font-trajan-pro-3 block mx-auto">View Samples</a>                    
                     </div>
                 </div>
                 <!-- Service Card 2: Engagement Photos -->
@@ -146,6 +177,7 @@
                         <p class="text-gray-700 mb-4 text-justify">
                             Celebrate your love story with a romantic engagement photoshoot. We capture the joy, connection, and excitement of this special time in your lives, creating beautiful images that truly reflect your unique bond and beautiful connection. Perfect for announcing your news, these photos will be cherished forever.
                         </p>
+                        <a href="gallery.html#gallery-engagement" class="text-primary-blue hover:underline font-bold font-trajan-pro-3 block mx-auto">View Samples</a>
                     </div>
                 </div>  
                 <!-- Service Card 3: Family Photos (Outdoor) -->
@@ -158,6 +190,7 @@
                         <p class="text-gray-700 mb-4 text-justify">
                             Preserve your family's precious moments with a fun and relaxed outdoor photoshoot. Whether it’s spring bluebonnet photos, vibrant autumn sessions, or anything in between, we capture candid interactions and beautiful posed shots with natural light, creating timeless memories for your family to cherish.
                         </p>
+                        <a href="gallery.html#gallery-family" class="text-primary-blue hover:underline font-bold font-trajan-pro-3 block mx-auto">View Samples</a>
                     </div>
                 </div>
                 <!-- Service Card 4: Maternity Photos -->
@@ -170,6 +203,7 @@
                         <p class="text-gray-700 mb-4 text-justify">
                             Celebrate the beauty of pregnancy with our exquisite maternity photography. We create elegant natural light images that capture the profound connection and tenderness of your growing family, providing you with beautiful keepsakes of this transformative time.
                         </p>
+                        <a href="gallery.html#gallery-maternity" class="text-primary-blue hover:underline font-bold font-trajan-pro-3 block mx-auto">View Samples</a>
                     </div>
                 </div>
                 <!-- Service Card 5: Newborn Photos -->
@@ -182,6 +216,7 @@
                         <p class="text-gray-700 mb-4 text-justify">
                             Capture the delicate innocence of your newborn with a gentle and heartwarming photoshoot. We focus on creating precious and adorable images, beautifully documenting those fleeting first moments, both of your baby individually and in tender connection with you and your family.
                         </p>
+                        <a href="gallery.html#gallery-newborn" class="text-primary-blue hover:underline font-bold font-trajan-pro-3 block mx-auto">View Samples</a>
                     </div>
                 </div>
                 <!-- Service Card 6: Senior/Graduation Photos -->
@@ -194,6 +229,7 @@
                         <p class="text-gray-700 mb-4 text-justify">
                             Commemorate this significant milestone with striking senior and graduation photos. We capture the excitement and profound sense of accomplishment that define this moment, delivering stunning natural light portraits that celebrate your unique journey and provide lasting memories.
                         </p>
+                        <a href="gallery.html#gallery-senior" class="text-primary-blue hover:underline font-bold font-trajan-pro-3 block mx-auto">View Samples</a>
                     </div>
                 </div>
                 <!-- Service Card 7: Weddings -->
@@ -204,8 +240,9 @@
                     </div>
                     <div class="service-card-content">
                         <p class="text-gray-700 mb-4 text-justify">
-                            Your wedding day is the cherished celebration of your special love story. Our wedding photography captures every emotion, detail, and unforgettable moment, creating a beautiful narrative of your special day.
+                            Your wedding day is the cherished celebration of your unique love story. Our wedding photography captures every emotion, detail, and unforgettable moment, creating a beautiful narrative of your special day.
                         </p>
+                        <a href="gallery.html#gallery-weddings" class="text-primary-blue hover:underline font-bold font-trajan-pro-3 block mx-auto">View Samples</a>
                     </div>
                 </div>
                 <!-- Service Card 8: Professional Headshots -->
@@ -218,12 +255,12 @@
                         <p class="text-gray-700 mb-4 text-justify">
                             Elevate your professional image with a polished natural light headshot. Ideal for LinkedIn, corporate profiles, or personal branding, our headshots help you make a strong first impression.
                         </p>
+                        <a href="gallery.html#gallery-headshots" class="text-primary-blue hover:underline font-bold font-trajan-pro-3 block mx-auto">View Samples</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
 
     <!-- About Us Section -->
     <section id="about" class="container mx-auto py-16 px-4 bg-gray-100">
@@ -288,6 +325,6 @@
         <i class="fas fa-arrow-up"></i>
     </button>
 
-    <script src="main.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
