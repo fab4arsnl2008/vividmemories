@@ -24,6 +24,10 @@
     <link rel="stylesheet" href="css/styles.css">
     <!-- Google Fonts for Playfair Display and Inter (if still used) -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Google reCAPTCHA v2 API Script -->
+    <!-- This script loads the reCAPTCHA library. It should be in the <head> or just before </body> -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body class="bg-gray-100 text-gray-800">
     <!-- Google Tag Manager (noscript) -->
@@ -92,7 +96,7 @@
                 </p>
 
                 <!-- Formspree Form -->
-                <form action="https://formspree.io/f/xpwrvbkb" method="POST" class="mx-auto p-6 bg-white rounded-lg shadow-md max-w-xl">
+                <form action="YOUR_FORMSPREE_URL_HERE" method="POST" class="mx-auto p-6 bg-white rounded-lg shadow-md max-w-xl">
                     <div class="mb-4">
                         <label for="name" class="block text-primary-blue text-lg font-trajan-pro-3 mb-2">Name:</label>
                         <input type="text" id="name" name="name" required
@@ -117,10 +121,14 @@
                                   class="w-full px-4 py-2 border border-primary-blue rounded-md focus:outline-none focus:ring-2 focus:ring-accent-green transition duration-200 font-playfair-display"></textarea>
                     </div>
 
+                    <!-- Google reCAPTCHA v2 Checkbox -->
+                    <!-- This div is where the reCAPTCHA widget will be rendered -->
+                    <div class="g-recaptcha mb-6" data-sitekey="6LeY338rAAAAAC8351_tQKIIdyH7ihN_nx3AufM8"></div>
+                    <!-- The data-action="LOGIN" is typically used for reCAPTCHA v3, for v2 checkbox, it's not usually needed -->
+
                     <div class="text-center">
-                        <!-- Changed button styling to match View More Pictures button -->
                         <button type="submit"
-                                class="bg-primary-blue text-white font-bold py-3 px-8 rounded-full hover:text-accent-green transition duration-300 transform hover:scale-105 shadow-lg font-trajan-pro-3">
+                                class="bg-primary-blue text-white font-bold py-3 px-8 rounded-full hover:text-accent-green transition-colors duration-300 transform hover:scale-105 shadow-lg font-trajan-pro-3">
                             Send Message
                         </button>
                     </div>
@@ -132,6 +140,13 @@
         <section id="other-ways-to-connect" class="py-16 bg-primary-blue text-white">
             <div class="container mx-auto px-4 text-center">
                 <h2 class="text-3xl font-trajan-pro-3 mb-8">Other Ways to Connect</h2>
+                <div class="flex flex-col items-center space-y-8">
+                    <!-- Email -->
+                    <div class="text-center">
+                        <p class="text-xl mb-2">Email us directly at:</p>
+                        <a href="mailto:vividmemoriesphotos@gmail.com" class="text-accent-green text-lg sm:text-xl md:text-2xl font-semibold hover:underline transition duration-300 font-trajan-pro-3">vividmemoriesphotos@gmail.com</a>
+                    </div>
+
                     <!-- Social Media Links -->
                     <div class="text-center">
                         <p class="text-xl mb-4">Connect with us on social media:</p>
