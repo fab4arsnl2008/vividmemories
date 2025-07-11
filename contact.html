@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google Tag Manager -->
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-NJDTZQ9Z');</script>
+    <!-- End Google Tag Manager -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Vivid Memories Photography</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Typekit for Trajan Pro 3 font -->
+    <link rel="stylesheet" href="https://use.typekit.net/xtn8ihj.css">
+    <!-- Your custom styles.css -->
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Google Fonts for Playfair Display and Inter (if still used) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJDTZQ9Z"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <!-- Header Section - Made Sticky -->
+    <header class="bg-primary-blue text-white shadow-lg sticky top-0 z-50 py-4 px-4 md:px-0">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Logo -->
+            <div class="flex-shrink-0">
+                <a href="index.html"> <!-- Link back to home page -->
+                    <img src="images/Vivid Memories-color-banner.png"
+                         alt="Vivid Memories Photography Logo"
+                         class="h-16 w-auto rounded-md"
+                         onerror="this.onerror=null;this.src='https://placehold.co/200x64/21229d/FFFFFF?text=Vivid+Memories';">
+                </a>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex md:items-center md:space-x-6">
+                <ul class="flex space-x-6">
+                    <li><a href="index.html#home" class="hover:text-accent-green transition duration-300 font-trajan-pro-3">Home</a></li>
+                    <li><a href="gallery.html" class="hover:text-accent-green transition duration-300 font-trajan-pro-3">Gallery</a></li>
+                    <li><a href="index.html#services" class="hover:text-accent-green transition duration-300 font-trajan-pro-3">Services</a></li>
+                    <li><a href="index.html#about" class="hover:text-accent-green transition duration-300 font-trajan-pro-3">About Us</a></li>
+                    <!-- Active link for Contact page -->
+                    <li class="pr-4"><a href="contact.html" class="text-accent-green transition duration-300 font-trajan-pro-3">Contact</a></li>
+                </ul>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden">
+                <button id="hamburger-button" class="text-white focus:outline-none py-1 pl-1 pr-0 rounded hover:bg-gray-700">
+                    <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+                <button id="close-button" class="hidden text-white focus:outline-none py-1 pl-1 pr-0 rounded hover:bg-gray-700">
+                    <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation (Absolute positioned, toggled by JS) -->
+        <nav id="mobile-menu-container" class="md:hidden absolute top-full left-0 w-full bg-primary-blue shadow-lg">
+            <ul class="flex flex-col items-center space-y-2 py-4">
+                <li><a href="index.html#home" class="hover:text-accent-green transition duration-300 mobile-menu-link font-trajan-pro-3">Home</a></li>
+                <li><a href="gallery.html" class="hover:text-accent-green transition duration-300 mobile-menu-link font-trajan-pro-3">Gallery</a></li>
+                <li><a href="index.html#services" class="hover:text-accent-green transition duration-300 mobile-menu-link font-trajan-pro-3">Services</a></li>
+                <li><a href="index.html#about" class="hover:text-accent-green transition duration-300 mobile-menu-link font-trajan-pro-3">About Us</a></li>
+                <!-- Active link for Contact page -->
+                <li><a href="contact.html" class="text-accent-green transition duration-300 mobile-menu-link font-trajan-pro-3">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Contact Section with Formspree Form -->
+        <section id="contact-form-section" class="py-16 bg-gray-100 text-gray-800">
+            <div class="container mx-auto px-4">
+                <h1 class="text-5xl font-trajan-pro-3 text-center pt-8 mb-12 text-primary-blue">Contact Us</h1>
+                <p class="text-center text-lg mb-8 max-w-3xl mx-auto">
+                    Have questions or ready to book your session? Fill out the form below, and we'll get back to you as soon as possible!
+                </p>
+
+                <!-- Formspree Form -->
+                <form action="https://formspree.io/f/xpwrvbkb" method="POST" class="mx-auto p-6 bg-white rounded-lg shadow-md max-w-xl">
+                    <div class="mb-4">
+                        <label for="name" class="block text-primary-blue text-lg font-trajan-pro-3 mb-2">Name:</label>
+                        <input type="text" id="name" name="name" required
+                               class="w-full px-4 py-2 border border-primary-blue rounded-md focus:outline-none focus:ring-2 focus:ring-accent-green transition duration-200 font-playfair-display">
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="email" class="block text-primary-blue text-lg font-trajan-pro-3 mb-2">Email:</label>
+                        <input type="email" id="email" name="_replyto" required
+                               class="w-full px-4 py-2 border border-primary-blue rounded-md focus:outline-none focus:ring-2 focus:ring-accent-green transition duration-200 font-playfair-display">
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="subject" class="block text-primary-blue text-lg font-trajan-pro-3 mb-2">Subject:</label>
+                        <input type="text" id="subject" name="subject"
+                               class="w-full px-4 py-2 border border-primary-blue rounded-md focus:outline-none focus:ring-2 focus:ring-accent-green transition duration-200 font-playfair-display">
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="message" class="block text-primary-blue text-lg font-trajan-pro-3 mb-2">Message:</label>
+                        <textarea id="message" name="message" rows="6" required
+                                  class="w-full px-4 py-2 border border-primary-blue rounded-md focus:outline-none focus:ring-2 focus:ring-accent-green transition duration-200 font-playfair-display"></textarea>
+                    </div>
+
+                    <div class="text-center">
+                        <!-- Changed button styling to match View More Pictures button -->
+                        <button type="submit"
+                                class="bg-primary-blue text-white font-bold py-3 px-8 rounded-full hover:text-accent-green transition duration-300 transform hover:scale-105 shadow-lg font-trajan-pro-3">
+                            Send Message
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Other Ways to Connect Section - Now a separate themed section -->
+        <section id="other-ways-to-connect" class="py-16 bg-primary-blue text-white">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-3xl font-trajan-pro-3 mb-8">Other Ways to Connect</h2>
+                    <!-- Social Media Links -->
+                    <div class="text-center">
+                        <p class="text-xl mb-4">Connect with us on social media:</p>
+                        <div class="flex space-x-6 justify-center">
+                            <a href="https://www.facebook.com/vividmemoriesphotos/" target="_blank" rel="noopener noreferrer"
+                               class="text-accent-green hover:text-white transition duration-300 transform hover:scale-110">
+                                <i class="fab fa-facebook-square text-6xl"></i>
+                            </a>
+                            <a href="https://www.instagram.com/vividmemoriesphotos/" target="_blank" rel="noopener noreferrer"
+                               class="text-accent-green hover:text-white transition duration-300 transform hover:scale-110">
+                                <i class="fab fa-instagram-square text-6xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-800 text-white py-8 text-center">
+        <div class="container mx-auto">
+            <p>© <span id="currentYear"></span> Vivid Memories Photography. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Image Modal/Lightbox Structure (included for consistency, though not directly used on contact page) -->
+    <div id="imageModal" class="modal-overlay">
+        <div class="modal-content">
+            <img id="modalImage" class="modal-image" src="" alt="Gallery Image">
+            <button id="prevButton" class="modal-nav-button left"><i class="fas fa-chevron-left"></i></button>
+            <button id="nextButton" class="modal-nav-button right"><i class="fas fa-chevron-right"></i></button>
+            <button id="closeModalButton" class="modal-close-button"><i class="fas fa-times"></i></button>
+        </div>
+    </div>
+
+    <!-- Scroll-to-Top FAB -->
+    <button id="scrollTopFab" aria-label="Scroll to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Link to the main JavaScript file for shared functionalities -->
+    <script src="js/main.js"></script>
+    <!-- Note: gallery.js is not needed for this page unless you add gallery functionality here -->
+</body>
+</html>
