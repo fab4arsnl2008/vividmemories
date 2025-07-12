@@ -6,7 +6,7 @@ html {
 /* Custom Tailwind Colors */
 :root {
     --color-primary-blue: #21229d; /* Updated primary blue */
-    --color-accent-green: #00FF00;
+    --color-accent-green: #13BF01;
 }
 
 /* Extend Tailwind CSS with custom colors */
