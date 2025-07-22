@@ -8,7 +8,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Select all gallery images from both masonry and mobile carousel
     const allGalleryImages = document.querySelectorAll('#masonry-gallery .gallery-item img, #mobile-gallery-carousel .mobile-gallery-image');
-    const imageUrls = Array.from(allGalleryImages).map(img => img.src);
+    let imageUrls = [];
+    if (allGalleryImages.length > 0) {
+        imageUrls = Array.from(allGalleryImages).map(img => img.src);
+    }
+    
 
     // Mobile Carousel elements
     const galleryCarouselMobile = document.getElementById('galleryCarouselMobile');
@@ -41,9 +45,10 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         // Update overall index based on mobile carousel's closest image
-        const clickedImgSrc = mobileGalleryImages[closestImageIndex].src;
-        currentOverallImageIndex = imageUrls.indexOf(clickedImgSrc);
-
+        if (mobileGalleryImages[closestImageIndex]) {
+            const clickedImgSrc = mobileGalleryImages[closestImageIndex].src;
+            currentOverallImageIndex = imageUrls.indexOf(clickedImgSrc);
+        }
 
         if (carouselPrevMobileButton) {
             carouselPrevMobileButton.disabled = galleryCarouselMobile.scrollLeft <= 0;
@@ -191,34 +196,38 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 300);
     }
 
-    // Attach click listeners to all gallery images (both masonry and mobile carousel)
-    allGalleryImages.forEach((img, index) => {
-        img.addEventListener('click', () => openModal(index));
-    });
+    // **FIX**: Only add listeners if the gallery images and modal exist
+    if (allGalleryImages.length > 0) {
+        allGalleryImages.forEach((img, index) => {
+            img.addEventListener('click', () => openModal(index));
+        });
+    }
 
-    closeModalButton.addEventListener('click', closeModal);
-    prevButton.addEventListener('click', showPrevImage);
-    nextButton.addEventListener('click', showNextImage);
-    imageModal.addEventListener('click', (e) => {
-        if (e.target === imageModal) {
-            closeModal();
-        }
-    });
-
-    document.addEventListener('keydown', (e) => {
-        if (imageModal.classList.contains('active')) {
-            if (e.key === 'ArrowLeft') {
-                showPrevImage();
-            } else if (e.key === 'ArrowRight') {
-                showNextImage();
-            } else if (e.key === 'Escape') {
+    if (imageModal) {
+        closeModalButton.addEventListener('click', closeModal);
+        prevButton.addEventListener('click', showPrevImage);
+        nextButton.addEventListener('click', showNextImage);
+        imageModal.addEventListener('click', (e) => {
+            if (e.target === imageModal) {
                 closeModal();
             }
-        }
-    });
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (imageModal.classList.contains('active')) {
+                if (e.key === 'ArrowLeft') {
+                    showPrevImage();
+                } else if (e.key === 'ArrowRight') {
+                    showNextImage();
+                } else if (e.key === 'Escape') {
+                    closeModal();
+                }
+            }
+        });
+    }
 
     // Initial update for mobile carousel if visible
-    if (window.innerWidth < 768) {
+    if (window.innerWidth < 768 && galleryCarouselMobile) {
         setTimeout(() => {
             updateMobileCarouselSelectionAndArrows();
         }, 100);
@@ -229,7 +238,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (window.innerWidth !== lastWindowWidth) {
             lastWindowWidth = window.innerWidth;
             // Re-evaluate carousel state on resize if applicable
-            if (window.innerWidth < 768) {
+            if (window.innerWidth < 768 && galleryCarouselMobile) {
                 updateMobileCarouselSelectionAndArrows();
             }
         }
@@ -241,45 +250,50 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const scrollTopFab = document.getElementById('scrollTopFab');
-
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
-            scrollTopFab.classList.add('show');
-        } else {
-            scrollTopFab.classList.remove('show');
-        }
-    });
-
-    scrollTopFab.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
-
-    const serviceCards = document.querySelectorAll('.service-card');
-    let currentlyExpandedCard = null;
-
-    serviceCards.forEach(card => {
-        card.addEventListener('click', () => {
-            const content = card.querySelector('.service-card-content');
-            if (card.classList.contains('expanded')) {
-                card.classList.remove('expanded');
-                content.style.maxHeight = '0';
-                currentlyExpandedCard = null;
+    // **FIX**: Check if the FAB exists before adding listeners
+    if (scrollTopFab) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTopFab.classList.add('show');
             } else {
-                if (currentlyExpandedCard && currentlyExpandedCard !== card) {
-                    currentlyExpandedCard.classList.remove('expanded');
-                    currentlyExpandedCard.querySelector('.service-card-content').style.maxHeight = '0';
-                }
-                card.classList.add('expanded');
-                setTimeout(() => {
-                    content.style.maxHeight = (content.scrollHeight + 30) + 'px';
-                }, 10);
-                currentlyExpandedCard = card;
+                scrollTopFab.classList.remove('show');
             }
         });
-    });
+
+        scrollTopFab.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+
+    const serviceCards = document.querySelectorAll('.service-card');
+    // **FIX**: Check if service cards exist on the page
+    if (serviceCards.length > 0) {
+        let currentlyExpandedCard = null;
+
+        serviceCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const content = card.querySelector('.service-card-content');
+                if (card.classList.contains('expanded')) {
+                    card.classList.remove('expanded');
+                    content.style.maxHeight = '0';
+                    currentlyExpandedCard = null;
+                } else {
+                    if (currentlyExpandedCard && currentlyExpandedCard !== card) {
+                        currentlyExpandedCard.classList.remove('expanded');
+                        currentlyExpandedCard.querySelector('.service-card-content').style.maxHeight = '0';
+                    }
+                    card.classList.add('expanded');
+                    setTimeout(() => {
+                        content.style.maxHeight = (content.scrollHeight + 30) + 'px';
+                    }, 10);
+                    currentlyExpandedCard = card;
+                }
+            });
+        });
+    }
 
     // Mobile menu toggle function
     function toggleMobileMenuState() {
@@ -323,7 +337,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const mobileMenuLinks = document.querySelectorAll('#mobile-menu-container .mobile-menu-link');
     mobileMenuLinks.forEach(link => {
         link.addEventListener('click', () => {
-            toggleMobileMenuState(); // Close the menu when a link is clicked
+            // Check if the menu is open before trying to close it
+            const mobileMenu = document.getElementById('mobile-menu-container');
+            if (mobileMenu && mobileMenu.classList.contains('open')) {
+                toggleMobileMenuState(); 
+            }
             // The universal smooth scroll handler will take care of the actual scrolling
         });
     });
@@ -335,7 +353,8 @@ document.addEventListener('DOMContentLoaded', function () {
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             const targetId = link.getAttribute('href');
-            if (targetId && targetId !== '#') {
+            // Make sure it's a valid anchor on the same page
+            if (targetId && targetId.startsWith('#') && targetId.length > 1) {
                 e.preventDefault(); // Prevent default jump behavior
 
                 const targetElement = document.querySelector(targetId);
