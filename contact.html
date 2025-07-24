@@ -14,14 +14,20 @@
     <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vivid Memories Photography</title>
+    <title>Contact Us - Vivid Memories Photography</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Typekit for Trajan Pro 3 font -->
     <link rel="stylesheet" href="https://use.typekit.net/xtn8ihj.css">
+    <!-- Your custom styles.css -->
     <link rel="stylesheet" href="css/styles.css">
+    <!-- Google Fonts for Playfair Display and Inter (if still used) -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Google reCAPTCHA v2 API Script -->
+    <!-- This script loads the reCAPTCHA library. It should be in the <head> or just before </body> -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body class="bg-gray-100 text-gray-800">
     <!-- Google Tag Manager (noscript) -->
@@ -30,26 +36,29 @@
                 height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
     <!-- End Google Tag Manager (noscript) -->
+
     <!-- Header Section - Made Sticky -->
     <header class="bg-primary-blue text-white shadow-lg sticky top-0 z-50 py-4 px-4 md:px-0">
         <div class="container mx-auto flex justify-between items-center">
             <!-- Logo -->
             <div class="flex-shrink-0">
-                <!-- flex-shrink-0 to prevent logo from shrinking -->
-                <img src="images/Vivid Memories-color-banner.png"
-                     alt="Vivid Memories Photography Logo"
-                     class="h-16 w-auto rounded-md"
-                     onerror="this.onerror=null;this.src='https://placehold.co/200x64/21229d/FFFFFF?text=Vivid+Memories';">
+                <a href="index.html"> <!-- Link back to home page -->
+                    <img src="images/Vivid Memories-color-banner.png"
+                         alt="Vivid Memories Photography Logo"
+                         class="h-16 w-auto rounded-md"
+                         onerror="this.onerror=null;this.src='https://placehold.co/200x64/21229d/FFFFFF?text=Vivid+Memories';">
+                </a>
             </div>
 
             <!-- Desktop Navigation -->
             <nav class="hidden md:flex md:items-center md:space-x-6">
                 <ul class="flex space-x-6">
-                    <li><a href="#home" class="text-accent-green transition duration-300 font-trajan-pro-3">Home</a></li>
+                    <li><a href="index.html#home" class="hover:text-accent-green transition duration-300 font-trajan-pro-3">Home</a></li>
                     <li><a href="gallery.html" class="hover:text-accent-green transition duration-300 font-trajan-pro-3">Gallery</a></li>
-                    <li><a href="#services" class="hover:text-accent-green transition duration-300 font-trajan-pro-3">Services</a></li>
+                    <li><a href="index.html#services" class="hover:text-accent-green transition duration-300 font-trajan-pro-3">Services</a></li>
                     <li><a href="about.html" class="hover:text-accent-green transition duration-300 font-trajan-pro-3">About Us</a></li>
-                    <li class="pr-4"><a href="contact.html" class="hover:text-accent-green transition duration-300 font-trajan-pro-3">Contact</a></li>
+                    <!-- Active link for Contact page -->
+                    <li class="pr-4"><a href="contact.html" class="text-accent-green transition duration-300 font-trajan-pro-3">Contact</a></li>
                 </ul>
             </nav>
 
@@ -65,242 +74,92 @@
         </div>
 
         <!-- Mobile Navigation (Absolute positioned, toggled by JS) -->
-        <!-- Changed 'hidden' to 'mobile-menu-closed' for animation control -->
         <nav id="mobile-menu-container" class="md:hidden absolute top-full left-0 w-full bg-primary-blue shadow-lg">
             <ul class="flex flex-col items-center space-y-2 py-4">
-                <li><a href="#home" class="text-accent-green transition duration-300 mobile-menu-link font-trajan-pro-3">Home</a></li>
+                <li><a href="index.html#home" class="hover:text-accent-green transition duration-300 mobile-menu-link font-trajan-pro-3">Home</a></li>
                 <li><a href="gallery.html" class="hover:text-accent-green transition duration-300 mobile-menu-link font-trajan-pro-3">Gallery</a></li>
-                <li><a href="#services" class="hover:text-accent-green transition duration-300 mobile-menu-link font-trajan-pro-3">Services</a></li>
+                <li><a href="index.html#services" class="hover:text-accent-green transition duration-300 mobile-menu-link font-trajan-pro-3">Services</a></li>
                 <li><a href="about.html" class="hover:text-accent-green transition duration-300 mobile-menu-link font-trajan-pro-3">About Us</a></li>
-                <li><a href="contact.html" class="hover:text-accent-green transition duration-300 mobile-menu-link font-trajan-pro-3">Contact</a></li>
+                <!-- Active link for Contact page -->
+                <li><a href="contact.html" class="text-accent-green transition duration-300 mobile-menu-link font-trajan-pro-3">Contact</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="relative bg-cover bg-center h-screen flex items-center justify-center text-white"
-             style="background-image: url('images/DZC_8642_E_VMP_Hero.jpg');">
-        <div class="absolute inset-0 bg-black opacity-50"></div>
-        <div class="text-center z-10 p-8 rounded-lg shadow-lg bg-black bg-opacity-40 max-w-2xl mx-4">
-            <h1 class=  "text-5xl md:text-7xl mb-4 rounded-md font-trajan-pro-3">Capture Your Memories</h1>
-            <p class="text-xl md:text-2xl mb-8">Creating vivid memories that last a lifetime.</p>
-            <a href="#gallery" class="bg-accent-green text-primary-blue font-bold py-3 px-8 rounded-full hover:bg-white hover:text-accent-green transition duration-300 transform hover:scale-105 shadow-lg font-trajan-pro-3">View Our Work</a>
-        </div>
-    </section>
+    <main>
+        <!-- Contact Section with Formspree Form -->
+        <section id="contact-form-section" class="py-16 bg-gray-100 text-gray-800">
+            <div class="container mx-auto px-4">
+                <h1 class="text-5xl font-trajan-pro-3 text-center pt-8 mb-12 text-primary-blue">Contact Us</h1>
+                <p class="text-center text-lg mb-8 max-w-3xl mx-auto">
+                    Have questions or ready to book your session? Fill out the form below, and we'll get back to you as soon as possible!
+                </p>
 
-    <!-- Gallery Section - Hybrid Layout -->
-    <section id="gallery" class="container mx-auto py-16 px-4 bg-gray-100">
-        <h2 class="text-4xl font-trajan-pro-3 text-center mb-12 text-primary-blue">Our Gallery</h2>
+                <!-- Formspree Form -->
+                <form action="https://formspree.io/f/xpwrvbkb" method="POST" class="mx-auto p-6 bg-white rounded-lg shadow-md max-w-xl">
+                    <div class="mb-4">
+                        <label for="name" class="block text-primary-blue text-lg font-trajan-pro-3 mb-2">Name:</label>
+                        <input type="text" id="name" name="name" required
+                               class="w-full px-4 py-2 border border-primary-blue rounded-md focus:outline-none focus:ring-2 focus:ring-accent-green transition duration-200 font-playfair-display">
+                    </div>
 
-        <!-- Masonry Layout for Desktop/Tablet -->
-        <div id="masonry-gallery" class="gallery-grid hidden md:block">
-            <!-- Each image will be a gallery item -->
-            <div class="gallery-item">
-                <img src="images/DZC_3696_E_VMP.jpg" alt="Gallery Image 3 Keep H" class="rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
-            </div>
-            <div class="gallery-item">
-                <img src="images/Wedding_1.jpg" alt="Gallery Image 2 V" class="rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
-            </div>
-            <div class="gallery-item">
-                <img src="images/Maternity_1.jpg" alt="Gallery Image 1 H" class="rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
-            </div>
-            <div class="gallery-item">
-                <img src="images/DSC_0253_E-2_VMP.jpg" alt="Gallery Image 4 V" class="rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
-            </div>
-            <div class="gallery-item">
-                <img src="images/DZC_1446_E_VMP.jpg" alt="Gallery Image 5 H" class="rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
-            </div>
-            <div class="gallery-item">
-                <img src="images/DZC_3034_E_VMP.jpg" alt="Gallery Image 6 Keep V" class="rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
-            </div>
-        </div>
+                    <div class="mb-4">
+                        <label for="email" class="block text-primary-blue text-lg font-trajan-pro-3 mb-2">Email:</label>
+                        <input type="email" id="email" name="_replyto" required
+                               class="w-full px-4 py-2 border border-primary-blue rounded-md focus:outline-none focus:ring-2 focus:ring-accent-green transition duration-200 font-playfair-display">
+                    </div>
 
-        <!-- Carousel Layout for Mobile -->
-        <div id="mobile-gallery-carousel" class="relative flex items-center justify-center md:hidden">
-            <!-- Carousel Container (Viewport) -->
-            <div id="galleryCarouselMobile" class="rounded-lg shadow-lg mobile-carousel-container">
-                <!-- Inner Carousel Container (holds all images and moves) -->
-                <div id="innerCarouselMobile" class="mobile-inner-carousel">
-                    <!-- Each image will be a gallery item -->
-                    <img src="images/DZC_3696_E_VMP.jpg" alt="Gallery Image 3 Keep H" class="mobile-gallery-image">                       
-                    <img src="images/Maternity_1.jpg" alt="Gallery Image 1 H" class="mobile-gallery-image">
-                    <img src="images/DZC_1446_E_VMP.jpg" alt="Gallery Image 5 H" class="mobile-gallery-image">                  
-                    <img src="images/Wedding_1.jpg" alt="Gallery Image 2 V" class="mobile-gallery-image">
-                    <img src="images/DSC_0253_E-2_VMP.jpg" alt="Gallery Image 4 V" class="mobile-gallery-image">
-                    <img src="images/DZC_3034_E_VMP.jpg" alt="Gallery Image 6 Keep V" class="mobile-gallery-image">
-                </div>
+                    <div class="mb-4">
+                        <label for="subject" class="block text-primary-blue text-lg font-trajan-pro-3 mb-2">Subject:</label>
+                        <input type="text" id="subject" name="subject"
+                               class="w-full px-4 py-2 border border-primary-blue rounded-md focus:outline-none focus:ring-2 focus:ring-accent-green transition duration-200 font-playfair-display">
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="message" class="block text-primary-blue text-lg font-trajan-pro-3 mb-2">Message:</label>
+                        <textarea id="message" name="message" rows="6" required
+                                  class="w-full px-4 py-2 border border-primary-blue rounded-md focus:outline-none focus:ring-2 focus:ring-accent-green transition duration-200 font-playfair-display"></textarea>
+                    </div>
+
+                    <!-- Google reCAPTCHA v2 Checkbox -->
+                    <!-- This div is where the reCAPTCHA widget will be rendered -->
+                    <div class="g-recaptcha mb-6" data-sitekey="6LeY338rAAAAAC8351_tQKIIdyH7ihN_nx3AufM8"></div>
+                    <!-- The data-action="LOGIN" is typically used for reCAPTCHA v3, for v2 checkbox, it's not usually needed -->
+
+                    <div class="text-center">
+                        <button type="submit"
+                                class="bg-primary-blue text-white font-bold py-3 px-8 rounded-full hover:text-accent-green transition-colors duration-300 transform hover:scale-105 shadow-lg font-trajan-pro-3">
+                            Send Message
+                        </button>
+                    </div>
+                </form>
             </div>
+        </section>
 
-            <!-- Navigation Arrows for Mobile Carousel -->
-            <button id="carouselPrevMobile" class="mobile-carousel-nav-button left">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-            <button id="carouselNextMobile" class="mobile-carousel-nav-button right">
-                <i class="fas fa-chevron-right"></i>
-            </button>
-        </div>
+        <!-- Other Ways to Connect Section - Now a separate themed section -->
+        <section id="other-ways-to-connect" class="py-16 bg-primary-blue text-white">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-3xl font-trajan-pro-3 mb-8">Other Ways to Connect</h2>
+                <div class="flex flex-col items-center space-y-8">
 
-        <!-- View More Pictures Button -->
-        <div class="text-center mt-12">
-            <a href="gallery.html" class="bg-primary-blue text-white font-bold py-3 px-8 rounded-full hover:bg-primary-blue hover:text-white transition duration-300 transform hover:scale-105 shadow-lg font-trajan-pro-3 inline-block">View More Pictures</a>
-        </div>
-
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="py-16 bg-primary-blue text-white">
-        <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-trajan-pro-3 text-center mb-12">Our Services</h2>
-            <!-- Changed from grid to flex for independent card expansion -->
-            <div class="flex flex-wrap justify-center gap-8">
-                <!-- Service Card 1: Portraits -->
-                <div class="service-card w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.333rem)]" data-service="portraits">
-                    <div class="service-card-header">
-                        <i class="fas fa-camera text-4xl text-primary-blue"></i>
-                        <h3 class="text-xl font-semibold text-primary-blue font-trajan-pro-3">Portraits</h3>
-                    </div>
-                    <div class="service-card-content">
-                        <p class="text-gray-700 mb-4 text-justify">
-                            Capture your individuality with our natural light professional portrait sessions. Perfect for personal branding, social media, or simply celebrating yourself. We work with you to create stunning images that reflect your unique personality.
-                        </p>
-                            <a href="gallery.html#gallery-portraits" class="text-primary-blue hover:underline font-bold font-trajan-pro-3 block mx-auto">View Samples</a>                    
-                    </div>
-                </div>
-                <!-- Service Card 2: Engagement Photos -->
-                <div class="service-card w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.333rem)]" data-service="engagement">
-                    <div class="service-card-header">
-                        <i class="fas fa-heart text-4xl text-primary-blue"></i>
-                        <h3 class="text-xl font-semibold text-primary-blue font-trajan-pro-3">Engagement Photos</h3>
-                    </div>
-                    <div class="service-card-content">
-                        <p class="text-gray-700 mb-4 text-justify">
-                            Celebrate your love story with a romantic engagement photoshoot. We capture the joy, connection, and excitement of this special time in your lives, creating beautiful images that truly reflect your unique bond and beautiful connection. Perfect for announcing your news, these photos will be cherished forever.
-                        </p>
-                        <a href="gallery.html#gallery-engagement" class="text-primary-blue hover:underline font-bold font-trajan-pro-3 block mx-auto">View Samples</a>
-                    </div>
-                </div>  
-                <!-- Service Card 3: Family Photos (Outdoor) -->
-                <div class="service-card w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.333rem)]" data-service="family">
-                    <div class="service-card-header">
-                        <i class="fas fa-users text-4xl text-primary-blue"></i>
-                        <h3 class="text-xl font-semibold text-primary-blue font-trajan-pro-3">Family Photos</h3>
-                    </div>
-                    <div class="service-card-content">
-                        <p class="text-gray-700 mb-4 text-justify">
-                            Preserve your family's precious moments with a fun and relaxed outdoor photoshoot. Whether it’s spring bluebonnet photos, vibrant autumn sessions, or anything in between, we capture candid interactions and beautiful posed shots with natural light, creating timeless memories for your family to cherish.
-                        </p>
-                        <a href="gallery.html#gallery-family" class="text-primary-blue hover:underline font-bold font-trajan-pro-3 block mx-auto">View Samples</a>
-                    </div>
-                </div>
-                <!-- Service Card 4: Maternity Photos -->
-                <div class="service-card w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.333rem)]" data-service="maternity">
-                    <div class="service-card-header">
-                        <i class="fas fa-baby text-4xl text-primary-blue"></i>
-                        <h3 class="text-xl font-semibold text-primary-blue font-trajan-pro-3">Maternity Photos</h3>
-                    </div>
-                    <div class="service-card-content">
-                        <p class="text-gray-700 mb-4 text-justify">
-                            Celebrate the beauty of pregnancy with our exquisite maternity photography. We create elegant natural light images that capture the profound connection and tenderness of your growing family, providing you with beautiful keepsakes of this transformative time.
-                        </p>
-                        <a href="gallery.html#gallery-maternity" class="text-primary-blue hover:underline font-bold font-trajan-pro-3 block mx-auto">View Samples</a>
-                    </div>
-                </div>
-                <!-- Service Card 5: Newborn Photos -->
-                <div class="service-card w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.333rem)]" data-service="newborn">
-                    <div class="service-card-header">
-                        <i class="fas fa-baby-carriage text-4xl text-primary-blue"></i>
-                        <h3 class="text-xl font-semibold text-primary-blue font-trajan-pro-3">Newborn Photos</h3>
-                    </div>
-                    <div class="service-card-content">
-                        <p class="text-gray-700 mb-4 text-justify">
-                            Capture the delicate innocence of your newborn with a gentle and heartwarming photoshoot. We focus on creating precious and adorable images, beautifully documenting those fleeting first moments, both of your baby individually and in tender connection with you and your family.
-                        </p>
-                        <a href="gallery.html#gallery-newborn" class="text-primary-blue hover:underline font-bold font-trajan-pro-3 block mx-auto">View Samples</a>
-                    </div>
-                </div>
-                <!-- Service Card 6: Senior/Graduation Photos -->
-                <div class="service-card w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.333rem)]" data-service="senior-graduation">
-                    <div class="service-card-header">
-                        <i class="fas fa-graduation-cap text-4xl text-primary-blue"></i>
-                        <h3 class="text-xl font-semibold text-primary-blue font-trajan-pro-3">Senior / Graduation Photos</h3>
-                    </div>
-                    <div class="service-card-content">
-                        <p class="text-gray-700 mb-4 text-justify">
-                            Commemorate this significant milestone with striking senior and graduation photos. We capture the excitement and profound sense of accomplishment that define this moment, delivering stunning natural light portraits that celebrate your unique journey and provide lasting memories.
-                        </p>
-                        <a href="gallery.html#gallery-senior" class="text-primary-blue hover:underline font-bold font-trajan-pro-3 block mx-auto">View Samples</a>
-                    </div>
-                </div>
-                <!-- Service Card 7: Weddings -->
-                <div class="service-card w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.333rem)]" data-service="weddings">
-                    <div class="service-card-header">
-                        <i class="fas fa-ring text-4xl text-primary-blue"></i>
-                        <h3 class="text-xl font-semibold text-primary-blue font-trajan-pro-3">Weddings</h3>
-                    </div>
-                    <div class="service-card-content">
-                        <p class="text-gray-700 mb-4 text-justify">
-                            Your wedding day is the cherished celebration of your unique love story. Our wedding photography captures every emotion, detail, and unforgettable moment, creating a beautiful narrative of your special day.
-                        </p>
-                        <a href="gallery.html#gallery-weddings" class="text-primary-blue hover:underline font-bold font-trajan-pro-3 block mx-auto">View Samples</a>
-                    </div>
-                </div>
-                <!-- Service Card 8: Professional Headshots -->
-                <div class="service-card w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.333rem)]" data-service="headshots">
-                    <div class="service-card-header">
-                        <i class="fas fa-user-tie text-4xl text-primary-blue"></i>
-                        <h3 class="text-xl font-semibold text-primary-blue font-trajan-pro-3">Professional Headshots</h3>
-                    </div>
-                    <div class="service-card-content">
-                        <p class="text-gray-700 mb-4 text-justify">
-                            Elevate your professional image with a polished natural light headshot. Ideal for LinkedIn, corporate profiles, or personal branding, our headshots help you make a strong first impression.
-                        </p>
-                        <a href="gallery.html#gallery-headshots" class="text-primary-blue hover:underline font-bold font-trajan-pro-3 block mx-auto">View Samples</a>
+                    <!-- Social Media Links -->
+                    <div class="text-center">
+                        <p class="text-xl mb-4">Connect with us on social media:</p>
+                        <div class="flex space-x-6 justify-center">
+                            <a href="https://www.facebook.com/vividmemoriesphotos/" target="_blank" rel="noopener noreferrer"
+                               class="text-accent-green hover:text-white transition duration-300 transform hover:scale-110">
+                                <i class="fab fa-facebook-square text-6xl"></i>
+                            </a>
+                            <a href="https://www.instagram.com/vividmemoriesphotos/" target="_blank" rel="noopener noreferrer"
+                               class="text-accent-green hover:text-white transition duration-300 transform hover:scale-110">
+                                <i class="fab fa-instagram-square text-6xl"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- About Us Section -->
-    <section id="about" class="container mx-auto py-16 px-4 bg-gray-100">
-        <h2 class="text-4xl font-trajan-pro-3 text-center mb-12 text-primary-blue">About Vivid Memories Photography</h2>
-        <p class="text-base leading-relaxed max-w-3xl mx-auto mb-8 text-justify">
-            Vivid Memories Photography delivers beautiful images for individuals, couples, families, and newborns. Our mission is to help you capture those precious moments in life and preserve them forever, vividly and memorably.
-        </p>
-        <img src="images/Vivid Memories-trans-black-watermark.png"
-             alt="Vivid Memories Photography Logo"
-             class="max-w-xs h-auto w-full mx-auto rounded-md"
-             onerror="this.onerror=null;this.src='https://placehold.co/128x128/21229d/FFFFFF?text=Logo';">
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-16 bg-primary-blue text-white">
-        <div class="container mx-auto px-4">
-            <h2 class="text-4xl text-center mb-12 font-trajan-pro-3">Get in Touch</h2>
-            <div class="flex flex-col items-center space-y-8">
-                <!-- Email -->
-                <div class="text-center">
-                    <p class="text-xl mb-8">Reach out to us. We'd love to hear from you!</p>
-                    <a href="contact.html" class="bg-accent-green text-primary-blue font-bold py-3 px-8 rounded-full hover:bg-white hover:text-accent-green transition duration-300 transform hover:scale-105 shadow-lg font-trajan-pro-3">Contact Us</a>
-                </div>
-
-                <!-- Social Media Links -->
-                <div class="text-center">
-                    <p class="text-xl mb-4">Connect with us on social media:</p>
-                    <div class="flex space-x-6 justify-center">
-                        <a href="https://www.facebook.com/vividmemoriesphotos/" target="_blank" rel="noopener noreferrer"
-                           class="text-accent-green hover:text-white transition duration-300 transform hover:scale-110">
-                            <i class="fab fa-facebook-square text-6xl"></i>
-                        </a>
-                        <a href="https://www.instagram.com/vividmemoriesphotos/" target="_blank" rel="noopener noreferrer"
-                           class="text-accent-green hover:text-white transition duration-300 transform hover:scale-110">
-                            <i class="fab fa-instagram-square text-6xl"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <!-- Footer Section -->
     <footer class="bg-gray-800 text-white py-8 text-center">
@@ -309,7 +168,7 @@
         </div>
     </footer>
 
-    <!-- Image Modal/Lightbox Structure -->
+    <!-- Image Modal/Lightbox Structure (included for consistency, though not directly used on contact page) -->
     <div id="imageModal" class="modal-overlay">
         <div class="modal-content">
             <img id="modalImage" class="modal-image" src="" alt="Gallery Image">
@@ -324,6 +183,8 @@
         <i class="fas fa-arrow-up"></i>
     </button>
 
+    <!-- Link to the main JavaScript file for shared functionalities -->
     <script src="js/main.js"></script>
+    <!-- Note: gallery.js is not needed for this page unless you add gallery functionality here -->
 </body>
 </html>
