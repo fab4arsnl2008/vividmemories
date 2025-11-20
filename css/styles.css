@@ -40,12 +40,11 @@ html {
 
 /* Custom Fonts */
 body {
-    font-family: "Playfair Display", serif; /* Changed body font to Playfair Display for a serif style */
+    font-family: "Playfair Display", serif;
 }
-/* Font for the hero heading and section titles, matching the logo's serif style with Trajan Pro 3 Regular */
 .font-trajan-pro-3 {
     font-family: "trajan-pro-3", serif;
-    font-weight: 400; /* Changed to Regular weight (400) */
+    font-weight: 400; 
     font-style: normal;
 }
 
@@ -56,49 +55,49 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Reduced opacity for better background visibility */
+    background-color: rgba(0, 0, 0, 0.7);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 100;
     opacity: 0;
     visibility: hidden;
-    transform: scale(0.8); /* Initial state for scale-in animation */
+    transform: scale(0.8);
     transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
 }
 
     .modal-overlay.active {
         opacity: 1;
         visibility: visible;
-        transform: scale(1); /* Final state for scale-in animation */
+        transform: scale(1);
     }
 
-/* Styles for the modal content (image container) */
+/* Styles for the modal content */
 .modal-content {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 1rem; /* Add some padding around the image within the modal */
+    padding: 1rem;
 }
 
 /* Styles for the image inside the modal */
 .modal-image {
-    max-width: 90vw; /* Max width relative to viewport width */
-    max-height: 90vh; /* Max height relative to viewport height */
-    object-fit: contain; /* Ensures the whole image is visible without cropping */
-    border-radius: 0.5rem; /* rounded-lg */
-    transition: opacity 0.3s ease; /* Transition for image fade in/out */
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 0.5rem;
+    transition: opacity 0.3s ease;
 }
 
-/* New CSS for blurring the background when modal is active */
+/* Blur background when modal is active */
 body.modal-active > *:not(.modal-overlay) {
-    filter: blur(5px); /* Apply blur effect */
-    pointer-events: none; /* Disable interaction with blurred background */
+    filter: blur(5px);
+    pointer-events: none;
     transition: filter 0.3s ease;
 }
 
-/* Styles for modal navigation buttons */
+/* Modal navigation buttons */
 .modal-nav-button {
     position: absolute;
     top: 50%;
@@ -106,11 +105,11 @@ body.modal-active > *:not(.modal-overlay) {
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
     padding: 0.75rem 1rem;
-    border-radius: 9999px; /* rounded-full */
+    border-radius: 9999px;
     cursor: pointer;
     font-size: 1.5rem;
     transition: background-color 0.3s ease;
-    z-index: 101; /* Ensure buttons are above image */
+    z-index: 101;
 }
 
     .modal-nav-button:hover {
@@ -125,7 +124,6 @@ body.modal-active > *:not(.modal-overlay) {
         right: 1rem;
     }
 
-/* Styles for modal close button */
 .modal-close-button {
     position: absolute;
     top: 1rem;
@@ -133,7 +131,7 @@ body.modal-active > *:not(.modal-overlay) {
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
     padding: 0.5rem 1rem;
-    border-radius: 9999px; /* rounded-full */
+    border-radius: 9999px;
     cursor: pointer;
     font-size: 1.5rem;
     transition: background-color 0.3s ease;
@@ -144,95 +142,93 @@ body.modal-active > *:not(.modal-overlay) {
         background-color: rgba(0, 0, 0, 0.7);
     }
 
-/* Masonry-like grid for gallery (Desktop/Tablet) */
+/* --- NEW MASONRY LAYOUT STYLES --- */
+
+/* The Container */
 .gallery-grid {
-    column-count: 3; /* Default for larger screens */
-    column-gap: 1rem; /* Gap between columns */
+    /* Counteract the padding on the outer edges so images align with container */
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+    width: calc(100% + 1rem);
 }
 
+/* The Items */
 .gallery-item {
-    break-inside: avoid; /* Prevent items from breaking across columns */
-    margin-bottom: 1rem; /* Gap between items in the same column */
-    width: 100%; /* Ensure item takes full width of its column */
+    width: 33.333%; /* Force 3 columns */
+    padding: 0.5rem; /* This creates the visible "Gap" between images */
+    margin-bottom: 0; /* Masonry handles stacking, padding handles spacing */
 }
 
+/* The Images inside */
 .gallery-item img {
     width: 100%;
-    height: auto; /* Maintain aspect ratio */
-    display: block; /* Remove extra space below image */
-    border-radius: 0.5rem; /* rounded-lg */
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); /* shadow-md */
+    height: auto;
+    display: block;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
 }
 
 .gallery-item img:hover {
-    transform: scale(1.02); /* Slightly less scale than before to accommodate expansion */
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Tailwind shadow-lg */
+    transform: scale(1.02);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
-/* Responsive adjustments for masonry columns */
+/* Responsive: 2 columns on Tablet */
 @media (max-width: 1024px) {
-    .gallery-grid {
-        column-count: 2;
+    .gallery-item {
+        width: 50%;
     }
 }
 
+/* Responsive: 1 column on Mobile (though these sections are usually hidden on mobile) */
 @media (max-width: 768px) {
-    .gallery-grid {
-        column-count: 1; /* Single column on smaller screens */
+    .gallery-item {
+        width: 100%;
     }
 }
 
 /* Mobile Carousel Styles */
-/* Outer container for the carousel, defines the visible window */
 .mobile-carousel-container {
     display: flex;
-    overflow-x: scroll; /* Enable horizontal scrolling */
-    justify-content: flex-start; /* Aligns images to the start of the container */
+    overflow-x: scroll;
+    justify-content: flex-start;
     align-items: center;
-    width: 100%; /* Takes full width of its parent (.container) */
-    padding: 0 1rem; /* Padding for the arrows not to be on the very edge */
-    box-sizing: border-box; /* Include padding in width calculation */
-    cursor: grab; /* Cursor for dragging */
-    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    width: 100%;
+    padding: 0 1rem;
+    box-sizing: border-box;
+    cursor: grab;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
-    /* Hide scrollbar for mobile carousel */
     .mobile-carousel-container::-webkit-scrollbar {
         display: none;
     }
 
-.mobile-carousel-container {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-}
-
-/* Inner container that holds all images and will be transformed for scrolling */
 .mobile-inner-carousel {
     display: flex;
-    width: fit-content; /* Allows content to dictate its width */
+    width: fit-content;
 }
 
-/* Individual mobile gallery image styling */
 .mobile-gallery-image {
-    width: 60vw; /* Show 1-2 images on small screens, adjust as needed */
-    height: auto; /* Changed from fixed height to auto */
-    object-fit: contain; /* Changed from cover to contain to ensure full image is visible */
-    object-position: center; /* Changed to center for better general display */
-    border-radius: 0.5rem; /* Rounded corners */
+    width: 60vw;
+    height: auto;
+    object-fit: contain;
+    object-position: center;
+    border-radius: 0.5rem;
     cursor: pointer;
-    border: 3px solid transparent; /* Default transparent border */
-    transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Added box-shadow to transition */
-    margin: 0.4rem; /* Gap between images (0.4rem on each side) */
-    flex-shrink: 0; /* Prevents images from shrinking */
+    border: 3px solid transparent;
+    transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    margin: 0.4rem;
+    flex-shrink: 0;
 }
-    /* Hover effect for mobile gallery images */
     .mobile-gallery-image:hover {
         transform: scale(1.05);
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Tailwind shadow-lg equivalent */
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     }
 
-/* Positioning and styling for mobile carousel navigation arrows */
 .mobile-carousel-nav-button {
     position: absolute;
     top: 50%;
@@ -255,49 +251,46 @@ body.modal-active > *:not(.modal-overlay) {
     right: 0;
 }
 
-    /* Disabled state for mobile carousel navigation buttons */
     .mobile-carousel-nav-button:disabled {
         opacity: 0.5;
         cursor: not-allowed;
     }
 
-
-/* Mobile menu specific styles for animation */
+/* Mobile menu */
 #mobile-menu-container {
-    /* Initial state for sliding animation */
-    max-height: 0; /* Hidden state */
+    max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease-out, opacity 0.3s ease-out; /* Smooth transition */
-    opacity: 0; /* Start hidden */
+    transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+    opacity: 0;
 }
 
     #mobile-menu-container.open {
-        max-height: 500px; /* Arbitrary large enough height to show all content */
+        max-height: 500px;
         opacity: 1;
-        transition: max-height 0.3s ease-in, opacity 0.3s ease-in; /* Smooth transition */
+        transition: max-height 0.3s ease-in, opacity 0.3s ease-in;
     }
 
-/* Styles for the Scroll-to-Top FAB */
+/* Scroll-to-Top FAB */
 #scrollTopFab {
     position: fixed;
-    bottom: 1rem; /* Adjusted for better mobile visibility */
-    right: 1rem; /* Adjusted for better mobile visibility */
-    background-color: rgba(0, 0, 0, 0.5); /* Changed to rgba(0, 0, 0, 0.5) */
+    bottom: 1rem;
+    right: 1rem;
+    background-color: rgba(0, 0, 0, 0.5);
     color: white;
-    width: 2.5rem; /* Equal width and height for a circle */
-    height: 2.5rem; /* Equal width and height for a circle */
-    border-radius: 50%; /* Makes it a perfect circle */
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    font-size: 1.5rem; /* Icon size */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08); /* Tailwind shadow-md */
+    font-size: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
     transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
-    opacity: 0; /* Initially hidden */
+    opacity: 0;
     visibility: hidden;
-    z-index: 999; /* Higher z-index to ensure visibility */
-    transform: scale(0.9); /* Slightly scaled down when hidden */
+    z-index: 999;
+    transform: scale(0.9);
 }
 
     #scrollTopFab.show {
@@ -307,65 +300,62 @@ body.modal-active > *:not(.modal-overlay) {
     }
 
     #scrollTopFab:hover {
-        transform: scale(1.1); /* Slightly enlarge on hover */
-        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2), 0 4px 6px rgba(0, 0, 0, 0.1); /* Larger shadow on hover */
+        transform: scale(1.1);
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2), 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
-/* Styles for expandable service cards */
+/* Service cards */
 .service-card {
     background-color: white;
-    border-radius: 0.5rem; /* rounded-lg */
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); /* shadow-md */
-    padding: 1.5rem; /* p-6 */
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    padding: 1.5rem;
     display: flex;
-    flex-direction: column; /* Stack icon/title and content vertically */
+    flex-direction: column;
     cursor: pointer;
-    overflow: hidden; /* Hide overflow content initially */
-    transition: all 0.3s ease-out; /* Smooth transition for all properties */
-    will-change: transform, box-shadow, height; /* Optimize for these changes */
-    align-self: flex-start; /* Re-added to prevent stretching to sibling height */
-    min-height: 80px; /* Changed min-height to 80px */
-    justify-content: center; /* Changed to center to vertically center content within the card */
+    overflow: hidden;
+    transition: all 0.3s ease-out;
+    will-change: transform, box-shadow, height;
+    align-self: flex-start;
+    min-height: 80px;
+    justify-content: center;
 }
 
 .service-card-header {
     display: flex;
     align-items: center;
-    gap: 1rem; /* Replaced space-x-4 with gap-4 for modern flexbox spacing */
-    padding-bottom: 0.5rem; /* Add some padding below the header */
-    justify-content: center; /* Added for centering icon and title */
-    /* Removed flex-wrap: wrap; from here */
+    gap: 1rem;
+    padding-bottom: 0.5rem;
+    justify-content: center;
 }
 
-    /* New rule to ensure h3 text wraps within its allocated space */
     .service-card-header h3 {
-        flex-grow: 1; /* Allows h3 to take up available space */
-        flex-shrink: 1; /* Allows h3 to shrink if needed */
-        min-width: 0; /* Essential for flex items to shrink below their content size */
+        flex-grow: 1;
+        flex-shrink: 1;
+        min-width: 0;
     }
 
 .service-card-content {
-    max-height: 0; /* Initially hidden */
-    opacity: 0; /* Initially transparent */
+    max-height: 0;
+    opacity: 0;
     overflow: hidden;
-    transition: max-height 0.5s ease-out, opacity 0.5s ease-out, padding 0.5s ease-out; /* Smooth transition for content */
-    padding-top: 0; /* No padding when collapsed */
+    transition: max-height 0.5s ease-out, opacity 0.5s ease-out, padding 0.5s ease-out;
+    padding-top: 0;
 }
 
 .service-card.expanded .service-card-content {
-    /* max-height is now set directly by JavaScript based on scrollHeight */
     opacity: 1;
-    padding-top: 1rem; /* Add padding when expanded */
+    padding-top: 1rem;
 }
 
 .service-card:hover {
-    transform: scale(1.02); /* Slightly less scale than before to accommodate expansion */
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Tailwind shadow-lg */
+    transform: scale(1.02);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
-/* NEW: Scroll margin for fixed header */
+/* Scroll margin */
 section[id^="gallery-"],
 section#favorites,
 section#contact-gallery {
-    scroll-margin-top: 6rem; /* Adjust this value based on your header's height. 6rem is approximately 96px. */
+    scroll-margin-top: 6rem;
 }

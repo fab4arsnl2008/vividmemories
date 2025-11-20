@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google Tag Manager -->
     <script>
         (function (w, d, s, l, i) {
             w[l] = w[l] || []; w[l].push({
@@ -11,38 +10,31 @@
                 j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
                     'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
         })(window, document, 'script', 'dataLayer', 'GTM-NJDTZQ9Z');</script>
-    <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vivid Memories Photography</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Typekit for Trajan Pro 3 font -->
     <link rel="stylesheet" href="https://use.typekit.net/xtn8ihj.css">
     <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body class="bg-gray-100 text-gray-800">
-    <!-- Google Tag Manager (noscript) -->
     <noscript>
         <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJDTZQ9Z"
                 height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
-    <!-- End Google Tag Manager (noscript) -->
-    <!-- Header Section - Made Sticky -->
     <header class="bg-primary-blue text-white shadow-lg sticky top-0 z-50 py-4 px-4 md:px-0">
         <div class="container mx-auto flex justify-between items-center">
-            <!-- Logo -->
             <div class="flex-shrink-0">
-                <!-- flex-shrink-0 to prevent logo from shrinking -->
                 <img src="images/Vivid Memories-color-banner.png"
                      alt="Vivid Memories Photography Logo"
                      class="h-16 w-auto rounded-md"
                      onerror="this.onerror=null;this.src='https://placehold.co/200x64/21229d/FFFFFF?text=Vivid+Memories';">
             </div>
 
-            <!-- Desktop Navigation -->
             <nav class="hidden md:flex md:items-center md:space-x-6">
                 <ul class="flex space-x-6">
                     <li><a href="#home" class="text-accent-green transition duration-300 font-trajan-pro-3">Home</a></li>
@@ -53,7 +45,6 @@
                 </ul>
             </nav>
 
-            <!-- Mobile Menu Button -->
             <div class="md:hidden">
                 <button id="hamburger-button" class="text-white focus:outline-none py-1 pl-1 pr-0 rounded hover:bg-gray-700">
                     <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M4 6h16M4 12h16m-7 6h7"></path></svg>
@@ -64,8 +55,6 @@
             </div>
         </div>
 
-        <!-- Mobile Navigation (Absolute positioned, toggled by JS) -->
-        <!-- Changed 'hidden' to 'mobile-menu-closed' for animation control -->
         <nav id="mobile-menu-container" class="md:hidden absolute top-full left-0 w-full bg-primary-blue shadow-lg">
             <ul class="flex flex-col items-center space-y-2 py-4">
                 <li><a href="#home" class="text-accent-green transition duration-300 mobile-menu-link font-trajan-pro-3">Home</a></li>
@@ -77,7 +66,6 @@
         </nav>
     </header>
 
-    <!-- Hero Section -->
     <section id="home" class="relative bg-cover bg-center h-screen flex items-center justify-center text-white"
              style="background-image: url('images/DZC_8642_E_VMP_Hero.jpg');">
         <div class="absolute inset-0 bg-black opacity-50"></div>
@@ -88,13 +76,10 @@
         </div>
     </section>
 
-    <!-- Gallery Section - Hybrid Layout -->
     <section id="gallery" class="container mx-auto py-16 px-4 bg-gray-100">
         <h2 class="text-4xl font-trajan-pro-3 text-center mb-12 text-primary-blue">Our Gallery</h2>
 
-        <!-- Masonry Layout for Desktop/Tablet -->
-        <div id="masonry-gallery" class="gallery-grid hidden md:block">
-            <!-- Each image will be a gallery item -->
+        <div id="masonry-gallery" class="gallery-grid hidden md:block" data-masonry='{ "itemSelector": ".gallery-item", "percentPosition": true }'>
             <div class="gallery-item">
                 <img src="images/DZC_3696_E_VMP.jpg" alt="Gallery Image 3 Keep H" class="rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
             </div>
@@ -115,13 +100,9 @@
             </div>
         </div>
 
-        <!-- Carousel Layout for Mobile -->
         <div id="mobile-gallery-carousel" class="relative flex items-center justify-center md:hidden">
-            <!-- Carousel Container (Viewport) -->
             <div id="galleryCarouselMobile" class="rounded-lg shadow-lg mobile-carousel-container">
-                <!-- Inner Carousel Container (holds all images and moves) -->
                 <div id="innerCarouselMobile" class="mobile-inner-carousel">
-                    <!-- Each image will be a gallery item -->
                     <img src="images/DZC_3696_E_VMP.jpg" alt="Gallery Image 3 Keep H" class="mobile-gallery-image">                       
                     <img src="images/Maternity_1.jpg" alt="Gallery Image 1 H" class="mobile-gallery-image">
                     <img src="images/DZC_1446_E_VMP.jpg" alt="Gallery Image 5 H" class="mobile-gallery-image">                  
@@ -131,7 +112,6 @@
                 </div>
             </div>
 
-            <!-- Navigation Arrows for Mobile Carousel -->
             <button id="carouselPrevMobile" class="mobile-carousel-nav-button left">
                 <i class="fas fa-chevron-left"></i>
             </button>
@@ -140,20 +120,16 @@
             </button>
         </div>
 
-        <!-- View More Pictures Button -->
         <div class="text-center mt-12">
             <a href="gallery.html" class="bg-primary-blue text-white font-bold py-3 px-8 rounded-full hover:bg-primary-blue hover:text-white transition duration-300 transform hover:scale-105 shadow-lg font-trajan-pro-3 inline-block">View More Pictures</a>
         </div>
 
     </section>
 
-    <!-- Services Section -->
     <section id="services" class="py-16 bg-primary-blue text-white">
         <div class="container mx-auto px-4">
             <h2 class="text-4xl font-trajan-pro-3 text-center mb-12">Our Services</h2>
-            <!-- Changed from grid to flex for independent card expansion -->
             <div class="flex flex-wrap justify-center gap-8">
-                <!-- Service Card 1: Portraits -->
                 <div class="service-card w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.333rem)]" data-service="portraits">
                     <div class="service-card-header">
                         <i class="fas fa-camera text-4xl text-primary-blue"></i>
@@ -166,7 +142,6 @@
                             <a href="gallery.html#gallery-portraits" class="text-primary-blue hover:underline font-bold font-trajan-pro-3 block mx-auto">View Samples</a>                    
                     </div>
                 </div>
-                <!-- Service Card 2: Engagement Photos -->
                 <div class="service-card w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.333rem)]" data-service="engagement">
                     <div class="service-card-header">
                         <i class="fas fa-heart text-4xl text-primary-blue"></i>
@@ -179,7 +154,6 @@
                         <a href="gallery.html#gallery-engagement" class="text-primary-blue hover:underline font-bold font-trajan-pro-3 block mx-auto">View Samples</a>
                     </div>
                 </div>  
-                <!-- Service Card 3: Family Photos (Outdoor) -->
                 <div class="service-card w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.333rem)]" data-service="family">
                     <div class="service-card-header">
                         <i class="fas fa-users text-4xl text-primary-blue"></i>
@@ -192,7 +166,6 @@
                         <a href="gallery.html#gallery-family" class="text-primary-blue hover:underline font-bold font-trajan-pro-3 block mx-auto">View Samples</a>
                     </div>
                 </div>
-                <!-- Service Card 4: Maternity Photos -->
                 <div class="service-card w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.333rem)]" data-service="maternity">
                     <div class="service-card-header">
                         <i class="fas fa-baby text-4xl text-primary-blue"></i>
@@ -205,7 +178,6 @@
                         <a href="gallery.html#gallery-maternity" class="text-primary-blue hover:underline font-bold font-trajan-pro-3 block mx-auto">View Samples</a>
                     </div>
                 </div>
-                <!-- Service Card 5: Newborn Photos -->
                 <div class="service-card w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.333rem)]" data-service="newborn">
                     <div class="service-card-header">
                         <i class="fas fa-baby-carriage text-4xl text-primary-blue"></i>
@@ -218,7 +190,6 @@
                         <a href="gallery.html#gallery-newborn" class="text-primary-blue hover:underline font-bold font-trajan-pro-3 block mx-auto">View Samples</a>
                     </div>
                 </div>
-                <!-- Service Card 6: Senior/Graduation Photos -->
                 <div class="service-card w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.333rem)]" data-service="senior-graduation">
                     <div class="service-card-header">
                         <i class="fas fa-graduation-cap text-4xl text-primary-blue"></i>
@@ -231,7 +202,6 @@
                         <a href="gallery.html#gallery-senior" class="text-primary-blue hover:underline font-bold font-trajan-pro-3 block mx-auto">View Samples</a>
                     </div>
                 </div>
-                <!-- Service Card 7: Weddings -->
                 <div class="service-card w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.333rem)]" data-service="weddings">
                     <div class="service-card-header">
                         <i class="fas fa-ring text-4xl text-primary-blue"></i>
@@ -244,7 +214,6 @@
                         <a href="gallery.html#gallery-weddings" class="text-primary-blue hover:underline font-bold font-trajan-pro-3 block mx-auto">View Samples</a>
                     </div>
                 </div>
-                <!-- Service Card 8: Professional Headshots -->
                 <div class="service-card w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.333rem)]" data-service="headshots">
                     <div class="service-card-header">
                         <i class="fas fa-user-tie text-4xl text-primary-blue"></i>
@@ -264,7 +233,6 @@
         </div>
     </section>
 
-    <!-- About Us Section -->
     <section id="about" class="container mx-auto py-16 px-4 bg-gray-100">
         <h2 class="text-4xl font-trajan-pro-3 text-center mb-12 text-primary-blue">About Vivid Memories Photography</h2>
         <p class="text-base leading-relaxed max-w-3xl mx-auto mb-8 text-justify">
@@ -276,18 +244,15 @@
              onerror="this.onerror=null;this.src='https://placehold.co/128x128/21229d/FFFFFF?text=Logo';">
     </section>
 
-    <!-- Contact Section -->
     <section id="contact" class="py-16 bg-primary-blue text-white">
         <div class="container mx-auto px-4">
             <h2 class="text-4xl text-center mb-12 font-trajan-pro-3">Get in Touch</h2>
             <div class="flex flex-col items-center space-y-8">
-                <!-- Email -->
                 <div class="text-center">
                     <p class="text-xl mb-8">Reach out to us. We'd love to hear from you!</p>
                     <a href="contact.html" class="bg-accent-green text-primary-blue font-bold py-3 px-8 rounded-full hover:bg-white hover:text-accent-green transition duration-300 transform hover:scale-105 shadow-lg font-trajan-pro-3">Contact Us</a>
                 </div>
 
-                <!-- Social Media Links -->
                 <div class="text-center">
                     <p class="text-xl mb-4">Connect with us on social media:</p>
                     <div class="flex space-x-6 justify-center">
@@ -305,14 +270,12 @@
         </div>
     </section>
 
-    <!-- Footer Section -->
     <footer class="bg-gray-800 text-white py-8 text-center">
         <div class="container mx-auto">
             <p>© <span id="currentYear"></span> Vivid Memories Photography. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- Image Modal/Lightbox Structure -->
     <div id="imageModal" class="modal-overlay">
         <div class="modal-content">
             <img id="modalImage" class="modal-image" src="" alt="Gallery Image">
@@ -322,11 +285,11 @@
         </div>
     </div>
 
-    <!-- Scroll-to-Top FAB -->
     <button id="scrollTopFab" aria-label="Scroll to top">
         <i class="fas fa-arrow-up"></i>
     </button>
 
     <script src="js/main.js"></script>
+    <script src="js/gallery.js"></script>
 </body>
 </html>
