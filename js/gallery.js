@@ -7,14 +7,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const closeModalButton = document.getElementById('closeModalButton');
     const scrollTopFab = document.getElementById('scrollTopFab');
     const yearSpan = document.getElementById('currentYear');
-    // Removed mobile menu related elements from here, as main.js will handle them.
-    // const hamburgerButton = document.getElementById('hamburger-button');
-    // const closeMenuButton = document.getElementById('close-button');
-    // const mobileMenu = document.getElementById('mobile-menu-container');
 
     // --- State Variables ---
     // Collect all image URLs from all gallery sections for the lightbox
-    // This now queries both masonry images and mobile carousel images
     const allGalleryImagesElements = document.querySelectorAll('.gallery-item img, .mobile-gallery-image');
     const imageUrls = Array.from(allGalleryImagesElements).map(img => img.src);
     let currentOverallImageIndex = 0; // This will track the index for the global lightbox
@@ -54,9 +49,6 @@ document.addEventListener('DOMContentLoaded', function () {
             modalImage.style.opacity = 1; // Fade in
         }, 300); // Match CSS transition duration
     }
-
-    // --- Mobile Menu Toggle (Removed from here - now handled solely by main.js) ---
-    // function toggleMobileMenuState() { ... }
 
     // --- Scroll-to-Top FAB ---
     function handleScroll() {
@@ -251,12 +243,6 @@ document.addEventListener('DOMContentLoaded', function () {
             if (e.key === 'Escape') closeModal();
         }
     });
-
-    // Mobile menu listeners (Removed from here - now handled solely by main.js)
-    // if (hamburgerButton && closeMenuButton && mobileMenu) {
-    //     hamburgerButton.addEventListener('click', toggleMobileMenuState);
-    //     closeMenuButton.addEventListener('click', toggleMobileMenuState);
-    // }
 
     // Scroll-to-top listeners
     window.addEventListener('scroll', handleScroll);

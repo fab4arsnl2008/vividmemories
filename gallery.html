@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google Tag Manager -->
     <script>
         (function (w, d, s, l, i) {
             w[l] = w[l] || []; w[l].push({
@@ -11,28 +10,24 @@
                 j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
                     'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
         })(window, document, 'script', 'dataLayer', 'GTM-NJDTZQ9Z');</script>
-    <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gallery | Vivid Memories Photography</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://use.typekit.net/xtn8ihj.css">
     <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body class="bg-gray-100 text-gray-800">
-    <!-- Google Tag Manager (noscript) -->
     <noscript>
         <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJDTZQ9Z"
                 height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
-    <!-- End Google Tag Manager (noscript) -->
-    <!-- Header Section -->
     <header class="bg-primary-blue text-white shadow-lg sticky top-0 z-50 py-4 px-4 md:px-0">
         <div class="container mx-auto flex justify-between items-center">
-            <!-- Logo -->
             <div class="flex-shrink-0">
                 <a href="index.html">
                     <img src="images/Vivid Memories-color-banner.png"
@@ -42,10 +37,8 @@
                 </a>
             </div>
 
-            <!-- Desktop Navigation -->
             <nav class="hidden md:flex md:items-center md:space-x-6">
                 <ul class="flex space-x-6">
-                    <!-- Links point to index.html sections -->
                     <li><a href="index.html#home" class="hover:text-accent-green transition duration-300 font-trajan-pro-3">Home</a></li>
                     <li><a href="gallery.html" class="text-accent-green transition duration-300 font-trajan-pro-3">Gallery</a></li>
                     <li><a href="services.html" class="hover:text-accent-green transition duration-300 font-trajan-pro-3">Services</a></li>
@@ -54,7 +47,6 @@
                 </ul>
             </nav>
 
-            <!-- Mobile Menu Button -->
             <div class="md:hidden">
                 <button id="hamburger-button" class="text-white focus:outline-none py-1 pl-1 pr-0 rounded hover:bg-gray-700">
                     <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M4 6h16M4 12h16m-7 6h7"></path></svg>
@@ -65,7 +57,6 @@
             </div>
         </div>
 
-        <!-- Mobile Navigation -->
         <nav id="mobile-menu-container" class="md:hidden absolute top-full left-0 w-full bg-primary-blue shadow-lg">
             <ul class="flex flex-col items-center space-y-2 py-4">
                 <li><a href="index.html#home" class="hover:text-accent-green transition duration-300 mobile-menu-link font-trajan-pro-3">Home</a></li>
@@ -77,7 +68,6 @@
         </nav>
     </header>
 
-    <!-- Main Content -->
     <main>
         <div class="container mx-auto px-4">
             <h1 class="text-5xl font-trajan-pro-3 text-center pt-16 mb-12 text-primary-blue">Our Gallery</h1>
@@ -93,19 +83,16 @@
             </p>
         </div>
 
-        <!-- Portraits Section (style updated for desktop) -->
         <section id="gallery-portraits" class="py-16 bg-primary-blue text-white">
             <div class="container mx-auto px-4">
                 <h2 class="text-4xl font-trajan-pro-3 text-center mb-8 text-white">Portraits</h2>
-                <!-- Centered Grid Layout for Desktop/Tablet -->
-                <div class="hidden md:grid md:grid-cols-6 md:gap-4">
-                    <div class="gallery-item md:col-span-2"><img src="images/Portraits_1.jpg" alt="Portrait 1"></div>
-                    <div class="gallery-item md:col-span-2"><img src="images/Portraits_2.jpg" alt="Portrait 2"></div>
-                    <div class="gallery-item md:col-span-2"><img src="images/Portraits_3.jpg" alt="Portrait 3"></div>
-                    <div class="gallery-item md:col-start-2 md:col-span-2"><img src="images/Portraits_4.jpg" alt="Portrait 4"></div>
-                    <div class="gallery-item md:col-span-2"><img src="images/Portraits_5.jpg" alt="Portrait 5"></div>
+                <div class="gallery-grid hidden md:block" data-masonry='{ "itemSelector": ".gallery-item", "percentPosition": true }'>
+                    <div class="gallery-item"><img src="images/Portraits_1.jpg" alt="Portrait 1"></div>
+                    <div class="gallery-item"><img src="images/Portraits_2.jpg" alt="Portrait 2"></div>
+                    <div class="gallery-item"><img src="images/Portraits_3.jpg" alt="Portrait 3"></div>
+                    <div class="gallery-item"><img src="images/Portraits_4.jpg" alt="Portrait 4"></div>
+                    <div class="gallery-item"><img src="images/Portraits_5.jpg" alt="Portrait 5"></div>
                 </div>
-                <!-- Carousel Layout for Mobile -->
                 <div id="portraits-carousel-mobile" class="relative flex items-center justify-center md:hidden">
                     <div class="mobile-carousel-container">
                         <div class="mobile-inner-carousel">
@@ -116,22 +103,16 @@
                             <img src="images/Portraits_5.jpg" alt="Portrait 5" class="mobile-gallery-image">
                         </div>
                     </div>
-                    <button class="mobile-carousel-nav-button left" data-carousel-id="portraits-carousel-mobile">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button class="mobile-carousel-nav-button right" data-carousel-id="portraits-carousel-mobile">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
+                    <button class="mobile-carousel-nav-button left" data-carousel-id="portraits-carousel-mobile"><i class="fas fa-chevron-left"></i></button>
+                    <button class="mobile-carousel-nav-button right" data-carousel-id="portraits-carousel-mobile"><i class="fas fa-chevron-right"></i></button>
                 </div>
             </div>
         </section>
         
-        <!-- Engagement Photos Section (Reverted to Masonry) -->
         <section id="gallery-engagement" class="py-16 bg-white">
             <div class="container mx-auto px-4">
                 <h2 class="text-4xl font-trajan-pro-3 text-center mb-8 text-primary-blue">Engagement Photos</h2>
-                <!-- Masonry Layout for Desktop/Tablet -->
-                <div class="gallery-grid hidden md:block">
+                <div class="gallery-grid hidden md:block" data-masonry='{ "itemSelector": ".gallery-item", "percentPosition": true }'>
                     <div class="gallery-item"><img src="images/Engagement_1.jpg" alt="Engagement Photo 1"></div>
                     <div class="gallery-item"><img src="images/Engagement_2.jpg" alt="Engagement Photo 2"></div>
                     <div class="gallery-item"><img src="images/Engagement_3.jpg" alt="Engagement Photo 3"></div>
@@ -139,7 +120,6 @@
                     <div class="gallery-item"><img src="images/Engagement_5.jpg" alt="Engagement Photo 5"></div>
                     <div class="gallery-item"><img src="images/Engagement_6.jpg" alt="Engagement Photo 6"></div>
                 </div>
-                <!-- Carousel Layout for Mobile -->
                 <div id="engagement-carousel-mobile" class="relative flex items-center justify-center md:hidden">
                     <div class="mobile-carousel-container">
                         <div class="mobile-inner-carousel">
@@ -151,22 +131,16 @@
                             <img src="images/Engagement_6.jpg" alt="Engagement Photo 6" class="mobile-gallery-image">
                         </div>
                     </div>
-                    <button class="mobile-carousel-nav-button left" data-carousel-id="engagement-carousel-mobile">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button class="mobile-carousel-nav-button right" data-carousel-id="engagement-carousel-mobile">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
+                    <button class="mobile-carousel-nav-button left" data-carousel-id="engagement-carousel-mobile"><i class="fas fa-chevron-left"></i></button>
+                    <button class="mobile-carousel-nav-button right" data-carousel-id="engagement-carousel-mobile"><i class="fas fa-chevron-right"></i></button>
                 </div>
             </div>
         </section>
 
-        <!-- Family Photos Section -->
         <section id="gallery-family" class="py-16 bg-primary-blue text-white">
             <div class="container mx-auto px-4">
                 <h2 class="text-4xl font-trajan-pro-3 text-center mb-8 text-white">Family Photos</h2>
-                <!-- Masonry Layout for Desktop/Tablet -->
-                <div class="gallery-grid hidden md:block">
+                <div class="gallery-grid hidden md:block" data-masonry='{ "itemSelector": ".gallery-item", "percentPosition": true }'>
                     <div class="gallery-item"><img src="images/Family_1.jpg" alt="Family Photo 1"></div>
                     <div class="gallery-item"><img src="images/Family_2.jpg" alt="Family Photo 2"></div>
                     <div class="gallery-item"><img src="images/Family_3.jpg" alt="Family Photo 3"></div>
@@ -174,7 +148,6 @@
                     <div class="gallery-item"><img src="images/Family_5.jpg" alt="Family Photo 5"></div>
                     <div class="gallery-item"><img src="images/Family_6.jpg" alt="Family Photo 6"></div>
                 </div>
-                <!-- Carousel Layout for Mobile -->
                 <div id="family-carousel-mobile" class="relative flex items-center justify-center md:hidden">
                     <div class="mobile-carousel-container">
                         <div class="mobile-inner-carousel">
@@ -186,22 +159,16 @@
                             <img src="images/Family_6.jpg" alt="Family Photo 6" class="mobile-gallery-image">
                         </div>
                     </div>
-                    <button class="mobile-carousel-nav-button left" data-carousel-id="family-carousel-mobile">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button class="mobile-carousel-nav-button right" data-carousel-id="family-carousel-mobile">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
+                    <button class="mobile-carousel-nav-button left" data-carousel-id="family-carousel-mobile"><i class="fas fa-chevron-left"></i></button>
+                    <button class="mobile-carousel-nav-button right" data-carousel-id="family-carousel-mobile"><i class="fas fa-chevron-right"></i></button>
                 </div>
             </div>
         </section>
 
-        <!-- Maternity Photos Section -->
         <section id="gallery-maternity" class="py-16 bg-white">
             <div class="container mx-auto px-4">
                 <h2 class="text-4xl font-trajan-pro-3 text-center mb-8 text-primary-blue">Maternity Photos</h2>
-                <!-- Masonry Layout for Desktop/Tablet -->
-                <div class="gallery-grid hidden md:block">
+                <div class="gallery-grid hidden md:block" data-masonry='{ "itemSelector": ".gallery-item", "percentPosition": true }'>
                     <div class="gallery-item"><img src="images/Maternity_1.jpg" alt="Maternity Photo 1"></div>
                     <div class="gallery-item"><img src="images/Maternity_2.jpg" alt="Maternity Photo 2"></div>
                     <div class="gallery-item"><img src="images/Maternity_3.jpg" alt="Maternity Photo 3"></div>
@@ -210,7 +177,6 @@
                     <div class="gallery-item"><img src="images/Maternity_6.jpg" alt="Maternity Photo 6"></div>
                     <div class="gallery-item"><img src="images/Maternity_7.jpg" alt="Maternity Photo 7"></div>
                 </div>
-                <!-- Carousel Layout for Mobile -->
                 <div id="maternity-carousel-mobile" class="relative flex items-center justify-center md:hidden">
                     <div class="mobile-carousel-container">
                         <div class="mobile-inner-carousel">
@@ -223,29 +189,22 @@
                             <img src="images/Maternity_7.jpg" alt="Maternity Photo 7" class="mobile-gallery-image">
                         </div>
                     </div>
-                    <button class="mobile-carousel-nav-button left" data-carousel-id="maternity-carousel-mobile">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button class="mobile-carousel-nav-button right" data-carousel-id="maternity-carousel-mobile">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
+                    <button class="mobile-carousel-nav-button left" data-carousel-id="maternity-carousel-mobile"><i class="fas fa-chevron-left"></i></button>
+                    <button class="mobile-carousel-nav-button right" data-carousel-id="maternity-carousel-mobile"><i class="fas fa-chevron-right"></i></button>
                 </div>
             </div>
         </section>
 
-        <!-- Newborn Photos Section -->
         <section id="gallery-newborn" class="py-16 bg-primary-blue text-white">
             <div class="container mx-auto px-4">
                 <h2 class="text-4xl font-trajan-pro-3 text-center mb-8 text-white">Newborn Photos</h2>
-                <!-- Masonry Layout for Desktop/Tablet -->
-                <div class="gallery-grid hidden md:block">
+                <div class="gallery-grid hidden md:block" data-masonry='{ "itemSelector": ".gallery-item", "percentPosition": true }'>
                     <div class="gallery-item"><img src="images/Newborn_1.jpg" alt="Newborn Photo 1"></div>
                     <div class="gallery-item"><img src="images/Newborn_2.jpg" alt="Newborn Photo 2"></div>
                     <div class="gallery-item"><img src="images/Newborn_3.jpg" alt="Newborn Photo 3"></div>
                     <div class="gallery-item"><img src="images/Newborn_4.jpg" alt="Newborn Photo 4"></div>
                     <div class="gallery-item"><img src="images/Newborn_5.jpg" alt="Newborn Photo 5"></div>
                 </div>
-                <!-- Carousel Layout for Mobile -->
                 <div id="newborn-carousel-mobile" class="relative flex items-center justify-center md:hidden">
                     <div class="mobile-carousel-container">
                         <div class="mobile-inner-carousel">
@@ -256,29 +215,22 @@
                             <img src="images/Newborn_5.jpg" alt="Newborn Photo 5" class="mobile-gallery-image">
                         </div>
                     </div>
-                    <button class="mobile-carousel-nav-button left" data-carousel-id="newborn-carousel-mobile">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button class="mobile-carousel-nav-button right" data-carousel-id="newborn-carousel-mobile">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
+                    <button class="mobile-carousel-nav-button left" data-carousel-id="newborn-carousel-mobile"><i class="fas fa-chevron-left"></i></button>
+                    <button class="mobile-carousel-nav-button right" data-carousel-id="newborn-carousel-mobile"><i class="fas fa-chevron-right"></i></button>
                 </div>
             </div>
         </section>
 
-        <!-- Senior/Graduation Photos Section -->
         <section id="gallery-senior" class="py-16 bg-white">
             <div class="container mx-auto px-4">
                 <h2 class="text-4xl font-trajan-pro-3 text-center mb-8 text-primary-blue">Senior / Graduation</h2>
-                <!-- Masonry Layout for Desktop/Tablet -->
-                <div class="gallery-grid hidden md:block">
+                <div class="gallery-grid hidden md:block" data-masonry='{ "itemSelector": ".gallery-item", "percentPosition": true }'>
                     <div class="gallery-item"><img src="images/Senior_1.jpg" alt="Senior Photo 1"></div>
                     <div class="gallery-item"><img src="images/Senior_2.jpg" alt="Senior Photo 2"></div>
                     <div class="gallery-item"><img src="images/Senior_3.jpg" alt="Senior Photo 3"></div>
                     <div class="gallery-item"><img src="images/Senior_4.jpg" alt="Senior Photo 4"></div>
                     <div class="gallery-item"><img src="images/Senior_5.jpg" alt="Senior Photo 5"></div>
                 </div>
-                <!-- Carousel Layout for Mobile -->
                 <div id="senior-carousel-mobile" class="relative flex items-center justify-center md:hidden">
                     <div class="mobile-carousel-container">
                         <div class="mobile-inner-carousel">
@@ -289,29 +241,22 @@
                             <img src="images/Senior_5.jpg" alt="Senior Photo 5" class="mobile-gallery-image">
                         </div>
                     </div>
-                    <button class="mobile-carousel-nav-button left" data-carousel-id="senior-carousel-mobile">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button class="mobile-carousel-nav-button right" data-carousel-id="senior-carousel-mobile">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
+                    <button class="mobile-carousel-nav-button left" data-carousel-id="senior-carousel-mobile"><i class="fas fa-chevron-left"></i></button>
+                    <button class="mobile-carousel-nav-button right" data-carousel-id="senior-carousel-mobile"><i class="fas fa-chevron-right"></i></button>
                 </div>
             </div>
         </section>
 
-        <!-- Weddings Section (style updated for desktop) -->
         <section id="gallery-weddings" class="py-16 bg-primary-blue text-white">
             <div class="container mx-auto px-4">
                 <h2 class="text-4xl font-trajan-pro-3 text-center mb-8 text-white">Weddings</h2>
-                <!-- Centered Grid Layout for Desktop/Tablet -->
-                <div class="hidden md:grid md:grid-cols-6 md:gap-4">
-                    <div class="gallery-item md:col-span-2"><img src="images/Wedding_1.jpg" alt="Wedding Photo 1"></div>
-                    <div class="gallery-item md:col-span-2"><img src="images/Wedding_2.jpg" alt="Wedding Photo 2"></div>
-                    <div class="gallery-item md:col-span-2"><img src="images/Wedding_3.jpg" alt="Wedding Photo 3"></div>
-                    <div class="gallery-item md:col-start-2 md:col-span-2"><img src="images/Wedding_4.jpg" alt="Wedding Photo 4"></div>
-                    <div class="gallery-item md:col-span-2"><img src="images/Wedding_5.jpg" alt="Wedding Photo 5"></div>
+                <div class="gallery-grid hidden md:block" data-masonry='{ "itemSelector": ".gallery-item", "percentPosition": true }'>
+                    <div class="gallery-item"><img src="images/Wedding_1.jpg" alt="Wedding Photo 1"></div>
+                    <div class="gallery-item"><img src="images/Wedding_2.jpg" alt="Wedding Photo 2"></div>
+                    <div class="gallery-item"><img src="images/Wedding_3.jpg" alt="Wedding Photo 3"></div>
+                    <div class="gallery-item"><img src="images/Wedding_4.jpg" alt="Wedding Photo 4"></div>
+                    <div class="gallery-item"><img src="images/Wedding_5.jpg" alt="Wedding Photo 5"></div>
                 </div>
-                <!-- Carousel Layout for Mobile -->
                 <div id="weddings-carousel-mobile" class="relative flex items-center justify-center md:hidden">
                     <div class="mobile-carousel-container">
                         <div class="mobile-inner-carousel">
@@ -322,29 +267,22 @@
                             <img src="images/Wedding_5.jpg" alt="Wedding Photo 5" class="mobile-gallery-image">
                         </div>
                     </div>
-                    <button class="mobile-carousel-nav-button left" data-carousel-id="weddings-carousel-mobile">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button class="mobile-carousel-nav-button right" data-carousel-id="weddings-carousel-mobile">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
+                    <button class="mobile-carousel-nav-button left" data-carousel-id="weddings-carousel-mobile"><i class="fas fa-chevron-left"></i></button>
+                    <button class="mobile-carousel-nav-button right" data-carousel-id="weddings-carousel-mobile"><i class="fas fa-chevron-right"></i></button>
                 </div>
             </div>
         </section>
 
-        <!-- Professional Headshots Section -->
         <section id="gallery-headshots" class="py-16 bg-white">
             <div class="container mx-auto px-4">
                 <h2 class="text-4xl font-trajan-pro-3 text-center mb-8 text-primary-blue">Professional Headshots</h2>
-                <!-- Masonry Layout for Desktop/Tablet -->
-                <div class="gallery-grid hidden md:block">
+                <div class="gallery-grid hidden md:block" data-masonry='{ "itemSelector": ".gallery-item", "percentPosition": true }'>
                     <div class="gallery-item"><img src="images/Headshot_1.jpg" alt="Headshot 1"></div>
                     <div class="gallery-item"><img src="images/Headshot_2.jpg" alt="Headshot 2"></div>
                     <div class="gallery-item"><img src="images/Headshot_3.jpg" alt="Headshot 3"></div>
                     <div class="gallery-item"><img src="images/Headshot_4.jpg" alt="Headshot 4"></div>
                     <div class="gallery-item"><img src="images/Headshot_5.jpg" alt="Headshot 5"></div>
                 </div>
-                <!-- Carousel Layout for Mobile -->
                 <div id="headshots-carousel-mobile" class="relative flex items-center justify-center md:hidden">
                     <div class="mobile-carousel-container">
                         <div class="mobile-inner-carousel">
@@ -355,27 +293,20 @@
                             <img src="images/Headshot_5.jpg" alt="Headshot 5" class="mobile-gallery-image">
                         </div>
                     </div>
-                    <button class="mobile-carousel-nav-button left" data-carousel-id="headshots-carousel-mobile">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button class="mobile-carousel-nav-button right" data-carousel-id="headshots-carousel-mobile">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
+                    <button class="mobile-carousel-nav-button left" data-carousel-id="headshots-carousel-mobile"><i class="fas fa-chevron-left"></i></button>
+                    <button class="mobile-carousel-nav-button right" data-carousel-id="headshots-carousel-mobile"><i class="fas fa-chevron-right"></i></button>
                 </div>
             </div>
         </section>
 
-        <!-- Contact Section -->
         <section id="contact-gallery" class="py-16 bg-primary-blue text-white">
             <div class="container mx-auto px-4">
                 <h2 class="text-4xl text-center mb-12 font-trajan-pro-3">For more examples of our work, get in touch:</h2>
                 <div class="flex flex-col items-center space-y-8">
-                    <!-- Email -->
                     <div class="text-center">
                         <a href="contact.html" class="bg-accent-green text-primary-blue font-bold py-3 px-8 rounded-full hover:bg-white hover:text-accent-green transition duration-300 transform hover:scale-105 shadow-lg font-trajan-pro-3">Contact Us</a>
                     </div>
 
-                    <!-- Social Media Links -->
                     <div class="text-center">
                         <p class="text-xl mb-4">Connect with us on social media:</p>
                         <div class="flex space-x-6 justify-center">
@@ -395,14 +326,12 @@
 
     </main>
 
-    <!-- Footer Section -->
     <footer class="bg-gray-800 text-white py-8 text-center">
         <div class="container mx-auto">
             <p>© <span id="currentYear"></span> Vivid Memories Photography. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- Image Modal/Lightbox Structure -->
     <div id="imageModal" class="modal-overlay">
         <div class="modal-content">
             <img id="modalImage" class="modal-image" src="" alt="Gallery Image">
@@ -412,14 +341,11 @@
         </div>
     </div>
 
-    <!-- Scroll-to-Top FAB -->
     <button id="scrollTopFab" aria-label="Scroll to top">
         <i class="fas fa-arrow-up"></i>
     </button>
 
-    <!-- Link to the main JavaScript file for shared functionalities -->
     <script src="js/main.js"></script>
-    <!-- Link to the new gallery-specific JavaScript file -->
     <script src="js/gallery.js"></script>
 </body>
 </html>
