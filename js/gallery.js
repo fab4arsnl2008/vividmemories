@@ -125,7 +125,9 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
 
-        // Drag/swipe functionality
+        // --- Drag/Swipe Functionality ---
+
+        // 1. MOUSE EVENTS (Already correct - attached to window)
         scrollableCarouselContainer.addEventListener('mousedown', (e) => {
             isDragging = true;
             startX = e.clientX;
@@ -154,13 +156,15 @@ document.addEventListener('DOMContentLoaded', function () {
             scrollableCarouselContainer.scrollLeft = scrollLeftStart - walk;
         });
 
+        // 2. TOUCH EVENTS (UPDATED: Move/End attached to window)
         scrollableCarouselContainer.addEventListener('touchstart', (e) => {
             isDragging = true;
             startX = e.touches[0].clientX;
             scrollLeftStart = scrollableCarouselContainer.scrollLeft;
         });
 
-        scrollableCarouselContainer.addEventListener('touchend', () => {
+        // UPDATED: Attached to window to catch lifts outside the element
+        window.addEventListener('touchend', () => {
             if (isDragging) {
                 isDragging = false;
                 clearTimeout(autoScrollTimeout);
@@ -170,9 +174,10 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-        scrollableCarouselContainer.addEventListener('touchmove', (e) => {
+        // UPDATED: Attached to window to allow swiping "off-canvas"
+        window.addEventListener('touchmove', (e) => {
             if (!isDragging) return;
-            e.preventDefault();
+            e.preventDefault(); // Prevents page scrolling while swiping carousel
             const x = e.touches[0].clientX;
             const walk = (x - startX);
             scrollableCarouselContainer.scrollLeft = scrollLeftStart - walk;
@@ -205,7 +210,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     // --- Event Listeners (Global Modal) ---
-    // These only need to be added once per page load
     if (imageModal) {
         closeModalButton.addEventListener('click', closeModal);
         prevButton.addEventListener('click', showPrevImage);
