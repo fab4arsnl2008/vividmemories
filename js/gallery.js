@@ -5,26 +5,26 @@ document.addEventListener('DOMContentLoaded', function () {
     const prevButton = document.getElementById('prevButton');
     const nextButton = document.getElementById('nextButton');
     const closeModalButton = document.getElementById('closeModalButton');
-    const scrollTopFab = document.getElementById('scrollTopFab');
-    const yearSpan = document.getElementById('currentYear');
 
     // --- State Variables ---
-    // Collect all image URLs from all gallery sections for the lightbox
     const allGalleryImagesElements = document.querySelectorAll('.gallery-item img, .mobile-gallery-image');
+    
+    if (allGalleryImagesElements.length === 0) return;
+
     const imageUrls = Array.from(allGalleryImagesElements).map(img => img.src);
-    let currentOverallImageIndex = 0; // This will track the index for the global lightbox
+    let currentOverallImageIndex = 0; 
 
     // --- Modal Functions ---
     function openModal(index) {
         currentOverallImageIndex = index;
-        modalImage.style.opacity = 0; // Start fade out
+        modalImage.style.opacity = 0; 
         setTimeout(() => {
             modalImage.src = imageUrls[currentOverallImageIndex];
-            modalImage.style.opacity = 1; // Fade in
-        }, 50); // Small delay for fade effect
+            modalImage.style.opacity = 1; 
+        }, 50); 
 
         imageModal.classList.add('active');
-        document.body.classList.add('modal-active'); // For blurring background
+        document.body.classList.add('modal-active'); 
     }
 
     function closeModal() {
@@ -33,60 +33,96 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function showPrevImage() {
-        modalImage.style.opacity = 0; // Start fade out
+        modalImage.style.opacity = 0; 
         setTimeout(() => {
             currentOverallImageIndex = (currentOverallImageIndex - 1 + imageUrls.length) % imageUrls.length;
             modalImage.src = imageUrls[currentOverallImageIndex];
-            modalImage.style.opacity = 1; // Fade in
-        }, 300); // Match CSS transition duration
+            modalImage.style.opacity = 1; 
+        }, 300); 
     }
 
     function showNextImage() {
-        modalImage.style.opacity = 0; // Start fade out
+        modalImage.style.opacity = 0; 
         setTimeout(() => {
             currentOverallImageIndex = (currentOverallImageIndex + 1) % imageUrls.length;
             modalImage.src = imageUrls[currentOverallImageIndex];
-            modalImage.style.opacity = 1; // Fade in
-        }, 300); // Match CSS transition duration
+            modalImage.style.opacity = 1; 
+        }, 300); 
     }
 
-    // --- Scroll-to-Top FAB ---
-    function handleScroll() {
-        if (window.scrollY > 300) {
-            scrollTopFab.classList.add('show');
-        } else {
-            scrollTopFab.classList.remove('show');
+    // ============================================================
+    //  PERFORMANCE OPTIMIZED CAROUSEL LOGIC
+    // ============================================================
+
+    // 1. Define Global State (The "Active" Drag)
+    let activeDragState = null; 
+    let autoScrollTimeout = null;
+
+    // 2. Define Global Window Listeners (Only added ONCE)
+    
+    const handleGlobalMove = (clientX) => {
+        if (!activeDragState) return;
+        const walk = clientX - activeDragState.startX;
+        activeDragState.container.scrollLeft = activeDragState.scrollLeftStart - walk;
+    };
+
+    const handleGlobalEnd = () => {
+        if (!activeDragState) return;
+
+        // Reset styles
+        activeDragState.container.style.cursor = 'grab';
+        activeDragState.container.style.removeProperty('user-select');
+
+        // Run the update function specific to the carousel we just dropped
+        clearTimeout(autoScrollTimeout);
+        autoScrollTimeout = setTimeout(() => {
+            if (activeDragState && activeDragState.onDragEnd) {
+                activeDragState.onDragEnd();
+            }
+            // Clear the state
+            activeDragState = null;
+        }, 50);
+    };
+
+    // Attach Mouse Listeners to Window
+    window.addEventListener('mousemove', (e) => {
+        if (activeDragState) {
+            e.preventDefault();
+            handleGlobalMove(e.clientX);
         }
-    }
+    });
 
-    function scrollToTop() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    }
+    window.addEventListener('mouseup', handleGlobalEnd);
 
-    // --- Mobile Carousel Initialization and Logic (for each carousel section) ---
-    const mobileCarousels = document.querySelectorAll('[id$="-carousel-mobile"]'); // Selects all divs ending with -carousel-mobile
+    // Attach Touch Listeners to Window
+    window.addEventListener('touchmove', (e) => {
+        if (activeDragState) {
+            e.preventDefault(); // Prevent scrolling the page while swiping carousel
+            handleGlobalMove(e.touches[0].clientX);
+        }
+    }, { passive: false }); // 'passive: false' allows preventing default
+
+    window.addEventListener('touchend', handleGlobalEnd);
+
+
+    // 3. Initialize Carousels (The Setup Loop)
+    const mobileCarousels = document.querySelectorAll('[id$="-carousel-mobile"], #mobile-gallery-carousel'); 
 
     mobileCarousels.forEach(carouselContainer => {
-        // Corrected: Target the actual scrollable container for events and scroll properties
         const scrollableCarouselContainer = carouselContainer.querySelector('.mobile-carousel-container');
-        const mobileGalleryImages = Array.from(carouselContainer.querySelectorAll('.mobile-gallery-image')); // Convert to array for easier indexing
+        if (!scrollableCarouselContainer) return;
+
+        const mobileGalleryImages = Array.from(carouselContainer.querySelectorAll('.mobile-gallery-image'));
         const carouselPrevButton = carouselContainer.querySelector('.mobile-carousel-nav-button.left');
         const carouselNextButton = carouselContainer.querySelector('.mobile-carousel-nav-button.right');
 
-        let currentLocalImageIndex = 0; // Local index for THIS carousel
-        let isDragging = false;
-        let startX;
-        let scrollLeftStart;
-        let autoScrollTimeout;
+        // Local state for buttons/arrows
+        let currentLocalImageIndex = 0;
 
-        // Function to update carousel selection and arrow states for a specific mobile carousel
-        function updateCarouselSelectionAndArrows() {
+        // Function to update arrows (passed to global state later)
+        const updateCarouselSelectionAndArrows = () => {
             if (!scrollableCarouselContainer || mobileGalleryImages.length === 0) return;
 
-            // Determine the closest image to the center of the viewport for this carousel
             const carouselCenter = scrollableCarouselContainer.scrollLeft + scrollableCarouselContainer.offsetWidth / 2;
             let closestImageIdx = 0;
             let minDistance = Infinity;
@@ -100,30 +136,28 @@ document.addEventListener('DOMContentLoaded', function () {
                     closestImageIdx = idx;
                 }
             });
-            currentLocalImageIndex = closestImageIdx; // Update local index based on scroll position
+            currentLocalImageIndex = closestImageIdx;
 
-            // Update button states for this specific carousel
             if (carouselPrevButton) {
                 carouselPrevButton.disabled = currentLocalImageIndex === 0;
             }
             if (carouselNextButton) {
                 carouselNextButton.disabled = currentLocalImageIndex === mobileGalleryImages.length - 1;
             }
-        }
+        };
 
-        // Function to scroll to an image in a specific mobile carousel
-        function scrollToMobileImage(index) {
+        // Arrow Button Logic
+        const scrollToMobileImage = (index) => {
             if (!mobileGalleryImages[index]) return;
             mobileGalleryImages[index].scrollIntoView({
                 behavior: 'smooth',
                 block: 'nearest',
                 inline: 'center'
             });
-            currentLocalImageIndex = index; // Update local index after scrolling
-            updateCarouselSelectionAndArrows(); // Update arrow states after scroll
-        }
+            currentLocalImageIndex = index; 
+            updateCarouselSelectionAndArrows(); 
+        };
 
-        // Event listeners for mobile carousel navigation buttons
         if (carouselNextButton) {
             carouselNextButton.addEventListener('click', () => {
                 if (currentLocalImageIndex < mobileGalleryImages.length - 1) {
@@ -140,76 +174,45 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
 
-        // Drag/swipe functionality for this specific carousel
-        if (scrollableCarouselContainer) { // Use the corrected scrollable container
-            scrollableCarouselContainer.addEventListener('mousedown', (e) => {
-                isDragging = true;
-                startX = e.clientX;
-                scrollLeftStart = scrollableCarouselContainer.scrollLeft;
-                scrollableCarouselContainer.style.cursor = 'grabbing';
-                scrollableCarouselContainer.style.userSelect = 'none';
-            });
+        // 4. Attach "Start" Listeners to the specific carousel
+        // This creates the "Active Drag" object when touched
 
-            window.addEventListener('mouseup', () => {
-                if (isDragging) {
-                    isDragging = false;
-                    scrollableCarouselContainer.style.cursor = 'grab';
-                    scrollableCarouselContainer.style.removeProperty('user-select');
-                    clearTimeout(autoScrollTimeout);
-                    autoScrollTimeout = setTimeout(() => {
-                        updateCarouselSelectionAndArrows(); // Important: update arrows after drag ends
-                    }, 50);
-                }
-            });
+        const startDrag = (clientX) => {
+            activeDragState = {
+                container: scrollableCarouselContainer,
+                startX: clientX,
+                scrollLeftStart: scrollableCarouselContainer.scrollLeft,
+                onDragEnd: updateCarouselSelectionAndArrows // Pass the callback!
+            };
+            scrollableCarouselContainer.style.cursor = 'grabbing';
+            scrollableCarouselContainer.style.userSelect = 'none';
+        };
 
-            window.addEventListener('mousemove', (e) => {
-                if (!isDragging) return;
-                e.preventDefault(); // Prevent default text selection/dragging
-                const x = e.clientX;
-                const walk = (x - startX);
-                scrollableCarouselContainer.scrollLeft = scrollLeftStart - walk;
-            });
+        scrollableCarouselContainer.addEventListener('mousedown', (e) => {
+            startDrag(e.clientX);
+        });
 
-            scrollableCarouselContainer.addEventListener('touchstart', (e) => {
-                isDragging = true;
-                startX = e.touches[0].clientX;
-                scrollLeftStart = scrollableCarouselContainer.scrollLeft;
-            });
+        scrollableCarouselContainer.addEventListener('touchstart', (e) => {
+            startDrag(e.touches[0].clientX);
+        });
 
-            scrollableCarouselContainer.addEventListener('touchend', () => {
-                if (isDragging) {
-                    isDragging = false;
-                    clearTimeout(autoScrollTimeout);
-                    autoScrollTimeout = setTimeout(() => {
-                        updateCarouselSelectionAndArrows(); // Important: update arrows after drag ends
-                    }, 50);
-                }
-            });
-
-            scrollableCarouselContainer.addEventListener('touchmove', (e) => {
-                if (!isDragging) return;
-                e.preventDefault(); // Crucial to prevent native scrolling and enable custom drag
-                const x = e.touches[0].clientX;
-                const walk = (x - startX);
-                scrollableCarouselContainer.scrollLeft = scrollLeftStart - walk;
-            });
-
-            scrollableCarouselContainer.addEventListener('scroll', () => {
+        // Update arrows on scroll (for momentum scrolling)
+        scrollableCarouselContainer.addEventListener('scroll', () => {
+            // Only run this if we AREN'T currently dragging (to save performance)
+            if (!activeDragState) {
                 clearTimeout(autoScrollTimeout);
                 autoScrollTimeout = setTimeout(() => {
-                    updateCarouselSelectionAndArrows(); // Update arrows while scrolling
+                    updateCarouselSelectionAndArrows(); 
                 }, 100);
-            });
-        }
+            }
+        });
 
-        // Initial update for this mobile carousel if visible
+        // Initial check on load
         if (window.innerWidth < 768) {
-            setTimeout(() => {
-                updateCarouselSelectionAndArrows();
-            }, 100);
+            setTimeout(updateCarouselSelectionAndArrows, 100);
         }
-
-        // Re-evaluate carousel state on resize if applicable for this specific carousel
+        
+        // Re-check on resize
         let lastWindowWidth = window.innerWidth;
         window.addEventListener('resize', () => {
             if (window.innerWidth !== lastWindowWidth) {
@@ -221,67 +224,27 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    // --- Global Modal Listeners ---
+    if (imageModal) {
+        closeModalButton.addEventListener('click', closeModal);
+        prevButton.addEventListener('click', showPrevImage);
+        nextButton.addEventListener('click', showNextImage);
+        imageModal.addEventListener('click', (e) => {
+            if (e.target === imageModal) {
+                closeModal();
+            }
+        });
 
-    // --- Event Listeners (Global) ---
+        document.addEventListener('keydown', (e) => {
+            if (imageModal.classList.contains('active')) {
+                if (e.key === 'ArrowLeft') showPrevImage();
+                if (e.key === 'ArrowRight') showNextImage();
+                if (e.key === 'Escape') closeModal();
+            }
+        });
+    }
 
-    // Modal listeners
-    closeModalButton.addEventListener('click', closeModal);
-    prevButton.addEventListener('click', showPrevImage);
-    nextButton.addEventListener('click', showNextImage);
-    imageModal.addEventListener('click', (e) => {
-        // Close modal if the overlay (background) is clicked
-        if (e.target === imageModal) {
-            closeModal();
-        }
-    });
-
-    // Keyboard navigation for modal
-    document.addEventListener('keydown', (e) => {
-        if (imageModal.classList.contains('active')) {
-            if (e.key === 'ArrowLeft') showPrevImage();
-            if (e.key === 'ArrowRight') showNextImage();
-            if (e.key === 'Escape') closeModal();
-        }
-    });
-
-    // Scroll-to-top listeners
-    window.addEventListener('scroll', handleScroll);
-    scrollTopFab.addEventListener('click', scrollToTop);
-
-    // Attach click listeners to all gallery images (both masonry and mobile carousel)
     allGalleryImagesElements.forEach((img, index) => {
         img.addEventListener('click', () => openModal(index));
     });
-
-    // Handle scroll-to-section links on gallery.html
-    const galleryNavLinks = document.querySelectorAll('.container.mx-auto.px-4 p.text-center.mb-12 a[href^="#gallery-"]');
-    const header = document.querySelector('header');
-
-    galleryNavLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            const targetId = link.getAttribute('href');
-            if (targetId && targetId !== '#') {
-                e.preventDefault(); // Prevent default jump behavior
-
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    const headerHeight = header ? header.offsetHeight : 0;
-                    const offsetPosition = targetElement.offsetTop - headerHeight;
-
-                    window.scrollTo({
-                        top: offsetPosition,
-                        behavior: 'smooth'
-                    });
-                }
-            }
-        });
-    });
-
-
-    // --- Initialization ---
-
-    // Set the current year in the footer
-    if (yearSpan) {
-        yearSpan.textContent = new Date().getFullYear();
-    }
 });
