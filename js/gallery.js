@@ -7,10 +7,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const closeModalButton = document.getElementById('closeModalButton');
 
     // --- State Variables ---
-    // Collect all image URLs from all gallery sections (works for both Index and Gallery pages)
     const allGalleryImagesElements = document.querySelectorAll('.gallery-item img, .mobile-gallery-image');
     
-    // If there are no images, stop the script to prevent errors
     if (allGalleryImagesElements.length === 0) return;
 
     const imageUrls = Array.from(allGalleryImagesElements).map(img => img.src);
@@ -52,27 +50,77 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 300); 
     }
 
-    // --- Mobile Carousel Initialization ---
-    // This generic selector works for both index.html (id="mobile-gallery-carousel") 
-    // and gallery.html specific carousels.
+    // ============================================================
+    //  PERFORMANCE OPTIMIZED CAROUSEL LOGIC
+    // ============================================================
+
+    // 1. Define Global State (The "Active" Drag)
+    let activeDragState = null; 
+    let autoScrollTimeout = null;
+
+    // 2. Define Global Window Listeners (Only added ONCE)
+    
+    const handleGlobalMove = (clientX) => {
+        if (!activeDragState) return;
+        const walk = clientX - activeDragState.startX;
+        activeDragState.container.scrollLeft = activeDragState.scrollLeftStart - walk;
+    };
+
+    const handleGlobalEnd = () => {
+        if (!activeDragState) return;
+
+        // Reset styles
+        activeDragState.container.style.cursor = 'grab';
+        activeDragState.container.style.removeProperty('user-select');
+
+        // Run the update function specific to the carousel we just dropped
+        clearTimeout(autoScrollTimeout);
+        autoScrollTimeout = setTimeout(() => {
+            if (activeDragState && activeDragState.onDragEnd) {
+                activeDragState.onDragEnd();
+            }
+            // Clear the state
+            activeDragState = null;
+        }, 50);
+    };
+
+    // Attach Mouse Listeners to Window
+    window.addEventListener('mousemove', (e) => {
+        if (activeDragState) {
+            e.preventDefault();
+            handleGlobalMove(e.clientX);
+        }
+    });
+
+    window.addEventListener('mouseup', handleGlobalEnd);
+
+    // Attach Touch Listeners to Window
+    window.addEventListener('touchmove', (e) => {
+        if (activeDragState) {
+            e.preventDefault(); // Prevent scrolling the page while swiping carousel
+            handleGlobalMove(e.touches[0].clientX);
+        }
+    }, { passive: false }); // 'passive: false' allows preventing default
+
+    window.addEventListener('touchend', handleGlobalEnd);
+
+
+    // 3. Initialize Carousels (The Setup Loop)
     const mobileCarousels = document.querySelectorAll('[id$="-carousel-mobile"], #mobile-gallery-carousel'); 
 
     mobileCarousels.forEach(carouselContainer => {
         const scrollableCarouselContainer = carouselContainer.querySelector('.mobile-carousel-container');
-        // If the inner structure isn't found, skip this container
         if (!scrollableCarouselContainer) return;
 
         const mobileGalleryImages = Array.from(carouselContainer.querySelectorAll('.mobile-gallery-image'));
         const carouselPrevButton = carouselContainer.querySelector('.mobile-carousel-nav-button.left');
         const carouselNextButton = carouselContainer.querySelector('.mobile-carousel-nav-button.right');
 
+        // Local state for buttons/arrows
         let currentLocalImageIndex = 0;
-        let isDragging = false;
-        let startX;
-        let scrollLeftStart;
-        let autoScrollTimeout;
 
-        function updateCarouselSelectionAndArrows() {
+        // Function to update arrows (passed to global state later)
+        const updateCarouselSelectionAndArrows = () => {
             if (!scrollableCarouselContainer || mobileGalleryImages.length === 0) return;
 
             const carouselCenter = scrollableCarouselContainer.scrollLeft + scrollableCarouselContainer.offsetWidth / 2;
@@ -96,9 +144,10 @@ document.addEventListener('DOMContentLoaded', function () {
             if (carouselNextButton) {
                 carouselNextButton.disabled = currentLocalImageIndex === mobileGalleryImages.length - 1;
             }
-        }
+        };
 
-        function scrollToMobileImage(index) {
+        // Arrow Button Logic
+        const scrollToMobileImage = (index) => {
             if (!mobileGalleryImages[index]) return;
             mobileGalleryImages[index].scrollIntoView({
                 behavior: 'smooth',
@@ -107,7 +156,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
             currentLocalImageIndex = index; 
             updateCarouselSelectionAndArrows(); 
-        }
+        };
 
         if (carouselNextButton) {
             carouselNextButton.addEventListener('click', () => {
@@ -125,78 +174,45 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
 
-        // --- Drag/Swipe Functionality ---
+        // 4. Attach "Start" Listeners to the specific carousel
+        // This creates the "Active Drag" object when touched
 
-        // 1. MOUSE EVENTS (Already correct - attached to window)
-        scrollableCarouselContainer.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            startX = e.clientX;
-            scrollLeftStart = scrollableCarouselContainer.scrollLeft;
+        const startDrag = (clientX) => {
+            activeDragState = {
+                container: scrollableCarouselContainer,
+                startX: clientX,
+                scrollLeftStart: scrollableCarouselContainer.scrollLeft,
+                onDragEnd: updateCarouselSelectionAndArrows // Pass the callback!
+            };
             scrollableCarouselContainer.style.cursor = 'grabbing';
             scrollableCarouselContainer.style.userSelect = 'none';
+        };
+
+        scrollableCarouselContainer.addEventListener('mousedown', (e) => {
+            startDrag(e.clientX);
         });
 
-        window.addEventListener('mouseup', () => {
-            if (isDragging) {
-                isDragging = false;
-                scrollableCarouselContainer.style.cursor = 'grab';
-                scrollableCarouselContainer.style.removeProperty('user-select');
-                clearTimeout(autoScrollTimeout);
-                autoScrollTimeout = setTimeout(() => {
-                    updateCarouselSelectionAndArrows();
-                }, 50);
-            }
-        });
-
-        window.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            e.preventDefault();
-            const x = e.clientX;
-            const walk = (x - startX);
-            scrollableCarouselContainer.scrollLeft = scrollLeftStart - walk;
-        });
-
-        // 2. TOUCH EVENTS (UPDATED: Move/End attached to window)
         scrollableCarouselContainer.addEventListener('touchstart', (e) => {
-            isDragging = true;
-            startX = e.touches[0].clientX;
-            scrollLeftStart = scrollableCarouselContainer.scrollLeft;
+            startDrag(e.touches[0].clientX);
         });
 
-        // UPDATED: Attached to window to catch lifts outside the element
-        window.addEventListener('touchend', () => {
-            if (isDragging) {
-                isDragging = false;
+        // Update arrows on scroll (for momentum scrolling)
+        scrollableCarouselContainer.addEventListener('scroll', () => {
+            // Only run this if we AREN'T currently dragging (to save performance)
+            if (!activeDragState) {
                 clearTimeout(autoScrollTimeout);
                 autoScrollTimeout = setTimeout(() => {
-                    updateCarouselSelectionAndArrows();
-                }, 50);
+                    updateCarouselSelectionAndArrows(); 
+                }, 100);
             }
         });
 
-        // UPDATED: Attached to window to allow swiping "off-canvas"
-        window.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-            e.preventDefault(); // Prevents page scrolling while swiping carousel
-            const x = e.touches[0].clientX;
-            const walk = (x - startX);
-            scrollableCarouselContainer.scrollLeft = scrollLeftStart - walk;
-        });
-
-        scrollableCarouselContainer.addEventListener('scroll', () => {
-            clearTimeout(autoScrollTimeout);
-            autoScrollTimeout = setTimeout(() => {
-                updateCarouselSelectionAndArrows(); 
-            }, 100);
-        });
-
-        // Initial update
+        // Initial check on load
         if (window.innerWidth < 768) {
-            setTimeout(() => {
-                updateCarouselSelectionAndArrows();
-            }, 100);
+            setTimeout(updateCarouselSelectionAndArrows, 100);
         }
-
+        
+        // Re-check on resize
         let lastWindowWidth = window.innerWidth;
         window.addEventListener('resize', () => {
             if (window.innerWidth !== lastWindowWidth) {
@@ -208,8 +224,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-
-    // --- Event Listeners (Global Modal) ---
+    // --- Global Modal Listeners ---
     if (imageModal) {
         closeModalButton.addEventListener('click', closeModal);
         prevButton.addEventListener('click', showPrevImage);
@@ -229,7 +244,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Attach click listeners to images
     allGalleryImagesElements.forEach((img, index) => {
         img.addEventListener('click', () => openModal(index));
     });
