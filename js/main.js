@@ -1,4 +1,14 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // --- Contact Form Subject Auto-Fill ---
+    const urlParams = new URLSearchParams(window.location.search);
+    const subjectParam = urlParams.get('subject');
+    if (subjectParam) {
+        const subjectInput = document.getElementById('subject');
+        if (subjectInput) {
+            subjectInput.value = subjectParam;
+        }
+    }
+
     // --- Global Elements ---
     const yearSpan = document.getElementById('currentYear');
     const scrollTopFab = document.getElementById('scrollTopFab');
