@@ -247,4 +247,48 @@ document.addEventListener('DOMContentLoaded', function () {
     allGalleryImagesElements.forEach((img, index) => {
         img.addEventListener('click', () => openModal(index));
     });
+
+    // --- Masonry Initialization ---
+    // Execute the grid logic ONLY after specific internal image dependencies resolve
+    const masonryGrids = document.querySelectorAll('.gallery-grid');
+    masonryGrids.forEach(grid => {
+        // Hide grid initially to prevent Flash of Unstyled Content (FOUC) while downloading
+        grid.style.opacity = '0';
+        grid.style.transition = 'opacity 0.5s ease-in-out';
+
+        const images = grid.querySelectorAll('img');
+        let loadedImagesCount = 0;
+        const totalImages = images.length;
+
+        const initMasonryAndShow = () => {
+            new Masonry(grid, {
+                itemSelector: '.gallery-item',
+                percentPosition: true
+            });
+            // Show the grid layout once math is accurate
+            grid.style.opacity = '1';
+        };
+
+        if (totalImages === 0) {
+            initMasonryAndShow();
+            return;
+        }
+
+        const handleImageLoad = () => {
+            loadedImagesCount++;
+            if (loadedImagesCount === totalImages) {
+                initMasonryAndShow();
+            }
+        };
+
+        images.forEach(img => {
+            // Check if already cached/loaded
+            if (img.complete) {
+                handleImageLoad();
+            } else {
+                img.addEventListener('load', handleImageLoad, { once: true });
+                img.addEventListener('error', handleImageLoad, { once: true }); // Prevent indefinite hang on broken image
+            }
+        });
+    });
 });
