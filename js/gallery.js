@@ -248,6 +248,40 @@ document.addEventListener('DOMContentLoaded', function () {
         img.addEventListener('click', () => openModal(index));
     });
 
+    // Floating Navigation Intersection Observer
+    const floatingNavLinks = document.querySelectorAll('.floating-nav-link');
+    const gallerySections = document.querySelectorAll('section[id^="gallery-"]');
+
+    if (floatingNavLinks.length > 0 && gallerySections.length > 0) {
+        const observerOptions = {
+            root: null,
+            rootMargin: '-40% 0px -40% 0px',
+            threshold: 0
+        };
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const activeId = entry.target.id;
+                    
+                    floatingNavLinks.forEach(link => {
+                        if (link.dataset.target === activeId) {
+                            link.classList.remove('text-gray-500');
+                            link.classList.add('text-gray-900', 'bg-white', 'shadow-md');
+                        } else {
+                            link.classList.remove('text-gray-900', 'bg-white', 'shadow-md');
+                            link.classList.add('text-gray-500');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        gallerySections.forEach(section => {
+            sectionObserver.observe(section);
+        });
+    }
+
     // --- Masonry Initialization ---
     // Execute the grid logic ONLY after specific internal image dependencies resolve
     const masonryGrids = document.querySelectorAll('.gallery-grid');
