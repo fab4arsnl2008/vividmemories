@@ -113,15 +113,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     window.addEventListener('mouseup', handleGlobalEnd);
 
-    // Attach Touch Listeners to Window
-    window.addEventListener('touchmove', (e) => {
-        if (activeDragState) {
-            e.preventDefault(); // Prevent scrolling the page while swiping carousel
-            handleGlobalMove(e.touches[0].clientX);
-        }
-    }, { passive: false }); // 'passive: false' allows preventing default
-
-    window.addEventListener('touchend', handleGlobalEnd);
 
 
     // 3. Initialize Carousels (The Setup Loop)
@@ -211,9 +202,6 @@ document.addEventListener('DOMContentLoaded', function () {
             startDrag(e.clientX);
         });
 
-        scrollableCarouselContainer.addEventListener('touchstart', (e) => {
-            startDrag(e.touches[0].clientX);
-        });
 
         // Update arrows on scroll (for momentum scrolling)
         scrollableCarouselContainer.addEventListener('scroll', () => {
