@@ -11,15 +11,32 @@ document.addEventListener('DOMContentLoaded', function () {
     
     if (allGalleryImagesElements.length === 0) return;
 
-    const imageUrls = Array.from(allGalleryImagesElements).map(img => img.src);
-    let currentOverallImageIndex = 0; 
+    let currentModalImageUrls = [];
+    let currentModalImageIndex = 0; 
 
     // --- Modal Functions ---
-    function openModal(index) {
-        currentOverallImageIndex = index;
+    function openModal(clickedImage) {
+        const section = clickedImage.closest('section');
+        let imagesInScope = [];
+        
+        if (section) {
+            if (clickedImage.classList.contains('mobile-gallery-image')) {
+                imagesInScope = Array.from(section.querySelectorAll('.mobile-gallery-image'));
+            } else {
+                imagesInScope = Array.from(section.querySelectorAll('.gallery-item img'));
+            }
+        } else {
+            imagesInScope = [clickedImage];
+        }
+
+        currentModalImageUrls = imagesInScope.map(img => img.src);
+        currentModalImageIndex = imagesInScope.indexOf(clickedImage);
+
+        if (currentModalImageIndex === -1) currentModalImageIndex = 0;
+
         modalImage.style.opacity = 0; 
         setTimeout(() => {
-            modalImage.src = imageUrls[currentOverallImageIndex];
+            modalImage.src = currentModalImageUrls[currentModalImageIndex];
             modalImage.style.opacity = 1; 
         }, 50); 
 
@@ -33,19 +50,21 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function showPrevImage() {
+        if (currentModalImageUrls.length === 0) return;
         modalImage.style.opacity = 0; 
         setTimeout(() => {
-            currentOverallImageIndex = (currentOverallImageIndex - 1 + imageUrls.length) % imageUrls.length;
-            modalImage.src = imageUrls[currentOverallImageIndex];
+            currentModalImageIndex = (currentModalImageIndex - 1 + currentModalImageUrls.length) % currentModalImageUrls.length;
+            modalImage.src = currentModalImageUrls[currentModalImageIndex];
             modalImage.style.opacity = 1; 
         }, 300); 
     }
 
     function showNextImage() {
+        if (currentModalImageUrls.length === 0) return;
         modalImage.style.opacity = 0; 
         setTimeout(() => {
-            currentOverallImageIndex = (currentOverallImageIndex + 1) % imageUrls.length;
-            modalImage.src = imageUrls[currentOverallImageIndex];
+            currentModalImageIndex = (currentModalImageIndex + 1) % currentModalImageUrls.length;
+            modalImage.src = currentModalImageUrls[currentModalImageIndex];
             modalImage.style.opacity = 1; 
         }, 300); 
     }
@@ -244,8 +263,8 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    allGalleryImagesElements.forEach((img, index) => {
-        img.addEventListener('click', () => openModal(index));
+    allGalleryImagesElements.forEach((img) => {
+        img.addEventListener('click', () => openModal(img));
     });
 
     // Floating Navigation Intersection Observer
