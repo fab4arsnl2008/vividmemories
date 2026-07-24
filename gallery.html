@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <script>
         (function (w, d, s, l, i) {
@@ -15,106 +16,172 @@
     <title>Gallery | Vivid Memories Photography</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': '#21229d',
+                        'accent-green': '#13BF01',
+                    }
+                }
+            }
+        }
+    </script>
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://use.typekit.net/xtn8ihj.css">
     <link rel="stylesheet" href="css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@400;700&display=swap"
+        rel="stylesheet">
 </head>
+
 <body class="bg-gray-100 text-gray-800">
     <noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJDTZQ9Z"
-                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJDTZQ9Z" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe>
     </noscript>
-    <header class="bg-primary-blue text-white shadow-lg sticky top-0 z-50 py-4 px-4 md:px-0">
+    <header class="glass-header text-white sticky top-0 z-50 py-4 px-4 md:px-0 border-b border-white/10">
         <div class="container mx-auto flex justify-between items-center">
             <div class="flex-shrink-0">
                 <a href="index.html">
-                    <img src="images/Vivid Memories-color-banner.png"
-                         alt="Vivid Memories Photography Logo"
-                         class="h-16 w-auto rounded-md"
-                         onerror="this.onerror=null;this.src='https://placehold.co/200x64/21229d/FFFFFF?text=Vivid+Memories';">
+                    <img src="images/Vivid Memories-color-banner.png" alt="Vivid Memories Photography Logo"
+                        class="h-16 w-auto rounded-md"
+                        onerror="this.onerror=null;this.src='https://placehold.co/200x64/21229d/FFFFFF?text=Vivid+Memories';">
                 </a>
             </div>
 
             <nav class="hidden md:flex md:items-center md:space-x-6">
                 <ul class="flex space-x-6">
-                    <li><a href="index.html#home" class="hover:text-accent-green transition duration-300 font-trajan-pro-3">Home</a></li>
-                    <li><a href="gallery.html" class="text-accent-green transition duration-300 font-trajan-pro-3">Gallery</a></li>
-                    <li><a href="services.html" class="hover:text-accent-green transition duration-300 font-trajan-pro-3">Services</a></li>
-                    <li><a href="about.html" class="hover:text-accent-green transition duration-300 font-trajan-pro-3">About Us</a></li>
-                    <li class="pr-4"><a href="contact.html" class="hover:text-accent-green transition duration-300 font-trajan-pro-3">Contact</a></li>
+                    <li><a href="index.html#home"
+                            class="hover:text-accent-green transition duration-300 font-trajan-pro-3">Home</a></li>
+                    <li><a href="gallery.html"
+                            class="text-accent-green transition duration-300 font-trajan-pro-3">Gallery</a></li>
+                    <li><a href="services.html"
+                            class="hover:text-accent-green transition duration-300 font-trajan-pro-3">Services</a></li>
+                    <li><a href="about.html"
+                            class="hover:text-accent-green transition duration-300 font-trajan-pro-3">About Us</a></li>
+                    <li class="pr-4"><a href="contact.html"
+                            class="hover:text-accent-green transition duration-300 font-trajan-pro-3">Contact</a></li>
                 </ul>
             </nav>
 
             <div class="md:hidden">
-                <button id="hamburger-button" class="text-white focus:outline-none py-1 pl-1 pr-0 rounded hover:bg-gray-700">
-                    <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-                </button>
-                <button id="close-button" class="hidden text-white focus:outline-none py-1 pl-1 pr-0 rounded hover:bg-gray-700">
-                    <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+                <button id="hamburger-button" class="hamburger-toggle text-white focus:outline-none"
+                    aria-label="Toggle Navigation">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
                 </button>
             </div>
         </div>
 
-        <nav id="mobile-menu-container" class="md:hidden absolute top-full left-0 w-full bg-primary-blue shadow-lg">
+        <nav id="mobile-menu-container"
+            class="md:hidden absolute top-full left-0 w-full glass-header border-b border-white/10">
             <ul class="flex flex-col items-center space-y-2 py-4">
-                <li><a href="index.html#home" class="hover:text-accent-green transition duration-300 mobile-menu-link font-trajan-pro-3">Home</a></li>
-                <li><a href="gallery.html" class="text-accent-green transition duration-300 mobile-menu-link font-trajan-pro-3">Gallery</a></li>
-                <li><a href="services.html" class="hover:text-accent-green transition duration-300 mobile-menu-link font-trajan-pro-3">Services</a></li>
-                <li><a href="about.html" class="hover:text-accent-green transition duration-300 mobile-menu-link font-trajan-pro-3">About Us</a></li>
-                <li><a href="contact.html" class="hover:text-accent-green transition duration-300 mobile-menu-link font-trajan-pro-3">Contact</a></li>
+                <li><a href="index.html#home"
+                        class="hover:text-accent-green transition duration-300 mobile-menu-link font-trajan-pro-3">Home</a>
+                </li>
+                <li><a href="gallery.html"
+                        class="text-accent-green transition duration-300 mobile-menu-link font-trajan-pro-3">Gallery</a>
+                </li>
+                <li><a href="services.html"
+                        class="hover:text-accent-green transition duration-300 mobile-menu-link font-trajan-pro-3">Services</a>
+                </li>
+                <li><a href="about.html"
+                        class="hover:text-accent-green transition duration-300 mobile-menu-link font-trajan-pro-3">About
+                        Us</a></li>
+                <li><a href="contact.html"
+                        class="hover:text-accent-green transition duration-300 mobile-menu-link font-trajan-pro-3">Contact</a>
+                </li>
             </ul>
         </nav>
     </header>
 
     <!-- Floating Gallery Navigation -->
-    <nav id="floating-gallery-nav" class="hidden lg:flex flex-col fixed top-1/2 right-6 transform -translate-y-1/2 z-40 bg-white/60 backdrop-blur-md rounded-[2rem] shadow-xl border border-white py-4 px-2 space-y-3 transition-all duration-300 hover:bg-white/80 items-end group/nav">
-        <a href="#gallery-portraits" class="floating-nav-link text-gray-500 hover:text-gray-900 hover:bg-white transition-all duration-500 ease-in-out flex items-center justify-end rounded-full font-trajan-pro-3 group/link p-2" data-target="gallery-portraits">
-            <span class="max-w-0 opacity-0 group-hover/nav:max-w-[200px] group-hover/nav:opacity-100 transition-all duration-500 ease-in-out overflow-hidden whitespace-nowrap text-sm leading-none pl-2">Portraits</span>
-            <div class="w-6 h-6 flex items-center justify-center flex-shrink-0 group-hover/nav:ml-3 transition-all duration-500 delay-75">
+    <nav id="floating-gallery-nav"
+        class="hidden lg:flex flex-col fixed top-1/2 right-6 transform -translate-y-1/2 z-40 bg-white/60 backdrop-blur-md rounded-[2rem] shadow-xl border border-white py-4 px-2 space-y-3 transition-all duration-300 hover:bg-white/80 items-end group/nav">
+        <a href="#gallery-portraits"
+            class="floating-nav-link text-gray-500 hover:text-gray-900 hover:bg-white transition-all duration-500 ease-in-out flex items-center justify-end rounded-full font-trajan-pro-3 group/link p-2"
+            data-target="gallery-portraits">
+            <span
+                class="max-w-0 opacity-0 group-hover/nav:max-w-[200px] group-hover/nav:opacity-100 transition-all duration-500 ease-in-out overflow-hidden whitespace-nowrap text-sm leading-none pl-2">Portraits</span>
+            <div
+                class="w-6 h-6 flex items-center justify-center flex-shrink-0 group-hover/nav:ml-3 transition-all duration-500 delay-75">
                 <i class="fas fa-camera text-lg group-hover/link:scale-110 transition-transform duration-300"></i>
             </div>
         </a>
-        <a href="#gallery-engagement" class="floating-nav-link text-gray-500 hover:text-gray-900 hover:bg-white transition-all duration-500 ease-in-out flex items-center justify-end rounded-full font-trajan-pro-3 group/link p-2" data-target="gallery-engagement">
-            <span class="max-w-0 opacity-0 group-hover/nav:max-w-[200px] group-hover/nav:opacity-100 transition-all duration-500 ease-in-out overflow-hidden whitespace-nowrap text-sm leading-none pl-2">Engagement</span>
-            <div class="w-6 h-6 flex items-center justify-center flex-shrink-0 group-hover/nav:ml-3 transition-all duration-500 delay-75">
+        <a href="#gallery-engagement"
+            class="floating-nav-link text-gray-500 hover:text-gray-900 hover:bg-white transition-all duration-500 ease-in-out flex items-center justify-end rounded-full font-trajan-pro-3 group/link p-2"
+            data-target="gallery-engagement">
+            <span
+                class="max-w-0 opacity-0 group-hover/nav:max-w-[200px] group-hover/nav:opacity-100 transition-all duration-500 ease-in-out overflow-hidden whitespace-nowrap text-sm leading-none pl-2">Engagement</span>
+            <div
+                class="w-6 h-6 flex items-center justify-center flex-shrink-0 group-hover/nav:ml-3 transition-all duration-500 delay-75">
                 <i class="fas fa-heart text-lg group-hover/link:scale-110 transition-transform duration-300"></i>
             </div>
         </a>
-        <a href="#gallery-family" class="floating-nav-link text-gray-500 hover:text-gray-900 hover:bg-white transition-all duration-500 ease-in-out flex items-center justify-end rounded-full font-trajan-pro-3 group/link p-2" data-target="gallery-family">
-            <span class="max-w-0 opacity-0 group-hover/nav:max-w-[200px] group-hover/nav:opacity-100 transition-all duration-500 ease-in-out overflow-hidden whitespace-nowrap text-sm leading-none pl-2">Family</span>
-            <div class="w-6 h-6 flex items-center justify-center flex-shrink-0 group-hover/nav:ml-3 transition-all duration-500 delay-75">
+        <a href="#gallery-family"
+            class="floating-nav-link text-gray-500 hover:text-gray-900 hover:bg-white transition-all duration-500 ease-in-out flex items-center justify-end rounded-full font-trajan-pro-3 group/link p-2"
+            data-target="gallery-family">
+            <span
+                class="max-w-0 opacity-0 group-hover/nav:max-w-[200px] group-hover/nav:opacity-100 transition-all duration-500 ease-in-out overflow-hidden whitespace-nowrap text-sm leading-none pl-2">Family</span>
+            <div
+                class="w-6 h-6 flex items-center justify-center flex-shrink-0 group-hover/nav:ml-3 transition-all duration-500 delay-75">
                 <i class="fas fa-users text-lg group-hover/link:scale-110 transition-transform duration-300"></i>
             </div>
         </a>
-        <a href="#gallery-maternity" class="floating-nav-link text-gray-500 hover:text-gray-900 hover:bg-white transition-all duration-500 ease-in-out flex items-center justify-end rounded-full font-trajan-pro-3 group/link p-2" data-target="gallery-maternity">
-            <span class="max-w-0 opacity-0 group-hover/nav:max-w-[200px] group-hover/nav:opacity-100 transition-all duration-500 ease-in-out overflow-hidden whitespace-nowrap text-sm leading-none pl-2">Maternity</span>
-            <div class="w-6 h-6 flex items-center justify-center flex-shrink-0 group-hover/nav:ml-3 transition-all duration-500 delay-75">
+        <a href="#gallery-maternity"
+            class="floating-nav-link text-gray-500 hover:text-gray-900 hover:bg-white transition-all duration-500 ease-in-out flex items-center justify-end rounded-full font-trajan-pro-3 group/link p-2"
+            data-target="gallery-maternity">
+            <span
+                class="max-w-0 opacity-0 group-hover/nav:max-w-[200px] group-hover/nav:opacity-100 transition-all duration-500 ease-in-out overflow-hidden whitespace-nowrap text-sm leading-none pl-2">Maternity</span>
+            <div
+                class="w-6 h-6 flex items-center justify-center flex-shrink-0 group-hover/nav:ml-3 transition-all duration-500 delay-75">
                 <i class="fas fa-baby text-lg group-hover/link:scale-110 transition-transform duration-300"></i>
             </div>
         </a>
-        <a href="#gallery-newborn" class="floating-nav-link text-gray-500 hover:text-gray-900 hover:bg-white transition-all duration-500 ease-in-out flex items-center justify-end rounded-full font-trajan-pro-3 group/link p-2" data-target="gallery-newborn">
-            <span class="max-w-0 opacity-0 group-hover/nav:max-w-[200px] group-hover/nav:opacity-100 transition-all duration-500 ease-in-out overflow-hidden whitespace-nowrap text-sm leading-none pl-2">Newborn</span>
-            <div class="w-6 h-6 flex items-center justify-center flex-shrink-0 group-hover/nav:ml-3 transition-all duration-500 delay-75">
-                <i class="fas fa-baby-carriage text-lg group-hover/link:scale-110 transition-transform duration-300"></i>
+        <a href="#gallery-newborn"
+            class="floating-nav-link text-gray-500 hover:text-gray-900 hover:bg-white transition-all duration-500 ease-in-out flex items-center justify-end rounded-full font-trajan-pro-3 group/link p-2"
+            data-target="gallery-newborn">
+            <span
+                class="max-w-0 opacity-0 group-hover/nav:max-w-[200px] group-hover/nav:opacity-100 transition-all duration-500 ease-in-out overflow-hidden whitespace-nowrap text-sm leading-none pl-2">Newborn</span>
+            <div
+                class="w-6 h-6 flex items-center justify-center flex-shrink-0 group-hover/nav:ml-3 transition-all duration-500 delay-75">
+                <i
+                    class="fas fa-baby-carriage text-lg group-hover/link:scale-110 transition-transform duration-300"></i>
             </div>
         </a>
-        <a href="#gallery-senior" class="floating-nav-link text-gray-500 hover:text-gray-900 hover:bg-white transition-all duration-500 ease-in-out flex items-center justify-end rounded-full font-trajan-pro-3 group/link p-2" data-target="gallery-senior">
-            <span class="max-w-0 opacity-0 group-hover/nav:max-w-[200px] group-hover/nav:opacity-100 transition-all duration-500 ease-in-out overflow-hidden whitespace-nowrap text-sm leading-none pl-2">Senior / Grad</span>
-            <div class="w-6 h-6 flex items-center justify-center flex-shrink-0 group-hover/nav:ml-3 transition-all duration-500 delay-75">
-                <i class="fas fa-graduation-cap text-lg group-hover/link:scale-110 transition-transform duration-300"></i>
+        <a href="#gallery-senior"
+            class="floating-nav-link text-gray-500 hover:text-gray-900 hover:bg-white transition-all duration-500 ease-in-out flex items-center justify-end rounded-full font-trajan-pro-3 group/link p-2"
+            data-target="gallery-senior">
+            <span
+                class="max-w-0 opacity-0 group-hover/nav:max-w-[200px] group-hover/nav:opacity-100 transition-all duration-500 ease-in-out overflow-hidden whitespace-nowrap text-sm leading-none pl-2">Senior
+                / Grad</span>
+            <div
+                class="w-6 h-6 flex items-center justify-center flex-shrink-0 group-hover/nav:ml-3 transition-all duration-500 delay-75">
+                <i
+                    class="fas fa-graduation-cap text-lg group-hover/link:scale-110 transition-transform duration-300"></i>
             </div>
         </a>
-        <a href="#gallery-weddings" class="floating-nav-link text-gray-500 hover:text-gray-900 hover:bg-white transition-all duration-500 ease-in-out flex items-center justify-end rounded-full font-trajan-pro-3 group/link p-2" data-target="gallery-weddings">
-            <span class="max-w-0 opacity-0 group-hover/nav:max-w-[200px] group-hover/nav:opacity-100 transition-all duration-500 ease-in-out overflow-hidden whitespace-nowrap text-sm leading-none pl-2">Weddings</span>
-            <div class="w-6 h-6 flex items-center justify-center flex-shrink-0 group-hover/nav:ml-3 transition-all duration-500 delay-75">
+        <a href="#gallery-weddings"
+            class="floating-nav-link text-gray-500 hover:text-gray-900 hover:bg-white transition-all duration-500 ease-in-out flex items-center justify-end rounded-full font-trajan-pro-3 group/link p-2"
+            data-target="gallery-weddings">
+            <span
+                class="max-w-0 opacity-0 group-hover/nav:max-w-[200px] group-hover/nav:opacity-100 transition-all duration-500 ease-in-out overflow-hidden whitespace-nowrap text-sm leading-none pl-2">Weddings</span>
+            <div
+                class="w-6 h-6 flex items-center justify-center flex-shrink-0 group-hover/nav:ml-3 transition-all duration-500 delay-75">
                 <i class="fas fa-ring text-lg group-hover/link:scale-110 transition-transform duration-300"></i>
             </div>
         </a>
-        <a href="#gallery-headshots" class="floating-nav-link text-gray-500 hover:text-gray-900 hover:bg-white transition-all duration-500 ease-in-out flex items-center justify-end rounded-full font-trajan-pro-3 group/link p-2" data-target="gallery-headshots">
-            <span class="max-w-0 opacity-0 group-hover/nav:max-w-[200px] group-hover/nav:opacity-100 transition-all duration-500 ease-in-out overflow-hidden whitespace-nowrap text-sm leading-none pl-2">Headshots</span>
-            <div class="w-6 h-6 flex items-center justify-center flex-shrink-0 group-hover/nav:ml-3 transition-all duration-500 delay-75">
+        <a href="#gallery-headshots"
+            class="floating-nav-link text-gray-500 hover:text-gray-900 hover:bg-white transition-all duration-500 ease-in-out flex items-center justify-end rounded-full font-trajan-pro-3 group/link p-2"
+            data-target="gallery-headshots">
+            <span
+                class="max-w-0 opacity-0 group-hover/nav:max-w-[200px] group-hover/nav:opacity-100 transition-all duration-500 ease-in-out overflow-hidden whitespace-nowrap text-sm leading-none pl-2">Headshots</span>
+            <div
+                class="w-6 h-6 flex items-center justify-center flex-shrink-0 group-hover/nav:ml-3 transition-all duration-500 delay-75">
                 <i class="fas fa-user-tie text-lg group-hover/link:scale-110 transition-transform duration-300"></i>
             </div>
         </a>
@@ -139,11 +206,11 @@
             <div class="container mx-auto px-4">
                 <h2 class="text-4xl font-trajan-pro-3 text-center mb-8 text-white">Portraits</h2>
                 <div class="gallery-grid hidden md:block">
-                    <div class="gallery-item"><img src="images/Portraits_1.jpg" alt="Portrait 1"></div>
-                    <div class="gallery-item"><img src="images/Portraits_2.jpg" alt="Portrait 2"></div>
-                    <div class="gallery-item"><img src="images/Portraits_3.jpg" alt="Portrait 3"></div>
-                    <div class="gallery-item"><img src="images/Portraits_4.jpg" alt="Portrait 4"></div>
-                    <div class="gallery-item"><img src="images/Portraits_5.jpg" alt="Portrait 5"></div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Portraits_1.jpg" alt="Portrait 1"></div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Portraits_2.jpg" alt="Portrait 2"></div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Portraits_3.jpg" alt="Portrait 3"></div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Portraits_4.jpg" alt="Portrait 4"></div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Portraits_5.jpg" alt="Portrait 5"></div>
                 </div>
                 <div id="portraits-carousel-mobile" class="relative flex items-center justify-center md:hidden">
                     <div class="mobile-carousel-container">
@@ -155,25 +222,35 @@
                             <img src="images/Portraits_5.jpg" alt="Portrait 5" class="mobile-gallery-image">
                         </div>
                     </div>
-                    <button class="mobile-carousel-nav-button left" data-carousel-id="portraits-carousel-mobile"><i class="fas fa-chevron-left"></i></button>
-                    <button class="mobile-carousel-nav-button right" data-carousel-id="portraits-carousel-mobile"><i class="fas fa-chevron-right"></i></button>
+                    <button class="mobile-carousel-nav-button left" data-carousel-id="portraits-carousel-mobile"><i
+                            class="fas fa-chevron-left"></i></button>
+                    <button class="mobile-carousel-nav-button right" data-carousel-id="portraits-carousel-mobile"><i
+                            class="fas fa-chevron-right"></i></button>
                 </div>
                 <div class="text-center mt-12 mb-4">
-                    <a href="services.html" class="bg-accent-green text-primary-blue font-bold py-3 px-8 rounded-full hover:bg-white hover:text-accent-green transition duration-300 transform hover:scale-105 shadow-lg font-trajan-pro-3 inline-block cursor-pointer">View Pricing & Details</a>
+                    <a href="services.html"
+                        class="bg-accent-green text-primary-blue font-bold py-3 px-8 rounded-full hover:bg-white hover:text-accent-green transition duration-300 transform hover:scale-105 shadow-lg font-trajan-pro-3 inline-block cursor-pointer">View
+                        Pricing & Details</a>
                 </div>
             </div>
         </section>
-        
+
         <section id="gallery-engagement" class="py-16 bg-white">
             <div class="container mx-auto px-4">
                 <h2 class="text-4xl font-trajan-pro-3 text-center mb-8 text-primary-blue">Engagement Photos</h2>
                 <div class="gallery-grid hidden md:block">
-                    <div class="gallery-item"><img src="images/Engagement_1.jpg" alt="Engagement Photo 1"></div>
-                    <div class="gallery-item"><img src="images/Engagement_2.jpg" alt="Engagement Photo 2"></div>
-                    <div class="gallery-item"><img src="images/Engagement_3.jpg" alt="Engagement Photo 3"></div>
-                    <div class="gallery-item"><img src="images/Engagement_4.jpg" alt="Engagement Photo 4"></div>
-                    <div class="gallery-item"><img src="images/Engagement_5.jpg" alt="Engagement Photo 5"></div>
-                    <div class="gallery-item"><img src="images/Engagement_6.jpg" alt="Engagement Photo 6"></div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Engagement_1.jpg" alt="Engagement Photo 1">
+                    </div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Engagement_2.jpg" alt="Engagement Photo 2">
+                    </div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Engagement_3.jpg" alt="Engagement Photo 3">
+                    </div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Engagement_4.jpg" alt="Engagement Photo 4">
+                    </div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Engagement_5.jpg" alt="Engagement Photo 5">
+                    </div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Engagement_6.jpg" alt="Engagement Photo 6">
+                    </div>
                 </div>
                 <div id="engagement-carousel-mobile" class="relative flex items-center justify-center md:hidden">
                     <div class="mobile-carousel-container">
@@ -186,11 +263,15 @@
                             <img src="images/Engagement_6.jpg" alt="Engagement Photo 6" class="mobile-gallery-image">
                         </div>
                     </div>
-                    <button class="mobile-carousel-nav-button left" data-carousel-id="engagement-carousel-mobile"><i class="fas fa-chevron-left"></i></button>
-                    <button class="mobile-carousel-nav-button right" data-carousel-id="engagement-carousel-mobile"><i class="fas fa-chevron-right"></i></button>
+                    <button class="mobile-carousel-nav-button left" data-carousel-id="engagement-carousel-mobile"><i
+                            class="fas fa-chevron-left"></i></button>
+                    <button class="mobile-carousel-nav-button right" data-carousel-id="engagement-carousel-mobile"><i
+                            class="fas fa-chevron-right"></i></button>
                 </div>
                 <div class="text-center mt-12 mb-4">
-                    <a href="services.html" class="bg-accent-green text-primary-blue font-bold py-3 px-8 rounded-full hover:bg-white hover:text-accent-green transition duration-300 transform hover:scale-105 shadow-lg font-trajan-pro-3 inline-block cursor-pointer">View Pricing & Details</a>
+                    <a href="services.html"
+                        class="bg-accent-green text-primary-blue font-bold py-3 px-8 rounded-full hover:bg-white hover:text-accent-green transition duration-300 transform hover:scale-105 shadow-lg font-trajan-pro-3 inline-block cursor-pointer">View
+                        Pricing & Details</a>
                 </div>
             </div>
         </section>
@@ -199,14 +280,14 @@
             <div class="container mx-auto px-4">
                 <h2 class="text-4xl font-trajan-pro-3 text-center mb-8 text-white">Family Photos</h2>
                 <div class="gallery-grid hidden md:block">
-                    <div class="gallery-item"><img src="images/Family_1.jpg" alt="Family Photo 1"></div>
-                    <div class="gallery-item"><img src="images/Family_2.jpg" alt="Family Photo 2"></div>
-                    <div class="gallery-item"><img src="images/Family_3.jpg" alt="Family Photo 3"></div>
-                    <div class="gallery-item"><img src="images/Family_4.jpg" alt="Family Photo 4"></div>
-                    <div class="gallery-item"><img src="images/Family_5.jpg" alt="Family Photo 5"></div>
-                    <div class="gallery-item"><img src="images/Family_6.jpg" alt="Family Photo 6"></div>
-                    <div class="gallery-item"><img src="images/Family_7.jpg" alt="Family Photo 7"></div>
-                    <div class="gallery-item"><img src="images/Family_8.jpg" alt="Family Photo 8"></div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Family_1.jpg" alt="Family Photo 1"></div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Family_2.jpg" alt="Family Photo 2"></div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Family_3.jpg" alt="Family Photo 3"></div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Family_4.jpg" alt="Family Photo 4"></div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Family_5.jpg" alt="Family Photo 5"></div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Family_6.jpg" alt="Family Photo 6"></div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Family_7.jpg" alt="Family Photo 7"></div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Family_8.jpg" alt="Family Photo 8"></div>
                 </div>
                 <div id="family-carousel-mobile" class="relative flex items-center justify-center md:hidden">
                     <div class="mobile-carousel-container">
@@ -221,11 +302,15 @@
                             <img src="images/Family_8.jpg" alt="Family Photo 8" class="mobile-gallery-image">
                         </div>
                     </div>
-                    <button class="mobile-carousel-nav-button left" data-carousel-id="family-carousel-mobile"><i class="fas fa-chevron-left"></i></button>
-                    <button class="mobile-carousel-nav-button right" data-carousel-id="family-carousel-mobile"><i class="fas fa-chevron-right"></i></button>
+                    <button class="mobile-carousel-nav-button left" data-carousel-id="family-carousel-mobile"><i
+                            class="fas fa-chevron-left"></i></button>
+                    <button class="mobile-carousel-nav-button right" data-carousel-id="family-carousel-mobile"><i
+                            class="fas fa-chevron-right"></i></button>
                 </div>
                 <div class="text-center mt-12 mb-4">
-                    <a href="services.html" class="bg-accent-green text-primary-blue font-bold py-3 px-8 rounded-full hover:bg-white hover:text-accent-green transition duration-300 transform hover:scale-105 shadow-lg font-trajan-pro-3 inline-block cursor-pointer">View Pricing & Details</a>
+                    <a href="services.html"
+                        class="bg-accent-green text-primary-blue font-bold py-3 px-8 rounded-full hover:bg-white hover:text-accent-green transition duration-300 transform hover:scale-105 shadow-lg font-trajan-pro-3 inline-block cursor-pointer">View
+                        Pricing & Details</a>
                 </div>
             </div>
         </section>
@@ -234,13 +319,20 @@
             <div class="container mx-auto px-4">
                 <h2 class="text-4xl font-trajan-pro-3 text-center mb-8 text-primary-blue">Maternity Photos</h2>
                 <div class="gallery-grid hidden md:block">
-                    <div class="gallery-item"><img src="images/Maternity_1.jpg" alt="Maternity Photo 1"></div>
-                    <div class="gallery-item"><img src="images/Maternity_2.jpg" alt="Maternity Photo 2"></div>
-                    <div class="gallery-item"><img src="images/Maternity_3.jpg" alt="Maternity Photo 3"></div>
-                    <div class="gallery-item"><img src="images/Maternity_4.jpg" alt="Maternity Photo 4"></div>
-                    <div class="gallery-item"><img src="images/Maternity_5.jpg" alt="Maternity Photo 5"></div>
-                    <div class="gallery-item"><img src="images/Maternity_6.jpg" alt="Maternity Photo 6"></div>
-                    <div class="gallery-item"><img src="images/Maternity_7.jpg" alt="Maternity Photo 7"></div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Maternity_1.jpg" alt="Maternity Photo 1">
+                    </div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Maternity_2.jpg" alt="Maternity Photo 2">
+                    </div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Maternity_3.jpg" alt="Maternity Photo 3">
+                    </div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Maternity_4.jpg" alt="Maternity Photo 4">
+                    </div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Maternity_5.jpg" alt="Maternity Photo 5">
+                    </div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Maternity_6.jpg" alt="Maternity Photo 6">
+                    </div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Maternity_7.jpg" alt="Maternity Photo 7">
+                    </div>
                 </div>
                 <div id="maternity-carousel-mobile" class="relative flex items-center justify-center md:hidden">
                     <div class="mobile-carousel-container">
@@ -254,11 +346,15 @@
                             <img src="images/Maternity_7.jpg" alt="Maternity Photo 7" class="mobile-gallery-image">
                         </div>
                     </div>
-                    <button class="mobile-carousel-nav-button left" data-carousel-id="maternity-carousel-mobile"><i class="fas fa-chevron-left"></i></button>
-                    <button class="mobile-carousel-nav-button right" data-carousel-id="maternity-carousel-mobile"><i class="fas fa-chevron-right"></i></button>
+                    <button class="mobile-carousel-nav-button left" data-carousel-id="maternity-carousel-mobile"><i
+                            class="fas fa-chevron-left"></i></button>
+                    <button class="mobile-carousel-nav-button right" data-carousel-id="maternity-carousel-mobile"><i
+                            class="fas fa-chevron-right"></i></button>
                 </div>
                 <div class="text-center mt-12 mb-4">
-                    <a href="services.html" class="bg-accent-green text-primary-blue font-bold py-3 px-8 rounded-full hover:bg-white hover:text-accent-green transition duration-300 transform hover:scale-105 shadow-lg font-trajan-pro-3 inline-block cursor-pointer">View Pricing & Details</a>
+                    <a href="services.html"
+                        class="bg-accent-green text-primary-blue font-bold py-3 px-8 rounded-full hover:bg-white hover:text-accent-green transition duration-300 transform hover:scale-105 shadow-lg font-trajan-pro-3 inline-block cursor-pointer">View
+                        Pricing & Details</a>
                 </div>
             </div>
         </section>
@@ -267,11 +363,11 @@
             <div class="container mx-auto px-4">
                 <h2 class="text-4xl font-trajan-pro-3 text-center mb-8 text-white">Newborn Photos</h2>
                 <div class="gallery-grid hidden md:block">
-                    <div class="gallery-item"><img src="images/Newborn_1.jpg" alt="Newborn Photo 1"></div>
-                    <div class="gallery-item"><img src="images/Newborn_2.jpg" alt="Newborn Photo 2"></div>
-                    <div class="gallery-item"><img src="images/Newborn_3.jpg" alt="Newborn Photo 3"></div>
-                    <div class="gallery-item"><img src="images/Newborn_4.jpg" alt="Newborn Photo 4"></div>
-                    <div class="gallery-item"><img src="images/Newborn_5.jpg" alt="Newborn Photo 5"></div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Newborn_1.jpg" alt="Newborn Photo 1"></div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Newborn_2.jpg" alt="Newborn Photo 2"></div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Newborn_3.jpg" alt="Newborn Photo 3"></div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Newborn_4.jpg" alt="Newborn Photo 4"></div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Newborn_5.jpg" alt="Newborn Photo 5"></div>
                 </div>
                 <div id="newborn-carousel-mobile" class="relative flex items-center justify-center md:hidden">
                     <div class="mobile-carousel-container">
@@ -283,11 +379,15 @@
                             <img src="images/Newborn_5.jpg" alt="Newborn Photo 5" class="mobile-gallery-image">
                         </div>
                     </div>
-                    <button class="mobile-carousel-nav-button left" data-carousel-id="newborn-carousel-mobile"><i class="fas fa-chevron-left"></i></button>
-                    <button class="mobile-carousel-nav-button right" data-carousel-id="newborn-carousel-mobile"><i class="fas fa-chevron-right"></i></button>
+                    <button class="mobile-carousel-nav-button left" data-carousel-id="newborn-carousel-mobile"><i
+                            class="fas fa-chevron-left"></i></button>
+                    <button class="mobile-carousel-nav-button right" data-carousel-id="newborn-carousel-mobile"><i
+                            class="fas fa-chevron-right"></i></button>
                 </div>
                 <div class="text-center mt-12 mb-4">
-                    <a href="services.html" class="bg-accent-green text-primary-blue font-bold py-3 px-8 rounded-full hover:bg-white hover:text-accent-green transition duration-300 transform hover:scale-105 shadow-lg font-trajan-pro-3 inline-block cursor-pointer">View Pricing & Details</a>
+                    <a href="services.html"
+                        class="bg-accent-green text-primary-blue font-bold py-3 px-8 rounded-full hover:bg-white hover:text-accent-green transition duration-300 transform hover:scale-105 shadow-lg font-trajan-pro-3 inline-block cursor-pointer">View
+                        Pricing & Details</a>
                 </div>
             </div>
         </section>
@@ -296,11 +396,11 @@
             <div class="container mx-auto px-4">
                 <h2 class="text-4xl font-trajan-pro-3 text-center mb-8 text-primary-blue">Senior / Graduation</h2>
                 <div class="gallery-grid hidden md:block">
-                    <div class="gallery-item"><img src="images/Senior_1.jpg" alt="Senior Photo 1"></div>
-                    <div class="gallery-item"><img src="images/Senior_2.jpg" alt="Senior Photo 2"></div>
-                    <div class="gallery-item"><img src="images/Senior_3.jpg" alt="Senior Photo 3"></div>
-                    <div class="gallery-item"><img src="images/Senior_4.jpg" alt="Senior Photo 4"></div>
-                    <div class="gallery-item"><img src="images/Senior_5.jpg" alt="Senior Photo 5"></div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Senior_1.jpg" alt="Senior Photo 1"></div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Senior_2.jpg" alt="Senior Photo 2"></div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Senior_3.jpg" alt="Senior Photo 3"></div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Senior_4.jpg" alt="Senior Photo 4"></div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Senior_5.jpg" alt="Senior Photo 5"></div>
                 </div>
                 <div id="senior-carousel-mobile" class="relative flex items-center justify-center md:hidden">
                     <div class="mobile-carousel-container">
@@ -312,11 +412,15 @@
                             <img src="images/Senior_5.jpg" alt="Senior Photo 5" class="mobile-gallery-image">
                         </div>
                     </div>
-                    <button class="mobile-carousel-nav-button left" data-carousel-id="senior-carousel-mobile"><i class="fas fa-chevron-left"></i></button>
-                    <button class="mobile-carousel-nav-button right" data-carousel-id="senior-carousel-mobile"><i class="fas fa-chevron-right"></i></button>
+                    <button class="mobile-carousel-nav-button left" data-carousel-id="senior-carousel-mobile"><i
+                            class="fas fa-chevron-left"></i></button>
+                    <button class="mobile-carousel-nav-button right" data-carousel-id="senior-carousel-mobile"><i
+                            class="fas fa-chevron-right"></i></button>
                 </div>
                 <div class="text-center mt-12 mb-4">
-                    <a href="services.html" class="bg-accent-green text-primary-blue font-bold py-3 px-8 rounded-full hover:bg-white hover:text-accent-green transition duration-300 transform hover:scale-105 shadow-lg font-trajan-pro-3 inline-block cursor-pointer">View Pricing & Details</a>
+                    <a href="services.html"
+                        class="bg-accent-green text-primary-blue font-bold py-3 px-8 rounded-full hover:bg-white hover:text-accent-green transition duration-300 transform hover:scale-105 shadow-lg font-trajan-pro-3 inline-block cursor-pointer">View
+                        Pricing & Details</a>
                 </div>
             </div>
         </section>
@@ -325,11 +429,11 @@
             <div class="container mx-auto px-4">
                 <h2 class="text-4xl font-trajan-pro-3 text-center mb-8 text-white">Weddings</h2>
                 <div class="gallery-grid hidden md:block">
-                    <div class="gallery-item"><img src="images/Wedding_1.jpg" alt="Wedding Photo 1"></div>
-                    <div class="gallery-item"><img src="images/Wedding_2.jpg" alt="Wedding Photo 2"></div>
-                    <div class="gallery-item"><img src="images/Wedding_3.jpg" alt="Wedding Photo 3"></div>
-                    <div class="gallery-item"><img src="images/Wedding_4.jpg" alt="Wedding Photo 4"></div>
-                    <div class="gallery-item"><img src="images/Wedding_5.jpg" alt="Wedding Photo 5"></div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Wedding_1.jpg" alt="Wedding Photo 1"></div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Wedding_2.jpg" alt="Wedding Photo 2"></div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Wedding_3.jpg" alt="Wedding Photo 3"></div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Wedding_4.jpg" alt="Wedding Photo 4"></div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Wedding_5.jpg" alt="Wedding Photo 5"></div>
                 </div>
                 <div id="weddings-carousel-mobile" class="relative flex items-center justify-center md:hidden">
                     <div class="mobile-carousel-container">
@@ -341,11 +445,15 @@
                             <img src="images/Wedding_5.jpg" alt="Wedding Photo 5" class="mobile-gallery-image">
                         </div>
                     </div>
-                    <button class="mobile-carousel-nav-button left" data-carousel-id="weddings-carousel-mobile"><i class="fas fa-chevron-left"></i></button>
-                    <button class="mobile-carousel-nav-button right" data-carousel-id="weddings-carousel-mobile"><i class="fas fa-chevron-right"></i></button>
+                    <button class="mobile-carousel-nav-button left" data-carousel-id="weddings-carousel-mobile"><i
+                            class="fas fa-chevron-left"></i></button>
+                    <button class="mobile-carousel-nav-button right" data-carousel-id="weddings-carousel-mobile"><i
+                            class="fas fa-chevron-right"></i></button>
                 </div>
                 <div class="text-center mt-12 mb-4">
-                    <a href="services.html" class="bg-accent-green text-primary-blue font-bold py-3 px-8 rounded-full hover:bg-white hover:text-accent-green transition duration-300 transform hover:scale-105 shadow-lg font-trajan-pro-3 inline-block cursor-pointer">View Pricing & Details</a>
+                    <a href="services.html"
+                        class="bg-accent-green text-primary-blue font-bold py-3 px-8 rounded-full hover:bg-white hover:text-accent-green transition duration-300 transform hover:scale-105 shadow-lg font-trajan-pro-3 inline-block cursor-pointer">View
+                        Pricing & Details</a>
                 </div>
             </div>
         </section>
@@ -354,11 +462,11 @@
             <div class="container mx-auto px-4">
                 <h2 class="text-4xl font-trajan-pro-3 text-center mb-8 text-primary-blue">Professional Headshots</h2>
                 <div class="gallery-grid hidden md:block">
-                    <div class="gallery-item"><img src="images/Headshot_1.jpg" alt="Headshot 1"></div>
-                    <div class="gallery-item"><img src="images/Headshot_2.jpg" alt="Headshot 2"></div>
-                    <div class="gallery-item"><img src="images/Headshot_3.jpg" alt="Headshot 3"></div>
-                    <div class="gallery-item"><img src="images/Headshot_4.jpg" alt="Headshot 4"></div>
-                    <div class="gallery-item"><img src="images/Headshot_5.jpg" alt="Headshot 5"></div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Headshot_1.jpg" alt="Headshot 1"></div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Headshot_2.jpg" alt="Headshot 2"></div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Headshot_3.jpg" alt="Headshot 3"></div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Headshot_4.jpg" alt="Headshot 4"></div>
+                    <div class="gallery-item scroll-reveal"><img src="images/Headshot_5.jpg" alt="Headshot 5"></div>
                 </div>
                 <div id="headshots-carousel-mobile" class="relative flex items-center justify-center md:hidden">
                     <div class="mobile-carousel-container">
@@ -370,11 +478,15 @@
                             <img src="images/Headshot_5.jpg" alt="Headshot 5" class="mobile-gallery-image">
                         </div>
                     </div>
-                    <button class="mobile-carousel-nav-button left" data-carousel-id="headshots-carousel-mobile"><i class="fas fa-chevron-left"></i></button>
-                    <button class="mobile-carousel-nav-button right" data-carousel-id="headshots-carousel-mobile"><i class="fas fa-chevron-right"></i></button>
+                    <button class="mobile-carousel-nav-button left" data-carousel-id="headshots-carousel-mobile"><i
+                            class="fas fa-chevron-left"></i></button>
+                    <button class="mobile-carousel-nav-button right" data-carousel-id="headshots-carousel-mobile"><i
+                            class="fas fa-chevron-right"></i></button>
                 </div>
                 <div class="text-center mt-12 mb-4">
-                    <a href="services.html" class="bg-accent-green text-primary-blue font-bold py-3 px-8 rounded-full hover:bg-white hover:text-accent-green transition duration-300 transform hover:scale-105 shadow-lg font-trajan-pro-3 inline-block cursor-pointer">View Pricing & Details</a>
+                    <a href="services.html"
+                        class="bg-accent-green text-primary-blue font-bold py-3 px-8 rounded-full hover:bg-white hover:text-accent-green transition duration-300 transform hover:scale-105 shadow-lg font-trajan-pro-3 inline-block cursor-pointer">View
+                        Pricing & Details</a>
                 </div>
             </div>
         </section>
@@ -384,18 +496,22 @@
                 <h2 class="text-4xl text-center mb-12 font-trajan-pro-3">Ready to Capture Your Memories?</h2>
                 <div class="flex flex-col items-center space-y-8">
                     <div class="text-center">
-                        <a href="contact.html" class="bg-accent-green text-primary-blue font-bold py-3 px-8 rounded-full hover:bg-white hover:text-accent-green transition duration-300 transform hover:scale-105 shadow-lg font-trajan-pro-3">Contact Us</a>
+                        <a href="contact.html"
+                            class="bg-accent-green text-primary-blue font-bold py-3 px-8 rounded-full hover:bg-white hover:text-accent-green transition duration-300 transform hover:scale-105 shadow-lg font-trajan-pro-3">Contact
+                            Us</a>
                     </div>
 
                     <div class="text-center">
                         <p class="text-xl mb-4">Connect with us on social media:</p>
                         <div class="flex space-x-6 justify-center">
-                            <a href="https://www.facebook.com/vividmemoriesphotos/" target="_blank" rel="noopener noreferrer"
-                               class="text-accent-green hover:text-white transition duration-300 transform hover:scale-110">
+                            <a href="https://www.facebook.com/vividmemoriesphotos/" target="_blank"
+                                rel="noopener noreferrer"
+                                class="text-accent-green hover:text-white transition duration-300 transform hover:scale-110">
                                 <i class="fab fa-facebook-square text-6xl"></i>
                             </a>
-                            <a href="https://www.instagram.com/vividmemoriesphotos/" target="_blank" rel="noopener noreferrer"
-                               class="text-accent-green hover:text-white transition duration-300 transform hover:scale-110">
+                            <a href="https://www.instagram.com/vividmemoriesphotos/" target="_blank"
+                                rel="noopener noreferrer"
+                                class="text-accent-green hover:text-white transition duration-300 transform hover:scale-110">
                                 <i class="fab fa-instagram-square text-6xl"></i>
                             </a>
                         </div>
@@ -428,4 +544,5 @@
     <script src="js/main.js"></script>
     <script src="js/gallery.js"></script>
 </body>
+
 </html>
