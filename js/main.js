@@ -19,22 +19,38 @@ document.addEventListener('DOMContentLoaded', function () {
         yearSpan.textContent = new Date().getFullYear();
     }
 
-    // --- Scroll-to-Top FAB ---
-    if (scrollTopFab) {
+    // --- Scroll-to-Top FAB + Glass Header Scroll Toggle ---
+    if (scrollTopFab || header) {
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                scrollTopFab.classList.add('show');
-            } else {
-                scrollTopFab.classList.remove('show');
+            const scrollY = window.scrollY;
+
+            // FAB visibility
+            if (scrollTopFab) {
+                if (scrollY > 300) {
+                    scrollTopFab.classList.add('show');
+                } else {
+                    scrollTopFab.classList.remove('show');
+                }
+            }
+
+            // Glass header frosted effect — solid at top, frosted on scroll
+            if (header) {
+                if (scrollY > 10) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
             }
         });
 
-        scrollTopFab.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
+        if (scrollTopFab) {
+            scrollTopFab.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
             });
-        });
+        }
     }
 
     // --- Service Cards (Homepage Specific) ---
@@ -43,6 +59,15 @@ document.addEventListener('DOMContentLoaded', function () {
         let currentlyExpandedCard = null;
 
         serviceCards.forEach(card => {
+            // Inject expand affordance — chevron icon
+            const headerEl = card.querySelector('.service-card-header');
+            if (headerEl && !headerEl.querySelector('.service-card-expand-icon')) {
+                const expandIcon = document.createElement('span');
+                expandIcon.className = 'service-card-expand-icon';
+                expandIcon.innerHTML = '<i class="fas fa-chevron-down"></i>';
+                headerEl.appendChild(expandIcon);
+            }
+
             card.addEventListener('click', () => {
                 const content = card.querySelector('.service-card-content');
                 if (card.classList.contains('expanded')) {
@@ -68,9 +93,8 @@ document.addEventListener('DOMContentLoaded', function () {
     function toggleMobileMenuState() {
         const mobileMenu = document.getElementById('mobile-menu-container');
         const hamburgerButton = document.getElementById('hamburger-button');
-        const closeButton = document.getElementById('close-button');
 
-        if (!mobileMenu || !hamburgerButton || !closeButton) {
+        if (!mobileMenu || !hamburgerButton) {
             return;
         }
 
@@ -79,13 +103,11 @@ document.addEventListener('DOMContentLoaded', function () {
         if (isOpen) {
             mobileMenu.classList.remove('open');
             mobileMenu.style.maxHeight = '0';
-            hamburgerButton.classList.remove('hidden');
-            closeButton.classList.add('hidden');
+            hamburgerButton.classList.remove('is-active');
         } else {
             mobileMenu.classList.add('open');
             mobileMenu.style.maxHeight = mobileMenu.scrollHeight + 'px';
-            hamburgerButton.classList.add('hidden');
-            closeButton.classList.remove('hidden');
+            hamburgerButton.classList.add('is-active');
         }
     }
 
@@ -100,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
         link.addEventListener('click', () => {
             const mobileMenu = document.getElementById('mobile-menu-container');
             if (mobileMenu && mobileMenu.classList.contains('open')) {
-                toggleMobileMenuState(); 
+                toggleMobileMenuState();
             }
         });
     });
@@ -111,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
         link.addEventListener('click', (e) => {
             const targetId = link.getAttribute('href');
             if (targetId && targetId.startsWith('#') && targetId.length > 1) {
-                e.preventDefault(); 
+                e.preventDefault();
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
                     const headerHeight = header ? header.offsetHeight : 0;
@@ -125,4 +147,29 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
+
+    // --- Scroll Reveal Choreography ---
+    const revealElements = document.querySelectorAll('.scroll-reveal');
+    if (revealElements.length > 0) {
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Stagger siblings appearing at the same time
+                    const parent = entry.target.parentElement;
+                    const siblings = Array.from(parent.querySelectorAll('.scroll-reveal'));
+                    const idx = siblings.indexOf(entry.target);
+                    const delay = idx * 50; // 50ms stagger between siblings
+
+                    entry.target.style.transitionDelay = `${delay}ms`;
+                    entry.target.classList.add('revealed');
+                    revealObserver.unobserve(entry.target); // Fire once — zero ongoing cost
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: '0px 0px -60px 0px'
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+    }
 });
