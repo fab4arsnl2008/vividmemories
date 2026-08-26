@@ -138,7 +138,11 @@ body {
     max-height: 90vh;
     object-fit: contain;
     border-radius: 1rem;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.15s ease;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+    touch-action: pan-y;
 }
 
 /* Blur background when modal is active */
@@ -612,9 +616,9 @@ button[class*="rounded-full"]:active {
 
 .scroll-reveal {
     opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.3s var(--ease-out-expo),
-        transform 0.3s var(--ease-spring);
+    transform: translateY(16px);
+    transition: opacity 0.25s var(--ease-out-expo),
+        transform 0.25s var(--ease-spring-soft);
 }
 
 .scroll-reveal.revealed {
@@ -628,6 +632,8 @@ button[class*="rounded-full"]:active {
 
 section[id^="gallery-"],
 section#favorites,
-section#contact-gallery {
+section#contact-gallery,
+.service-card-services,
+[id^="service-"] {
     scroll-margin-top: 6rem;
 }

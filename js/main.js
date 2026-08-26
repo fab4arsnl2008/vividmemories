@@ -154,11 +154,11 @@ document.addEventListener('DOMContentLoaded', function () {
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    // Stagger siblings appearing at the same time
+                    // Stagger siblings subtly without causing long delays
                     const parent = entry.target.parentElement;
                     const siblings = Array.from(parent.querySelectorAll('.scroll-reveal'));
                     const idx = siblings.indexOf(entry.target);
-                    const delay = idx * 50; // 50ms stagger between siblings
+                    const delay = Math.min((idx % 3) * 25, 75); // Fast, subtle 25ms stagger, max 75ms
 
                     entry.target.style.transitionDelay = `${delay}ms`;
                     entry.target.classList.add('revealed');
@@ -166,8 +166,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
         }, {
-            threshold: 0.15,
-            rootMargin: '0px 0px -60px 0px'
+            threshold: 0.02,
+            rootMargin: '0px 0px 40px 0px' // Pre-load slightly before scrolling fully into view
         });
 
         revealElements.forEach(el => revealObserver.observe(el));

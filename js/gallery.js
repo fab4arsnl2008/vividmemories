@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
             currentModalImageIndex = (currentModalImageIndex - 1 + currentModalImageUrls.length) % currentModalImageUrls.length;
             modalImage.src = currentModalImageUrls[currentModalImageIndex];
             modalImage.style.opacity = 1; 
-        }, 300); 
+        }, 150); 
     }
 
     function showNextImage() {
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
             currentModalImageIndex = (currentModalImageIndex + 1) % currentModalImageUrls.length;
             modalImage.src = currentModalImageUrls[currentModalImageIndex];
             modalImage.style.opacity = 1; 
-        }, 300); 
+        }, 150); 
     }
 
     // ============================================================
@@ -249,6 +249,54 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (e.key === 'Escape') closeModal();
             }
         });
+
+        // --- Touch Swipe Navigation (Mobile) ---
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let touchEndX = 0;
+        let touchEndY = 0;
+        let touchStartTime = 0;
+        const minSwipeDistance = 40; // minimum horizontal distance in px
+        const maxSwipeTime = 800; // max swipe duration in ms
+
+        imageModal.addEventListener('touchstart', (e) => {
+            if (!imageModal.classList.contains('active')) return;
+            if (e.target.closest('button')) return; // let buttons handle their own clicks
+
+            if (e.touches.length === 1) {
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+                touchEndX = touchStartX;
+                touchEndY = touchStartY;
+                touchStartTime = Date.now();
+            }
+        }, { passive: true });
+
+        imageModal.addEventListener('touchmove', (e) => {
+            if (!imageModal.classList.contains('active')) return;
+            if (e.touches.length === 1) {
+                touchEndX = e.touches[0].clientX;
+                touchEndY = e.touches[0].clientY;
+            }
+        }, { passive: true });
+
+        imageModal.addEventListener('touchend', (e) => {
+            if (!imageModal.classList.contains('active')) return;
+            if (e.target.closest('button')) return;
+
+            const deltaX = touchEndX - touchStartX;
+            const deltaY = touchEndY - touchStartY;
+            const deltaTime = Date.now() - touchStartTime;
+
+            // Trigger swipe navigation only if gesture is predominantly horizontal and within duration
+            if (deltaTime <= maxSwipeTime && Math.abs(deltaX) >= minSwipeDistance && Math.abs(deltaX) > Math.abs(deltaY) * 1.2) {
+                if (deltaX < 0) {
+                    showNextImage(); // Swiped left -> next
+                } else {
+                    showPrevImage(); // Swiped right -> previous
+                }
+            }
+        }, { passive: true });
     }
 
     allGalleryImagesElements.forEach((img) => {

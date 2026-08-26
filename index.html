@@ -111,7 +111,7 @@
     </section>
 
     <section id="gallery" class="container mx-auto py-16 px-4 bg-gray-100">
-        <h2 class="text-4xl font-trajan-pro-3 text-center mb-12 text-primary-blue">Our Gallery</h2>
+        <h2 class="text-4xl font-trajan-pro-3 text-center mb-12 text-primary-blue scroll-reveal">Our Gallery</h2>
 
         <div id="masonry-gallery" class="gallery-grid hidden md:block"
             data-masonry='{ "itemSelector": ".gallery-item", "percentPosition": true }'>
@@ -135,7 +135,7 @@
             </div>
         </div>
 
-        <div id="mobile-gallery-carousel" class="relative flex items-center justify-center md:hidden">
+        <div id="mobile-gallery-carousel" class="relative flex items-center justify-center md:hidden scroll-reveal">
             <div id="galleryCarouselMobile" class="rounded-lg shadow-lg mobile-carousel-container">
                 <div id="innerCarouselMobile" class="mobile-inner-carousel">
                     <img src="images/DZC_3696_E_VMP.jpg" alt="Gallery Image 3 Keep H" class="mobile-gallery-image">
@@ -147,15 +147,15 @@
                 </div>
             </div>
 
-            <button id="carouselPrevMobile" class="mobile-carousel-nav-button left">
+            <button id="carouselPrevMobile" class="mobile-carousel-nav-button left" aria-label="Previous image" title="Previous image">
                 <i class="fas fa-chevron-left"></i>
             </button>
-            <button id="carouselNextMobile" class="mobile-carousel-nav-button right">
+            <button id="carouselNextMobile" class="mobile-carousel-nav-button right" aria-label="Next image" title="Next image">
                 <i class="fas fa-chevron-right"></i>
             </button>
         </div>
 
-        <div class="text-center mt-12">
+        <div class="text-center mt-12 scroll-reveal">
             <a href="gallery.html"
                 class="bg-primary-blue text-white font-bold py-3 px-8 rounded-full hover:bg-primary-blue hover:text-white transition duration-300 transform hover:scale-105 shadow-lg font-trajan-pro-3 inline-block">View
                 More Pictures</a>
@@ -165,7 +165,7 @@
 
     <section id="services" class="py-16 bg-primary-blue text-white">
         <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-trajan-pro-3 text-center mb-12">Our Services</h2>
+            <h2 class="text-4xl font-trajan-pro-3 text-center mb-12 scroll-reveal">Our Services</h2>
             <div class="flex flex-wrap justify-center gap-8">
                 <div class="service-card scroll-reveal w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.333rem)]"
                     data-service="portraits">
@@ -182,7 +182,7 @@
                         <div class="flex flex-col items-center space-y-3 mt-2 mb-2 w-full">
                             <a href="gallery.html#gallery-portraits"
                                 class="text-primary-blue hover:underline font-bold font-trajan-pro-3">View Samples</a>
-                            <a href="services.html"
+                            <a href="services.html#service-portraits"
                                 class="text-primary-blue hover:underline font-bold font-trajan-pro-3">Pricing
                                 Details</a>
                         </div>
@@ -204,7 +204,7 @@
                         <div class="flex flex-col items-center space-y-3 mt-2 mb-2 w-full">
                             <a href="gallery.html#gallery-engagement"
                                 class="text-primary-blue hover:underline font-bold font-trajan-pro-3">View Samples</a>
-                            <a href="services.html"
+                            <a href="services.html#service-engagement"
                                 class="text-primary-blue hover:underline font-bold font-trajan-pro-3">Pricing
                                 Details</a>
                         </div>
@@ -226,7 +226,7 @@
                         <div class="flex flex-col items-center space-y-3 mt-2 mb-2 w-full">
                             <a href="gallery.html#gallery-family"
                                 class="text-primary-blue hover:underline font-bold font-trajan-pro-3">View Samples</a>
-                            <a href="services.html"
+                            <a href="services.html#service-family"
                                 class="text-primary-blue hover:underline font-bold font-trajan-pro-3">Pricing
                                 Details</a>
                         </div>
@@ -247,7 +247,7 @@
                         <div class="flex flex-col items-center space-y-3 mt-2 mb-2 w-full">
                             <a href="gallery.html#gallery-maternity"
                                 class="text-primary-blue hover:underline font-bold font-trajan-pro-3">View Samples</a>
-                            <a href="services.html"
+                            <a href="services.html#service-maternity"
                                 class="text-primary-blue hover:underline font-bold font-trajan-pro-3">Pricing
                                 Details</a>
                         </div>
@@ -268,7 +268,7 @@
                         <div class="flex flex-col items-center space-y-3 mt-2 mb-2 w-full">
                             <a href="gallery.html#gallery-newborn"
                                 class="text-primary-blue hover:underline font-bold font-trajan-pro-3">View Samples</a>
-                            <a href="services.html"
+                            <a href="services.html#service-newborn"
                                 class="text-primary-blue hover:underline font-bold font-trajan-pro-3">Pricing
                                 Details</a>
                         </div>
@@ -291,7 +291,7 @@
                         <div class="flex flex-col items-center space-y-3 mt-2 mb-2 w-full">
                             <a href="gallery.html#gallery-senior"
                                 class="text-primary-blue hover:underline font-bold font-trajan-pro-3">View Samples</a>
-                            <a href="services.html"
+                            <a href="services.html#service-senior-graduation"
                                 class="text-primary-blue hover:underline font-bold font-trajan-pro-3">Pricing
                                 Details</a>
                         </div>
@@ -312,7 +312,7 @@
                         <div class="flex flex-col items-center space-y-3 mt-2 mb-2 w-full">
                             <a href="gallery.html#gallery-weddings"
                                 class="text-primary-blue hover:underline font-bold font-trajan-pro-3">View Samples</a>
-                            <a href="services.html"
+                            <a href="services.html#service-weddings"
                                 class="text-primary-blue hover:underline font-bold font-trajan-pro-3">Pricing
                                 Details</a>
                         </div>
@@ -332,14 +332,14 @@
                         <div class="flex flex-col items-center space-y-3 mt-2 mb-2 w-full">
                             <a href="gallery.html#gallery-headshots"
                                 class="text-primary-blue hover:underline font-bold font-trajan-pro-3">View Samples</a>
-                            <a href="services.html"
+                            <a href="services.html#service-headshots"
                                 class="text-primary-blue hover:underline font-bold font-trajan-pro-3">Pricing
                                 Details</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="text-center mt-12">
+            <div class="text-center mt-12 scroll-reveal">
                 <a href="services.html"
                     class="bg-accent-green text-primary-blue font-bold py-3 px-8 rounded-full hover:bg-white hover:text-accent-green transition duration-300 transform hover:scale-105 shadow-lg font-trajan-pro-3">View
                     Pricing & Details</a>
@@ -399,9 +399,9 @@
     <div id="imageModal" class="modal-overlay">
         <div class="modal-content">
             <img id="modalImage" class="modal-image" src="" alt="Gallery Image">
-            <button id="prevButton" class="modal-nav-button left"><i class="fas fa-chevron-left"></i></button>
-            <button id="nextButton" class="modal-nav-button right"><i class="fas fa-chevron-right"></i></button>
-            <button id="closeModalButton" class="modal-close-button"><i class="fas fa-times"></i></button>
+            <button id="prevButton" class="modal-nav-button left" aria-label="Previous image" title="Previous image"><i class="fas fa-chevron-left"></i></button>
+            <button id="nextButton" class="modal-nav-button right" aria-label="Next image" title="Next image"><i class="fas fa-chevron-right"></i></button>
+            <button id="closeModalButton" class="modal-close-button" aria-label="Close modal" title="Close modal"><i class="fas fa-times"></i></button>
         </div>
     </div>
 

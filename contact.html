@@ -113,7 +113,7 @@
 
                 <!-- Formspree Form -->
                 <form action="https://formspree.io/f/xpwrvbkb" method="POST"
-                    class="mx-auto p-6 bg-white rounded-3xl shadow-md max-w-xl">
+                    class="mx-auto p-6 bg-white rounded-3xl shadow-md max-w-xl scroll-reveal">
                     <div class="mb-4">
                         <label for="name" class="block text-primary-blue text-lg font-trajan-pro-3 mb-2">Name:</label>
                         <input type="text" id="name" name="name" required
@@ -157,7 +157,7 @@
 
         <!-- Other Ways to Connect Section - Now a separate themed section -->
         <section id="other-ways-to-connect" class="py-16 bg-primary-blue text-white">
-            <div class="container mx-auto px-4 text-center">
+            <div class="container mx-auto px-4 text-center scroll-reveal">
                 <h2 class="text-3xl font-trajan-pro-3 mb-8">Other Ways to Connect</h2>
                 <div class="flex flex-col items-center space-y-8">
 
@@ -193,9 +193,9 @@
     <div id="imageModal" class="modal-overlay">
         <div class="modal-content">
             <img id="modalImage" class="modal-image" src="" alt="Gallery Image">
-            <button id="prevButton" class="modal-nav-button left"><i class="fas fa-chevron-left"></i></button>
-            <button id="nextButton" class="modal-nav-button right"><i class="fas fa-chevron-right"></i></button>
-            <button id="closeModalButton" class="modal-close-button"><i class="fas fa-times"></i></button>
+            <button id="prevButton" class="modal-nav-button left" aria-label="Previous image" title="Previous image"><i class="fas fa-chevron-left"></i></button>
+            <button id="nextButton" class="modal-nav-button right" aria-label="Next image" title="Next image"><i class="fas fa-chevron-right"></i></button>
+            <button id="closeModalButton" class="modal-close-button" aria-label="Close modal" title="Close modal"><i class="fas fa-times"></i></button>
         </div>
     </div>
 
